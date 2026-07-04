@@ -273,10 +273,27 @@
     }
 
   
-    .side-menu .settings-sheet,
-    #sideMenu .settings-sheet{padding-top:calc(30px + env(safe-area-inset-top));max-height:calc(100dvh - env(safe-area-inset-top) - 16px);overflow:auto}
-    #settingsModal{align-items:flex-start;padding-top:calc(18px + env(safe-area-inset-top));padding-bottom:max(12px,env(safe-area-inset-bottom))}
-    #settingsModal .settings-sheet{max-height:calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 32px);overflow:auto}
+    #sideMenu.drawer-backdrop{padding-top:0}
+    #sideMenu .side-drawer{
+      box-sizing:border-box;
+      padding-top:max(86px,calc(env(safe-area-inset-top) + 54px)) !important;
+      padding-left:18px;
+      padding-right:18px;
+      padding-bottom:max(18px,env(safe-area-inset-bottom));
+      max-height:100dvh;
+      overflow:auto;
+    }
+    #sideMenu .drawer-head{margin-top:0}
+    #sideMenu .drawer-head h2{line-height:1.05}
+    #sideMenu .modal-close{margin-top:0;flex:0 0 auto}
+    #settingsModal{align-items:flex-start;padding-top:max(24px,calc(env(safe-area-inset-top) + 18px));padding-bottom:max(12px,env(safe-area-inset-bottom))}
+    #settingsModal .settings-sheet{max-height:calc(100dvh - env(safe-area-inset-top) - env(safe-area-inset-bottom) - 36px);overflow:auto}
+
+  
+    @media (max-width:560px){
+      #sideMenu .side-drawer{padding-top:96px !important}
+      #sideMenu .drawer-head{display:grid;grid-template-columns:1fr auto;align-items:start}
+    }
 
   </style>
 </head>
