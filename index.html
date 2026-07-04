@@ -1459,9 +1459,9 @@
       if(/[a-zA-ZÀ-ÖØ-öø-ÿ]/.test(amountRaw)){showAppPopup('Non sono ammessi caratteri alfabetici');document.getElementById('mAmount').focus();return}
       const m={id:id||uid(),date:document.getElementById('mDate').value,desc:descValue||'Movimento',amount:parseEuroInput(amountRaw),type:document.getElementById('mType').value,category:document.getElementById('mCategory').value};
       if(id){state.movements=state.movements.map(x=>x.id===id?m:x)} else state.movements.push(m);
-      state.selectedDate=m.date; saveState(); e.target.reset(); document.getElementById('editId').value=''; document.getElementById('mType').value='entrata'; document.getElementById('saveMovement').textContent='+ Aggiungi movimento'; document.getElementById('cancelEdit').style.display='none'; document.getElementById('modePill').textContent='Nuovo'; renderAll(); showToast(id?'Movimento aggiornato':'Movimento aggiunto'); setTimeout(()=>{checkInternalNotifications(false);checkSavingsGoalNotification(false)},260);
+      state.selectedDate=dateKey(new Date()); saveState(); e.target.reset(); document.getElementById('editId').value=''; document.getElementById('mType').value='entrata'; document.getElementById('saveMovement').textContent='+ Aggiungi movimento'; document.getElementById('cancelEdit').style.display='none'; document.getElementById('modePill').textContent='Nuovo'; renderAll(); showToast(id?'Movimento aggiornato':'Movimento aggiunto'); setTimeout(()=>{checkInternalNotifications(false);checkSavingsGoalNotification(false)},260);
     });
-    document.getElementById('cancelEdit').addEventListener('click',()=>{document.getElementById('movementForm').reset();document.getElementById('editId').value='';document.getElementById('saveMovement').textContent='+ Aggiungi movimento';document.getElementById('cancelEdit').style.display='none';document.getElementById('modePill').textContent='Nuovo';renderCategorySelects()});
+    document.getElementById('cancelEdit').addEventListener('click',()=>{document.getElementById('movementForm').reset();state.selectedDate=dateKey(new Date());saveState();document.getElementById('editId').value='';document.getElementById('saveMovement').textContent='+ Aggiungi movimento';document.getElementById('cancelEdit').style.display='none';document.getElementById('modePill').textContent='Nuovo';renderAll()});
     document.getElementById('mType').addEventListener('change',renderCategorySelects);
 
     document.getElementById('mDesc').addEventListener('input',e=>{if(/\d/.test(e.target.value)){showAppPopup('Non sono ammessi caratteri numerici');e.target.value=e.target.value.replace(/\d/g,'')}});
@@ -1513,6 +1513,9 @@
     document.getElementById('importFile').addEventListener('change',e=>{const file=e.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=()=>{try{const parsed=JSON.parse(reader.result);state=normalizeImportedBackup(parsed);state.activeTab='home';activeTab='home';applyTheme(state.theme);saveState();renderAll();syncSettingsControls();setTab('home',false);showAppPopup(`Backup importato correttamente. Movimenti importati: ${state.movements.length}. Categorie importate: ${state.categories.length}.`)}catch(err){showAppPopup('Backup non valido o non compatibile. Controlla che sia un file JSON esportato dall’app precedente.')}finally{e.target.value=''}};reader.readAsText(file)});
     window.addEventListener('resize',()=>{if(activeTab==='analysis') drawCharts()});
     window.addEventListener('scroll',()=>{const nav=document.getElementById('bottomNav');nav.classList.add('nav-hidden');clearTimeout(scrollTimer);scrollTimer=setTimeout(()=>nav.classList.remove('nav-hidden'),620)},{passive:true});
+    // All'apertura dell'app porta sempre il riferimento alla data odierna.
+    state.selectedDate = dateKey(new Date());
+    saveState();
     renderAll();
     syncSettingsControls();
     setTab(activeTab,false);
