@@ -67,7 +67,7 @@
     .title{text-align:center;line-height:1.12}
     .title h1{font-size:clamp(20px,3.5vw,30px);margin:0;font-weight:800;letter-spacing:-.03em}
     .title p{margin:4px 0 0;color:var(--muted);font-size:13px;font-weight:500}
-    .period-row{display:flex;align-items:center;justify-content:center;gap:10px;margin:10px auto 18px}
+    .period-row{position:sticky;top:calc(92px + env(safe-area-inset-top));z-index:19;display:flex;align-items:center;justify-content:center;gap:10px;margin:10px auto 18px;padding:6px 0;background:linear-gradient(135deg,rgba(255,255,255,.14),rgba(255,255,255,.04));backdrop-filter:blur(14px) saturate(135%);-webkit-backdrop-filter:blur(14px) saturate(135%)}
     .period-pill{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:999px;background:rgba(255,255,255,.68);box-shadow:var(--shadow-soft), inset 0 0 0 1px rgba(255,255,255,.85);font-weight:800;color:var(--blue);min-width:min(360px,74vw);justify-content:center;text-transform:uppercase;font-size:13px;letter-spacing:.02em}
     .period-btn{width:38px;height:38px;border:0;border-radius:14px;background:rgba(255,255,255,.7);box-shadow:inset 0 0 0 1px rgba(255,255,255,.86), 0 8px 20px rgba(43,75,140,.08);color:var(--blue);font-weight:900}
     .view{display:none;animation:fadeUp .26s ease both}.view.active{display:block}@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
@@ -317,7 +317,7 @@
 
     <div class="period-row">
       <button class="period-btn" id="prevPeriod" aria-label="Periodo precedente">‹</button>
-      <div class="period-pill"><span>📅</span><span id="periodLabel">Maggio 2026</span></div>
+      <div class="period-pill"><span id="periodLabel">Maggio 2026</span></div>
       <button class="period-btn" id="nextPeriod" aria-label="Periodo successivo">›</button>
     </div>
 
@@ -334,7 +334,7 @@
                 <div class="field"><label>Importo</label><input class="input" type="text" inputmode="decimal" id="mAmount" placeholder="0,00 €" required /></div>
               </div>
               <div class="fields bottom">
-                <div class="field"><label>Tipo</label><select class="select" id="mType"><option value="entrata">Entrata</option><option value="uscita">Uscita</option></select></div>
+                <div class="field"><label>Tipo</label><select class="select" id="mType"><option value="uscita" selected>Uscita</option><option value="entrata">Entrata</option></select></div>
                 <div class="field"><label>Categoria</label><select class="select" id="mCategory" required></select></div>
                 <div style="display:flex;gap:10px;align-items:center"><button class="primary" style="flex:1" id="saveMovement" type="submit">+ Aggiungi movimento</button><button class="secondary" id="cancelEdit" type="button" style="display:none">Annulla</button></div>
               </div>
@@ -635,7 +635,8 @@
     const monthNames = ['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'];
 
     const defaultState = () => ({
-      selectedDate:'2026-05-26',
+      selectedDate:dateKey(new Date()),
+      periodDate:dateKey(new Date()),
       movementsOpen:false,
       theme:'light',
       settings:{savingsTarget:250,seasonalProfile:'',notificationsEnabled:true,notificationThreshold:80},
@@ -686,6 +687,8 @@
         if(raw){
           const parsed=JSON.parse(raw);
           if(!parsed.theme) parsed.theme='light';
+          parsed.selectedDate=dateKey(new Date());
+          parsed.periodDate=parsed.periodDate || parsed.selectedDate;
           parsed.settings={...defaultSettings(),...(parsed.settings||{})};
           if(['normal','summer','christmas'].includes(parsed.settings.seasonalProfile)) parsed.settings.seasonalProfile='';
           return parsed;
@@ -709,6 +712,18 @@
     }
     function parseEuroInput(value){
       return Number(String(value||'').replace(',', '.').replace(/[^0-9.\-]/g,'')) || 0;
+    }
+
+    function todayKey(){return dateKey(new Date())}
+    function resetHomeDefaults(forceToday=true){
+      const type=document.getElementById('mType');
+      if(type) type.value='uscita';
+      if(forceToday){
+        state.selectedDate=todayKey();
+        const dateInput=document.getElementById('mDate');
+        if(dateInput) dateInput.value=state.selectedDate;
+      }
+      renderCategorySelects();
     }
 
     function normalizeImportedBackup(imported){
@@ -1141,7 +1156,7 @@
       return periodForLabel(x.getFullYear(),x.getMonth());
     }
     function inPeriod(m,period){const d=toDate(m.date);return d>=period.start && d<=period.end}
-    function currentPeriod(){return getPeriod(toDate(state.selectedDate))}
+    function currentPeriod(){return getPeriod(toDate(state.periodDate || state.selectedDate || todayKey()))}
     function currentMovements(){const p=currentPeriod();return state.movements.filter(m=>inPeriod(m,p))}
     function movementsForPeriod(period){return state.movements.filter(m=>inPeriod(m,period))}
     function totalsForPeriod(period){
@@ -1178,7 +1193,8 @@
       document.getElementById('periodLabel').textContent=p.label;
       document.getElementById('periodRange').textContent=p.range;
       document.getElementById('lineChartBadge').textContent=p.label;
-      document.getElementById('mDate').value = state.selectedDate;
+      const dateInput=document.getElementById('mDate');
+      if(dateInput && !document.getElementById('editId').value) dateInput.value = state.selectedDate || todayKey();
     }
     function renderCategorySelects(){
       const type=document.getElementById('mType').value;
@@ -1186,6 +1202,7 @@
       const current=sel.value;
       sel.innerHTML=activeCategories(type).map(c=>`<option value="${escapeHtml(c.name)}">${escapeHtml(c.name)}</option>`).join('');
       if([...sel.options].some(o=>o.value===current)) sel.value=current;
+      else if(sel.options.length) sel.selectedIndex=0;
       const f=document.getElementById('filterCategory');
       const cur=f.value;
       f.innerHTML='<option value="all">Tutte le categorie</option>'+state.categories.slice().sort(byAlpha).map(c=>`<option value="${escapeHtml(c.name)}">${escapeHtml(c.name)}</option>`).join('');
@@ -1459,10 +1476,11 @@
       if(/[a-zA-ZÀ-ÖØ-öø-ÿ]/.test(amountRaw)){showAppPopup('Non sono ammessi caratteri alfabetici');document.getElementById('mAmount').focus();return}
       const m={id:id||uid(),date:document.getElementById('mDate').value,desc:descValue||'Movimento',amount:parseEuroInput(amountRaw),type:document.getElementById('mType').value,category:document.getElementById('mCategory').value};
       if(id){state.movements=state.movements.map(x=>x.id===id?m:x)} else state.movements.push(m);
-      state.selectedDate=dateKey(new Date()); saveState(); e.target.reset(); document.getElementById('editId').value=''; document.getElementById('mType').value='entrata'; document.getElementById('saveMovement').textContent='+ Aggiungi movimento'; document.getElementById('cancelEdit').style.display='none'; document.getElementById('modePill').textContent='Nuovo'; renderAll(); showToast(id?'Movimento aggiornato':'Movimento aggiunto'); setTimeout(()=>{checkInternalNotifications(false);checkSavingsGoalNotification(false)},260);
+      state.selectedDate=todayKey(); saveState(); e.target.reset(); document.getElementById('editId').value=''; document.getElementById('mType').value='uscita'; document.getElementById('saveMovement').textContent='+ Aggiungi movimento'; document.getElementById('cancelEdit').style.display='none'; document.getElementById('modePill').textContent='Nuovo'; renderAll(); resetHomeDefaults(true); showToast(id?'Movimento aggiornato':'Movimento aggiunto'); setTimeout(()=>{checkInternalNotifications(false);checkSavingsGoalNotification(false)},260);
     });
     document.getElementById('cancelEdit').addEventListener('click',()=>{document.getElementById('movementForm').reset();state.selectedDate=dateKey(new Date());saveState();document.getElementById('editId').value='';document.getElementById('saveMovement').textContent='+ Aggiungi movimento';document.getElementById('cancelEdit').style.display='none';document.getElementById('modePill').textContent='Nuovo';renderAll()});
     document.getElementById('mType').addEventListener('change',renderCategorySelects);
+    document.getElementById('mDate').addEventListener('change',e=>{state.selectedDate=e.target.value||todayKey();saveState()});
 
     document.getElementById('mDesc').addEventListener('input',e=>{if(/\d/.test(e.target.value)){showAppPopup('Non sono ammessi caratteri numerici');e.target.value=e.target.value.replace(/\d/g,'')}});
     document.getElementById('mAmount').addEventListener('input',e=>{if(/[a-zA-ZÀ-ÖØ-öø-ÿ]/.test(e.target.value)){showAppPopup('Non sono ammessi caratteri alfabetici');e.target.value=e.target.value.replace(/[a-zA-ZÀ-ÖØ-öø-ÿ]/g,'')}});
@@ -1490,8 +1508,8 @@
     settingsModal.addEventListener('click',e=>{if(e.target===settingsModal)closeSettings()});
     document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeSettings();closeAppPopup();closeCategoryReplaceModal();closePdfExportModal();closeWipeAllModal()}});
 
-    document.getElementById('prevPeriod').addEventListener('click',()=>{const p=currentPeriod();const d=new Date(p.labelYear,p.labelMonth-1,15);state.selectedDate=dateKey(d);saveState();renderAll()});
-    document.getElementById('nextPeriod').addEventListener('click',()=>{const p=currentPeriod();const d=new Date(p.labelYear,p.labelMonth+1,15);state.selectedDate=dateKey(d);saveState();renderAll()});
+    document.getElementById('prevPeriod').addEventListener('click',()=>{const p=currentPeriod();const d=new Date(p.labelYear,p.labelMonth-1,15);state.periodDate=dateKey(d);state.selectedDate=todayKey();saveState();renderAll();resetHomeDefaults(true)});
+    document.getElementById('nextPeriod').addEventListener('click',()=>{const p=currentPeriod();const d=new Date(p.labelYear,p.labelMonth+1,15);state.periodDate=dateKey(d);state.selectedDate=todayKey();saveState();renderAll();resetHomeDefaults(true)});
     document.getElementById('themeToggle').addEventListener('click',()=>{applyTheme(state.theme==='dark'?'light':'dark');saveState();showToast(state.theme==='dark'?'Dark mode attiva':'Tema chiaro attivo')});
     document.getElementById('saveSavingsTarget').addEventListener('click',saveSavingsTargetValue);
     document.getElementById('savingsGoalNotifyToggle').addEventListener('click',toggleSavingsGoalNotification);
@@ -1514,9 +1532,11 @@
     window.addEventListener('resize',()=>{if(activeTab==='analysis') drawCharts()});
     window.addEventListener('scroll',()=>{const nav=document.getElementById('bottomNav');nav.classList.add('nav-hidden');clearTimeout(scrollTimer);scrollTimer=setTimeout(()=>nav.classList.remove('nav-hidden'),620)},{passive:true});
     // All'apertura dell'app porta sempre il riferimento alla data odierna.
-    state.selectedDate = dateKey(new Date());
+    state.selectedDate = todayKey();
+    state.periodDate = todayKey();
     saveState();
     renderAll();
+    resetHomeDefaults(true);
     syncSettingsControls();
     setTab(activeTab,false);
     /* PIN rimosso */
