@@ -60,15 +60,16 @@
     body:after{width:860px;height:320px;right:-240px;bottom:90px;background:linear-gradient(120deg,rgba(120,205,255,.16),rgba(179,136,255,.16),rgba(255,255,255,.04));border:1px solid rgba(255,255,255,.45)}
     button,input,select{font:inherit}
     button{cursor:pointer}
-    .shell{width:min(1180px,100%);margin:0 auto;padding:22px 18px calc(var(--navH) + env(safe-area-inset-bottom) + 56px)}
-    .topbar{position:sticky;top:0;z-index:20;margin-inline:calc(50% - 50vw);padding:calc(12px + env(safe-area-inset-top)) max(12px,env(safe-area-inset-right)) 10px max(12px,env(safe-area-inset-left));background:linear-gradient(135deg,rgba(255,255,255,.10),rgba(255,255,255,.04));backdrop-filter:blur(10px) saturate(125%);-webkit-backdrop-filter:blur(10px) saturate(125%)}
+    .shell{width:min(1180px,100%);margin:0 auto;padding:0 18px calc(var(--navH) + env(safe-area-inset-bottom) + 56px)}
+    .sticky-head{position:sticky;top:0;z-index:40;margin-inline:calc(50% - 50vw);padding:calc(12px + env(safe-area-inset-top)) max(18px,env(safe-area-inset-right)) 12px max(18px,env(safe-area-inset-left));background:linear-gradient(135deg,rgba(255,255,255,.34),rgba(255,255,255,.10));backdrop-filter:blur(22px) saturate(155%);-webkit-backdrop-filter:blur(22px) saturate(155%);box-shadow:0 18px 48px rgba(44,51,92,.08), inset 0 -1px 0 rgba(255,255,255,.42)}
+    .topbar{position:relative;top:auto;z-index:auto;margin-inline:0;padding:0;background:transparent;backdrop-filter:none;-webkit-backdrop-filter:none}
     .topbar-inner{display:grid;grid-template-columns:48px 1fr 48px;align-items:center;gap:10px;width:min(720px,100%);margin:0 auto}
     .icon-btn{width:44px;height:44px;border:0;border-radius:16px;background:rgba(255,255,255,.28);color:var(--blue);box-shadow:inset 0 0 0 1px rgba(255,255,255,.46), 0 10px 22px rgba(43,75,140,.05);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
     .title{text-align:center;line-height:1.12}
     .title h1{font-size:clamp(20px,3.5vw,30px);margin:0;font-weight:800;letter-spacing:-.03em}
     .title p{margin:4px 0 0;color:var(--muted);font-size:13px;font-weight:500}
-    .period-row{position:sticky;top:calc(92px + env(safe-area-inset-top));z-index:19;display:flex;align-items:center;justify-content:center;gap:10px;margin:10px auto 18px;padding:6px 0;background:linear-gradient(135deg,rgba(255,255,255,.14),rgba(255,255,255,.04));backdrop-filter:blur(14px) saturate(135%);-webkit-backdrop-filter:blur(14px) saturate(135%)}
-    .period-pill{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:999px;background:rgba(255,255,255,.68);box-shadow:var(--shadow-soft), inset 0 0 0 1px rgba(255,255,255,.85);font-weight:800;color:var(--blue);min-width:min(360px,74vw);justify-content:center;text-transform:uppercase;font-size:13px;letter-spacing:.02em}
+    .period-row{position:relative;top:auto;z-index:auto;display:flex;align-items:center;justify-content:center;gap:10px;margin:12px auto 0;padding:0;background:transparent;backdrop-filter:none;-webkit-backdrop-filter:none}
+    .period-pill{display:flex;align-items:center;gap:10px;padding:10px 14px;border-radius:999px;background:rgba(255,255,255,.70);box-shadow:0 10px 28px rgba(44,51,92,.08), inset 0 0 0 1px rgba(255,255,255,.88);font-weight:800;color:var(--blue);min-width:min(360px,74vw);justify-content:center;text-transform:uppercase;font-size:13px;letter-spacing:.02em}
     .period-btn{width:38px;height:38px;border:0;border-radius:14px;background:rgba(255,255,255,.7);box-shadow:inset 0 0 0 1px rgba(255,255,255,.86), 0 8px 20px rgba(43,75,140,.08);color:var(--blue);font-weight:900}
     .view{display:none;animation:fadeUp .26s ease both}.view.active{display:block}@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
     .grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
@@ -300,25 +301,34 @@
       #sideMenu .drawer-head{display:grid;grid-template-columns:1fr auto;align-items:start}
     }
 
+  
+    @media (max-width:560px){
+      .sticky-head{padding-left:18px;padding-right:18px;padding-bottom:12px}
+      .period-row{margin-top:12px}
+      .period-pill{min-width:0;flex:1}
+    }
+
   </style>
 </head>
 <body>
   <div class="shell">
-    <header class="topbar">
-      <div class="topbar-inner">
-        <button class="icon-btn" id="menuBtn" aria-label="Menu">☰</button>
-        <div class="title">
-          <h1>APP Tracking Spese</h1>
-          <p>Lorenzo Vizzini</p>
+    <div class="sticky-head">
+      <header class="topbar">
+        <div class="topbar-inner">
+          <button class="icon-btn" id="menuBtn" aria-label="Menu">☰</button>
+          <div class="title">
+            <h1>APP Tracking Spese</h1>
+            <p>Lorenzo Vizzini</p>
+          </div>
+          <button class="icon-btn" id="settingsBtn" aria-label="Impostazioni">⚙</button>
         </div>
-        <button class="icon-btn" id="settingsBtn" aria-label="Impostazioni">⚙</button>
-      </div>
-    </header>
+      </header>
 
-    <div class="period-row">
-      <button class="period-btn" id="prevPeriod" aria-label="Periodo precedente">‹</button>
-      <div class="period-pill"><span id="periodLabel">Maggio 2026</span></div>
-      <button class="period-btn" id="nextPeriod" aria-label="Periodo successivo">›</button>
+      <div class="period-row">
+        <button class="period-btn" id="prevPeriod" aria-label="Periodo precedente">‹</button>
+        <div class="period-pill"><span id="periodLabel">Maggio 2026</span></div>
+        <button class="period-btn" id="nextPeriod" aria-label="Periodo successivo">›</button>
+      </div>
     </div>
 
     <main>
