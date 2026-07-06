@@ -1,4 +1,4 @@
-const CACHE_NAME = 'app-tracking-spese-v20';
+const CACHE_NAME = 'app-tracking-spese-v18';
 const ASSETS = [
   './',
   './index.html',
@@ -9,11 +9,7 @@ const ASSETS = [
   './apple-touch-icon.png',
   './apple-touch-icon-precomposed.png',
   './icons/favicon-32.png',
-  './icons/favicon-16.png',
-  './nav-icons/movements.png',
-  './nav-icons/analysis.png',
-  './nav-icons/categories.png',
-  './nav-icons/home.png'
+  './icons/favicon-16.png'
 ];
 
 self.addEventListener('install', event => {
