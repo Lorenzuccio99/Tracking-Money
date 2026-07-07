@@ -341,7 +341,32 @@
     .side-drawer{width:min(420px,92vw);height:100%;padding:18px 18px max(24px,calc(env(safe-area-inset-bottom) + 18px));background:linear-gradient(145deg,rgba(255,255,255,.82),rgba(255,255,255,.58));box-shadow:30px 0 80px rgba(32,41,89,.18), inset 1px 0 0 rgba(255,255,255,.74);backdrop-filter:blur(24px) saturate(170%);-webkit-backdrop-filter:blur(24px) saturate(170%);transform:translateX(-105%);transition:transform .28s cubic-bezier(.2,.8,.2,1);overflow:auto}
     .drawer-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:14px}.drawer-head h2{margin:0;font-size:24px;letter-spacing:-.04em}.drawer-head p{margin:5px 0 0;color:var(--muted);font-size:13px;font-weight:650}
     .drawer-menu{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0 16px}.drawer-menu-item{border:0;border-radius:17px;min-height:64px;padding:10px;background:rgba(255,255,255,.62);box-shadow:inset 0 0 0 1px rgba(15,23,42,.07),0 8px 18px rgba(44,51,92,.06);font-weight:900;color:#475467;text-align:left}.drawer-menu-item.active{color:var(--blue);background:linear-gradient(135deg,rgba(238,244,255,.92),rgba(255,255,255,.66));box-shadow:inset 0 0 0 1px rgba(47,91,255,.16),0 10px 24px rgba(47,91,255,.10)}
-    .drawer-content{display:grid;gap:12px}.drawer-card{padding:15px;border-radius:20px;background:rgba(255,255,255,.66);box-shadow:inset 0 0 0 1px rgba(15,23,42,.07),0 10px 24px rgba(44,51,92,.06)}.drawer-card h3{margin:0 0 8px;font-size:17px;letter-spacing:-.03em}.drawer-card p{margin:0;color:var(--muted);font-size:13px;font-weight:650;line-height:1.4}.drawer-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.drawer-metric{padding:12px;border-radius:16px;background:rgba(255,255,255,.62);box-shadow:inset 0 0 0 1px rgba(15,23,42,.06)}.drawer-metric span{display:block;color:var(--muted);font-size:11px;font-weight:850}.drawer-metric b{display:block;margin-top:5px;font-size:18px;letter-spacing:-.04em}.piggy-total-grid{grid-template-columns:1fr!important}.piggy-total b{font-size:28px}.piggy-row b{font-size:15px;white-space:nowrap}.drawer-list{display:grid;gap:8px}.drawer-row{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:11px 12px;border-radius:15px;background:rgba(255,255,255,.54);box-shadow:inset 0 0 0 1px rgba(15,23,42,.06);font-size:13px;font-weight:800}.drawer-row small{display:block;color:var(--muted);font-weight:650}.drawer-row button{height:34px;border:0;border-radius:12px;background:rgba(47,91,255,.12);color:var(--blue);font-weight:900;padding:0 10px}.drawer-help-fab{position:relative;z-index:2;width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.48);display:grid;place-items:center;margin:14px 0 0 auto;background:linear-gradient(135deg,rgba(255,255,255,.055),rgba(255,255,255,.014) 56%,rgba(255,255,255,.004));box-shadow:0 18px 36px rgba(44,51,92,.04),inset 0 1px 0 rgba(255,255,255,.56),inset 0 -1px 0 rgba(255,255,255,.07),inset 0 0 24px rgba(255,255,255,.018);backdrop-filter:blur(70px) saturate(230%) brightness(1.14);-webkit-backdrop-filter:blur(70px) saturate(230%) brightness(1.14);color:#101828;font-size:20px;font-weight:950;line-height:1}.drawer-help-fab:before{content:"";position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 28% 24%,rgba(255,255,255,.30),transparent 28%),linear-gradient(120deg,rgba(255,255,255,.06),transparent 56%);pointer-events:none}.drawer-help-fab:active{transform:scale(.97)}.pin-lock{width:min(430px,calc(100vw - 28px));border-radius:26px;text-align:center;padding:22px}.pin-lock .input{margin:12px 0;letter-spacing:.22em;text-align:center;font-size:22px;font-weight:900}
+    .drawer-content{display:grid;gap:12px}.drawer-card{padding:15px;border-radius:20px;background:rgba(255,255,255,.66);box-shadow:inset 0 0 0 1px rgba(15,23,42,.07),0 10px 24px rgba(44,51,92,.06)}.drawer-card h3{margin:0 0 8px;font-size:17px;letter-spacing:-.03em}.drawer-card p{margin:0;color:var(--muted);font-size:13px;font-weight:650;line-height:1.4}.drawer-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.drawer-metric{padding:12px;border-radius:16px;background:rgba(255,255,255,.62);box-shadow:inset 0 0 0 1px rgba(15,23,42,.06)}.drawer-metric span{display:block;color:var(--muted);font-size:11px;font-weight:850}.drawer-metric b{display:block;margin-top:5px;font-size:18px;letter-spacing:-.04em}.piggy-total-grid{grid-template-columns:1fr!important}.piggy-total b{font-size:28px}.piggy-row b{font-size:15px;white-space:nowrap}.drawer-list{display:grid;gap:8px}.drawer-row{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:11px 12px;border-radius:15px;background:rgba(255,255,255,.54);box-shadow:inset 0 0 0 1px rgba(15,23,42,.06);font-size:13px;font-weight:800}.drawer-row small{display:block;color:var(--muted);font-weight:650}.drawer-row button{height:34px;border:0;border-radius:12px;background:rgba(47,91,255,.12);color:var(--blue);font-weight:900;padding:0 10px}
+    .help-hero{background:linear-gradient(135deg,rgba(238,244,255,.92),rgba(255,255,255,.62));}
+    .help-hero h3{font-size:20px}
+    .help-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+    .help-chip{border:0;border-radius:14px;padding:10px 11px;text-align:left;background:rgba(47,91,255,.10);color:#2447b7;font-weight:900;box-shadow:inset 0 0 0 1px rgba(47,91,255,.08)}
+    .help-chip small{display:block;margin-top:3px;color:var(--muted);font-size:10px;font-weight:750;line-height:1.25}
+    .help-accordion{display:grid;gap:9px}
+    .help-accordion details{border-radius:18px;background:rgba(255,255,255,.54);box-shadow:inset 0 0 0 1px rgba(15,23,42,.06);overflow:hidden}
+    .help-accordion summary{list-style:none;cursor:pointer;padding:13px 14px;font-weight:950;color:#172033;display:flex;align-items:center;justify-content:space-between;gap:10px}
+    .help-accordion summary::-webkit-details-marker{display:none}
+    .help-accordion summary:after{content:'⌄';font-weight:950;color:var(--blue);transition:transform .18s ease}
+    .help-accordion details[open] summary:after{transform:rotate(180deg)}
+    .help-body{padding:0 14px 14px;color:var(--muted);font-size:13px;font-weight:650;line-height:1.42}
+    .help-body p{margin:8px 0 0}
+    .help-body b{color:#172033}
+    .help-list{margin:8px 0 0;padding-left:18px}
+    .help-list li{margin:5px 0}
+    .help-callout{margin-top:10px;padding:10px 11px;border-radius:14px;background:rgba(255,247,237,.78);color:#9a3412;font-weight:800;line-height:1.35}
+    .help-ok{background:rgba(220,252,231,.72);color:#166534}
+    body.dark-mode .help-hero{background:linear-gradient(135deg,rgba(47,91,255,.18),rgba(12,18,36,.66))}
+    body.dark-mode .help-chip{background:rgba(47,91,255,.18);color:#dbe7ff;box-shadow:inset 0 0 0 1px rgba(154,177,255,.14)}
+    body.dark-mode .help-accordion details{background:rgba(12,18,36,.72);box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}
+    body.dark-mode .help-accordion summary,body.dark-mode .help-body b{color:#f3f6ff}
+    body.dark-mode .help-callout{background:rgba(249,115,22,.12);color:#fdba74}
+    body.dark-mode .help-ok{background:rgba(34,197,94,.12);color:#86efac}
+    .drawer-help-fab{position:relative;z-index:2;width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.48);display:grid;place-items:center;margin:14px 0 0 auto;background:linear-gradient(135deg,rgba(255,255,255,.055),rgba(255,255,255,.014) 56%,rgba(255,255,255,.004));box-shadow:0 18px 36px rgba(44,51,92,.04),inset 0 1px 0 rgba(255,255,255,.56),inset 0 -1px 0 rgba(255,255,255,.07),inset 0 0 24px rgba(255,255,255,.018);backdrop-filter:blur(70px) saturate(230%) brightness(1.14);-webkit-backdrop-filter:blur(70px) saturate(230%) brightness(1.14);color:#101828;font-size:20px;font-weight:950;line-height:1}.drawer-help-fab:before{content:"";position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 28% 24%,rgba(255,255,255,.30),transparent 28%),linear-gradient(120deg,rgba(255,255,255,.06),transparent 56%);pointer-events:none}.drawer-help-fab:active{transform:scale(.97)}.pin-lock{width:min(430px,calc(100vw - 28px));border-radius:26px;text-align:center;padding:22px}.pin-lock .input{margin:12px 0;letter-spacing:.22em;text-align:center;font-size:22px;font-weight:900}
     body.dark-mode .setting-input,body.dark-mode .setting-select,body.dark-mode .side-drawer,body.dark-mode .drawer-card,body.dark-mode .drawer-menu-item,body.dark-mode .drawer-metric,body.dark-mode .drawer-row{background:rgba(12,18,36,.72);color:var(--ink);box-shadow:inset 0 0 0 1px rgba(255,255,255,.08),0 10px 28px rgba(0,0,0,.16);border-color:rgba(255,255,255,.10)}
     body.dark-mode .drawer-menu-item.active{background:rgba(47,91,255,.20);color:#dbe7ff;box-shadow:inset 0 0 0 1px rgba(154,177,255,.18),0 10px 28px rgba(0,0,0,.16)}
     body.dark-mode .mini-dark{background:linear-gradient(135deg,#4455ff,#7b68ff)}
@@ -1313,71 +1338,145 @@
         box.innerHTML=`<div class="drawer-card"><p>Consulta velocemente i mesi in cui hai registrato movimenti.</p></div><div class="drawer-list">${archive.map(a=>`<div class="drawer-row"><div>${escapeHtml(a.label)}<small>${a.count} movimenti · saldo ${fmt.format(a.saldo)}</small></div><button onclick="goToPeriod('${a.date}')">Apri</button></div>`).join('')||'<div class="drawer-card"><p>Nessun mese archiviato.</p></div>'}</div>`;
       } else if(panel==='help'){
         box.innerHTML=`
-          <div class="drawer-card">
-            <h3>Help</h3>
-            <p>Qui trovi una guida rapida per leggere bene tutta l'app senza confusione.</p>
+          <div class="drawer-card help-hero">
+            <h3>Help interattivo</h3>
+            <p>Guida completa dell'app. Apri solo la sezione che ti serve o usa i collegamenti rapidi sotto.</p>
+            <div class="help-grid">
+              <button class="help-chip" onclick="setTab('home');closeSideMenu()">Home<small>Inserimento e riepilogo</small></button>
+              <button class="help-chip" onclick="setTab('movements');closeSideMenu()">Movimenti<small>Lista, filtri e modifica</small></button>
+              <button class="help-chip" onclick="setTab('analysis');closeSideMenu()">Analisi<small>Grafici e budget</small></button>
+              <button class="help-chip" onclick="setTab('categories');closeSideMenu()">Categorie<small>Budget e profili</small></button>
+            </div>
           </div>
-          <div class="drawer-card">
-            <h3>1. Mese finanziario</h3>
-            <p><b>Come funziona:</b> il mese non segue il calendario classico, ma va dal giorno di accredito dello stipendio fino al giorno prima del ciclo successivo.</p>
-            <p><b>Regola speciale:</b> se il 27 cade di sabato, domenica o in un giorno festivo italiano, l'inizio del nuovo mese finanziario viene anticipato all'ultimo giorno utile precedente.</p>
-          </div>
-          <div class="drawer-card">
-            <h3>2. Home</h3>
-            <p><b>Entrate Totali:</b> tutte le entrate ordinarie del periodo.</p>
-            <p><b>Entrate Extra:</b> entrate aggiuntive non ordinarie, come rimborsi o soldi extra.</p>
-            <p><b>Uscite Totali:</b> tutte le spese registrate nel mese finanziario.</p>
-            <p><b>Saldo:</b> differenza tra entrate e uscite. Se è positivo stai mantenendo margine, se è negativo stai spendendo più di quanto entra.</p>
-          </div>
-          <div class="drawer-card">
-            <h3>3. Indicatori rapidi</h3>
-            <p><b>Giorni rimanenti:</b> quanti giorni mancano alla chiusura del periodo.</p>
-            <p><b>Media settimanale uscite:</b> indica quanto stai spendendo mediamente a settimana sulla base delle settimane già trascorse nel periodo.</p>
-            <p><b>Formula:</b> uscite registrate finora ÷ settimane trascorse.</p>
-            <p><b>Esempio:</b> se hai speso 700 € e sono passate 2 settimane, la media settimanale è 350 €.</p>
-            <p><b>Proiezione fine periodo:</b> stima quanto potresti spendere entro la fine del mese finanziario se continui con lo stesso ritmo giornaliero.</p>
-            <p><b>Formula:</b> (uscite registrate finora ÷ giorni trascorsi) × giorni totali del periodo.</p>
-            <p><b>Esempio:</b> se hai speso 700 € in 14 giorni e il periodo dura 30 giorni, la proiezione è circa 1.500 €.</p>
-          </div>
-          <div class="drawer-card">
-            <h3>4. Analisi</h3>
-            <p><b>Uscite mensili:</b> confronto tra i vari mesi finanziari.</p>
-            <p><b>Spese per categoria:</b> ti mostra in quali categorie stai spendendo di più nel periodo selezionato.</p>
-            <p><b>Colori:</b> verde significa dentro budget, rosso significa fuori budget o situazione critica.</p>
-          </div>
-          <div class="drawer-card">
-            <h3>5. Categorie e Budget</h3>
-            <p><b>Budget %:</b> è la percentuale massima delle entrate che vuoi destinare a una categoria.</p>
-            <p><b>Valore Budget:</b> è il valore economico totale del budget impostato. Esempio: se le entrate sono 2.000 € e il budget totale è 88%, il valore budget sarà 1.760 €.</p>
-            <p><b>Budget Speso:</b> quota già consumata rispetto alle entrate del mese.</p>
-            <p><b>Residuo Budget:</b> differenza tra Valore Budget e Budget Speso.</p>
-            <p><b>Percentuali uscite:</b> indica quanto hai già speso rispetto alle entrate totali del periodo.</p>
-            <p><b>Formula:</b> Uscite Totali ÷ Entrate Totali × 100.</p>
-            <p><b>Esempio:</b> se hai 2.000 € di entrate e 600 € di uscite, la percentuale uscite è 30%.</p>
-            <p><b>Non allocato:</b> indica la parte delle entrate che non hai assegnato a nessuna categoria budget.</p>
-            <p><b>Formula:</b> Entrate Totali × percentuale non allocata.</p>
-            <p><b>Esempio:</b> se hai assegnato budget per l'88% delle entrate, resta il 12% non allocato. Con 2.000 € di entrate, il non allocato è 240 €.</p>
-          </div>
-          <div class="drawer-card">
-            <h3>6. Categorie utili</h3>
-            <p><b>Anticipi/Rimborsi:</b> usala per soldi anticipati che poi rientrano.</p>
-            <p><b>Investimenti:</b> registra qui PAC, ETF, accumuli o somme spostate per investire.</p>
-            <p><b>Varie:</b> usala solo quando una spesa non ha davvero una categoria migliore.</p>
-          </div>
-          <div class="drawer-card">
-            <h3>7. Notifiche e obiettivi</h3>
-            <p><b>Obiettivo mensile di risparmio:</b> confronta il saldo con il target che imposti.</p>
-            <p><b>Notifiche interne:</b> controllano se una categoria ha superato la soglia percentuale che hai definito.</p>
-          </div>
-          <div class="drawer-card">
-            <h3>8. Backup e PDF</h3>
-            <p><b>Backup Completo JSON:</b> salva tutti i movimenti, categorie e impostazioni.</p>
-            <p><b>Importa Backup precedente:</b> ripristina un backup completo salvato in precedenza.</p>
-            <p><b>Esporta PDF:</b> genera un riepilogo ordinato del mese finanziario che scegli.</p>
-          </div>
-          <div class="drawer-card">
-            <h3>9. Consiglio pratico</h3>
-            <p>Controlla l'app almeno una volta a settimana, registra subito ogni movimento e usa poche categorie ma chiare, così il budget resta davvero leggibile.</p>
+          <div class="drawer-card help-accordion">
+            <details open>
+              <summary>1. Logica generale dell'app</summary>
+              <div class="help-body">
+                <p><b>APP Tracking Spese</b> serve a controllare entrate, uscite, budget, saldo e risparmio periodo per periodo.</p>
+                <p>I dati sono salvati localmente sul dispositivo. L'app funziona anche offline dopo averla aperta almeno una volta online.</p>
+                <div class="help-callout help-ok">Regola pratica: registra subito i movimenti e fai spesso Backup Completo JSON.</div>
+              </div>
+            </details>
+            <details>
+              <summary>2. Mese finanziario</summary>
+              <div class="help-body">
+                <p>Il periodo non segue per forza il mese solare. L'app usa un <b>mese finanziario</b> basato sul ciclo stipendio.</p>
+                <p>La regola base considera il 27 come riferimento. Se il 27 cade di sabato, domenica o festivo italiano, il giorno utile viene anticipato.</p>
+                <ul class="help-list">
+                  <li><b>Freccia sinistra/destra:</b> cambia periodo.</li>
+                  <li><b>Archivio mesi:</b> apre un periodo già registrato.</li>
+                  <li><b>Periodo in corso:</b> è quello che stai aggiornando ora.</li>
+                </ul>
+              </div>
+            </details>
+            <details>
+              <summary>3. Home e inserimento movimenti</summary>
+              <div class="help-body">
+                <p>La Home serve per inserire o modificare movimenti e leggere il riepilogo principale.</p>
+                <p><b>Entrate Totali:</b> somma delle entrate ordinarie del periodo.</p>
+                <p><b>Entrate Extra:</b> rimborsi, extra o somme non ordinarie.</p>
+                <p><b>Uscite Totali:</b> tutte le spese registrate nel periodo.</p>
+                <p><b>Saldo:</b> entrate meno uscite. Verde se positivo, rosso se negativo.</p>
+                <div class="help-callout">Quando modifichi un movimento compare “Aggiorna movimento”; con “Annulla” torni all’inserimento normale.</div>
+              </div>
+            </details>
+            <details>
+              <summary>4. Movimenti</summary>
+              <div class="help-body">
+                <p>La sezione Movimenti contiene la lista completa del periodo selezionato.</p>
+                <ul class="help-list">
+                  <li><b>Entrate:</b> importi verdi.</li>
+                  <li><b>Uscite:</b> importi rossi.</li>
+                  <li><b>Filtri:</b> puoi cercare per descrizione, tipo o categoria.</li>
+                  <li><b>Lista nascosta:</b> quando i movimenti sono nascosti, lo scroll della sezione viene bloccato per evitare rimbalzi.</li>
+                </ul>
+              </div>
+            </details>
+            <details>
+              <summary>5. Indicatori rapidi</summary>
+              <div class="help-body">
+                <p><b>Giorni rimanenti:</b> giorni mancanti alla chiusura del periodo.</p>
+                <p><b>Media settimanale uscite:</b> uscite registrate finora ÷ settimane realmente trascorse.</p>
+                <p><b>Proiezione fine periodo:</b> (uscite finora ÷ giorni trascorsi) × giorni totali del periodo.</p>
+                <div class="help-callout help-ok">Esempio: 700 € spesi in 14 giorni su periodo da 30 giorni → proiezione circa 1.500 €.</div>
+              </div>
+            </details>
+            <details>
+              <summary>6. Analisi</summary>
+              <div class="help-body">
+                <p><b>Uscite mensili:</b> confronta l’andamento dei periodi.</p>
+                <p><b>Spesa per categoria:</b> include anche categorie a 0 €, così vedi tutto il quadro budget.</p>
+                <p><b>Colori:</b> verde dentro budget, rosso fuori budget, grigio se ancora a 0 €.</p>
+                <p>La scritta <b>(max. €)</b> indica il limite massimo impostato per la categoria.</p>
+              </div>
+            </details>
+            <details>
+              <summary>7. Categorie, budget e profili</summary>
+              <div class="help-body">
+                <p>Le categorie servono a classificare movimenti e creare limiti di spesa.</p>
+                <p><b>Budget %:</b> percentuale delle entrate destinata a una categoria uscita.</p>
+                <p><b>Valore Budget:</b> entrate totali × percentuale allocata.</p>
+                <p><b>Residuo Budget:</b> valore budget meno budget speso.</p>
+                <p><b>Non allocato:</b> quota delle entrate non assegnata a categorie budget.</p>
+                <p><b>Profili budget:</b> puoi crearli, rinominarli, applicarli ed eliminarli dalle Impostazioni.</p>
+                <div class="help-callout">Non puoi creare un profilo budget senza nome e non puoi inserire numeri nel nome di una categoria.</div>
+              </div>
+            </details>
+            <details>
+              <summary>8. Menu rapido</summary>
+              <div class="help-body">
+                <p><b>Riepilogo rapido:</b> lettura veloce del periodo.</p>
+                <p><b>Salvadanaio:</b> somma i saldi dei periodi. Se un periodo è negativo, viene sottratto dall’accumulato.</p>
+                <p><b>Mese corrente:</b> riporta al periodo attuale.</p>
+                <p><b>Categorie critiche:</b> mostra categorie sopra soglia o fuori budget.</p>
+                <p><b>Investimenti:</b> aggrega i movimenti della categoria Investimenti.</p>
+                <p><b>Archivio mesi:</b> apre periodi già registrati.</p>
+                <p><b>Punto interrogativo:</b> apre questa guida e resta sempre sotto il contenuto dell’accesso rapido aperto.</p>
+              </div>
+            </details>
+            <details>
+              <summary>9. Impostazioni</summary>
+              <div class="help-body">
+                <p>Da Impostazioni gestisci tema, target risparmio, profili budget, notifiche interne, PDF, backup e ripristino.</p>
+                <p><b>Dark mode:</b> cambia i colori dell’app per lettura scura.</p>
+                <p><b>Target risparmio:</b> confronta il saldo con l’obiettivo che vuoi raggiungere.</p>
+                <p><b>Notifiche interne:</b> sono popup dentro l’app. Non sono notifiche push di iPhone quando l’app è chiusa.</p>
+              </div>
+            </details>
+            <details>
+              <summary>10. Backup, import e PDF</summary>
+              <div class="help-body">
+                <p><b>Backup Completo JSON:</b> salva movimenti, categorie, budget, profili e impostazioni.</p>
+                <p><b>Importa Backup:</b> ripristina un backup precedente mantenendo personalizzazioni e dati.</p>
+                <p><b>Esporta PDF:</b> genera un report ordinato del periodo scelto, incluso quello in corso.</p>
+                <div class="help-callout">Non caricare mai backup JSON reali su GitHub pubblico: contengono dati personali.</div>
+              </div>
+            </details>
+            <details>
+              <summary>11. Offline e aggiornamenti GitHub</summary>
+              <div class="help-body">
+                <p>L’app è offline-first: dopo una prima apertura online salva i file principali in cache.</p>
+                <ul class="help-list">
+                  <li>Carica la nuova versione su GitHub.</li>
+                  <li>Aprila online con il nuovo parametro, per esempio <b>?v=44</b>.</li>
+                  <li>Aspetta qualche secondo.</li>
+                  <li>Poi puoi usarla anche senza connessione.</li>
+                </ul>
+                <p>Se offline vedi una versione vecchia, apri prima la nuova versione online.</p>
+              </div>
+            </details>
+            <details>
+              <summary>12. Routine consigliata</summary>
+              <div class="help-body">
+                <ul class="help-list">
+                  <li>Registra ogni movimento appena possibile.</li>
+                  <li>Controlla Analisi almeno una volta a settimana.</li>
+                  <li>Usa poche categorie, ma chiare.</li>
+                  <li>Fai Backup Completo JSON prima di ogni aggiornamento importante.</li>
+                  <li>Controlla il Salvadanaio a fine periodo per capire quanto hai messo da parte.</li>
+                </ul>
+              </div>
+            </details>
           </div>`;
       }
     }
