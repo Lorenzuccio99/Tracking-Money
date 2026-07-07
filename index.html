@@ -1152,8 +1152,12 @@
           <div class="drawer-card">
             <h3>3. Indicatori rapidi</h3>
             <p><b>Giorni rimanenti:</b> quanti giorni mancano alla chiusura del periodo.</p>
-            <p><b>Media settimanale uscite:</b> quanto spendi mediamente a settimana nel periodo attuale.</p>
-            <p><b>Proiezione fine periodo:</b> stima di quanto potresti spendere entro la fine del mese finanziario se continui con lo stesso ritmo.</p>
+            <p><b>Media settimanale uscite:</b> indica quanto stai spendendo mediamente a settimana sulla base delle settimane già trascorse nel periodo.</p>
+            <p><b>Formula:</b> uscite registrate finora ÷ settimane trascorse.</p>
+            <p><b>Esempio:</b> se hai speso 700 € e sono passate 2 settimane, la media settimanale è 350 €.</p>
+            <p><b>Proiezione fine periodo:</b> stima quanto potresti spendere entro la fine del mese finanziario se continui con lo stesso ritmo giornaliero.</p>
+            <p><b>Formula:</b> (uscite registrate finora ÷ giorni trascorsi) × giorni totali del periodo.</p>
+            <p><b>Esempio:</b> se hai speso 700 € in 14 giorni e il periodo dura 30 giorni, la proiezione è circa 1.500 €.</p>
           </div>
           <div class="drawer-card">
             <h3>4. Analisi</h3>
@@ -1164,9 +1168,15 @@
           <div class="drawer-card">
             <h3>5. Categorie e Budget</h3>
             <p><b>Budget %:</b> è la percentuale massima delle entrate che vuoi destinare a una categoria.</p>
+            <p><b>Valore Budget:</b> è il valore economico totale del budget impostato. Esempio: se le entrate sono 2.000 € e il budget totale è 88%, il valore budget sarà 1.760 €.</p>
             <p><b>Budget Speso:</b> quota già consumata rispetto alle entrate del mese.</p>
-            <p><b>Residuo Totale:</b> parte ancora disponibile.</p>
-            <p><b>Non allocato:</b> percentuale non assegnata a nessuna categoria; può rappresentare margine, risparmio o flessibilità.</p>
+            <p><b>Residuo Budget:</b> differenza tra Valore Budget e Budget Speso.</p>
+            <p><b>Percentuali uscite:</b> indica quanto hai già speso rispetto alle entrate totali del periodo.</p>
+            <p><b>Formula:</b> Uscite Totali ÷ Entrate Totali × 100.</p>
+            <p><b>Esempio:</b> se hai 2.000 € di entrate e 600 € di uscite, la percentuale uscite è 30%.</p>
+            <p><b>Non allocato:</b> indica la parte delle entrate che non hai assegnato a nessuna categoria budget.</p>
+            <p><b>Formula:</b> Entrate Totali × percentuale non allocata.</p>
+            <p><b>Esempio:</b> se hai assegnato budget per l'88% delle entrate, resta il 12% non allocato. Con 2.000 € di entrate, il non allocato è 240 €.</p>
           </div>
           <div class="drawer-card">
             <h3>6. Categorie utili</h3>
@@ -1312,17 +1322,17 @@
       const realToday=toDate(dateKey(new Date()));
       const refDate = realToday < p.start ? p.start : (realToday > p.end ? p.end : realToday);
       const days=Math.max(0,Math.ceil((p.end-refDate)/86400000));
-      const weeks=Math.max(1,Math.ceil((p.end-p.start+1)/86400000/7));
-      const avg=t.uscite/weeks;
-      const elapsed=Math.max(1,Math.ceil((refDate-p.start+1)/86400000));
       const totalDays=Math.ceil((p.end-p.start+1)/86400000);
+      const elapsed=Math.max(1,Math.ceil((refDate-p.start+1)/86400000));
+      const elapsedWeeks=Math.max(1,Math.ceil(elapsed/7));
+      const avg=t.uscite/elapsedWeeks;
       const projection=t.uscite/elapsed*totalDays;
       const daysAlert=days<=7;
       const avgAlert=avg>=250;
       const projectionAlert=t.entrate>0 && projection>=t.entrate*0.25;
       document.getElementById('infoStrip').innerHTML=`
         <div class="info-tile"><span>Giorni rimanenti</span><b class="${daysAlert?'info-alert':''}">${days}</b><small>fino al ${formatDate(p.end).slice(0,5)}</small></div>
-        <div class="info-tile"><span>Media settimanale uscite</span><b class="${avgAlert?'info-alert':''}">${fmt.format(avg)}</b><small>su ${weeks} settimane</small></div>
+        <div class="info-tile"><span>Media settimanale uscite</span><b class="${avgAlert?'info-alert':''}">${fmt.format(avg)}</b><small>su ${elapsedWeeks} settimane trascorse</small></div>
         <div class="info-tile"><span>Proiezione fine periodo</span><b class="${projectionAlert?'info-alert':''}">${fmt.format(projection)}</b><small>uscite stimate</small></div>`;
     }
     function renderBudget(){
@@ -1333,14 +1343,16 @@
       const nonAllocPct=Math.max(0,100-allocated);
       const nonAlloc=t.entrate*nonAllocPct/100;
       const totalBudgetPct=state.categories.filter(c=>c.type==='uscita').reduce((tot,c)=>tot+(Number(c.budget)||0),0);
-      const residueCardClass=t.saldo>=0?'residualSoft':'red';
-      const residueTextClass=t.saldo>=0?'softGreenText':'redText';
+      const budgetValue=t.entrate*totalBudgetPct/100;
+      const budgetResidue=budgetValue-t.uscite;
+      const residueCardClass=budgetResidue>=0?'residualSoft':'red';
+      const residueTextClass=budgetResidue>=0?'softGreenText':'redText';
       const spentCardClass=spentPct>=85?'budgetSoft':'red';
       const spentTextClass=spentPct>=85?'softOrangeText':'redText';
       document.getElementById('budgetSummary').innerHTML=`
-        <div class="stat green"><div><div class="label">Valore Budget</div><div class="value greenText">${fmt.format(t.entrate)}</div></div><div class="stat-foot"><span>in funzione delle entrate Totali</span><span class="budget-percent-pill">${nf.format(totalBudgetPct)}%</span></div></div>
-        <div class="stat ${spentCardClass}"><div><div class="label">Budget Speso</div><div class="value ${spentTextClass}">${fmt.format(t.uscite)}</div></div><div class="stat-foot"><span class="${spentPct>100?'redText':'softOrangeText'}">${nf.format(spentPct)}%</span><span class="mini-icon">▤</span></div></div>
-        <div class="stat ${residueCardClass}"><div><div class="label">Residuo Totale</div><div class="value ${residueTextClass}">${fmt.format(t.saldo)}</div></div><div class="stat-foot"><span class="${t.saldo<0?'redText':'softGreenText'}">${nf.format(100-spentPct)}%</span><span class="mini-icon">◎</span></div></div>`;
+        <div class="stat green"><div><div class="label">Valore Budget</div><div class="value greenText">${fmt.format(budgetValue)}</div></div><div class="stat-foot"><span>${nf.format(totalBudgetPct)}% delle entrate totali</span><span class="budget-percent-pill">${nf.format(totalBudgetPct)}%</span></div></div>
+        <div class="stat ${spentCardClass}"><div><div class="label">Budget Speso</div><div class="value ${spentTextClass}">${fmt.format(t.uscite)}</div></div><div class="stat-foot"><span class="${spentPct>100?'redText':'softOrangeText'}">${nf.format(spentPct)}% delle entrate</span><span class="mini-icon">▤</span></div></div>
+        <div class="stat ${residueCardClass}"><div><div class="label">Residuo Budget</div><div class="value ${residueTextClass}">${fmt.format(budgetResidue)}</div></div><div class="stat-foot"><span class="${budgetResidue<0?'redText':'softGreenText'}">${budgetResidue>=0?'ancora disponibile':'budget superato'}</span><span class="mini-icon">◎</span></div></div>`;
       document.getElementById('budgetMini').innerHTML=`
         <div class="stat" style="min-height:82px"><div class="stat-foot"><span>Percentuali uscite</span><span class="pill ${spentPct>100?'ko':'orange'}">${nf.format(spentPct)}%</span></div><div class="bar"><i style="width:${Math.min(100,spentPct)}%;background:${spentPct>100?'linear-gradient(90deg,#b42318,#ef4444)':'linear-gradient(90deg,#f59e0b,#fbbf24)'}"></i></div></div>
         <div class="stat" style="min-height:82px"><div class="stat-foot"><span>Non allocato</span><span class="pill ok">${fmt.format(nonAlloc)}</span></div><div class="bar"><i style="width:${Math.min(100,nonAllocPct)}%;background:linear-gradient(90deg,#16a34a,#86efac)"></i></div></div>`;
@@ -1538,7 +1550,7 @@
           ctx.textAlign='left';
           ctx.fillStyle=colors.muted;
           ctx.fillText(fitted.left,startX,y+12);
-          ctx.fillStyle='#d9bf58';
+          ctx.fillStyle='#f4a261';
           ctx.fillText(fitted.right,startX+spentW+fitted.gap,y+12);
           const barX=pad.l, barY=y+20, barW=w-pad.l-pad.r, barH=14;
           roundRect(ctx,barX,barY,barW,barH,8); ctx.fillStyle='rgba(15,23,42,.08)'; ctx.fill();
@@ -1561,7 +1573,7 @@
         ctx.fillStyle=colors.muted;ctx.textAlign='right';ctx.fillText(val.toLocaleString('it-IT')+' €',pad.l-8,y+4);
       }
       const gap=10; const bw=Math.max(18,(plotW-gap*(data.length-1))/Math.max(1,data.length));
-      data.forEach((d,i)=>{const x=pad.l+i*(bw+gap);const barH=plotH*d.value/max;const y=pad.t+plotH-barH;const grad=ctx.createLinearGradient(0,y,0,y+barH);if(d.out){grad.addColorStop(0,'#ff5b52');grad.addColorStop(1,'#d92d20')}else{grad.addColorStop(0,'#22c55e');grad.addColorStop(1,'#0f8f3e')}roundRect(ctx,x,y,bw,barH,8);ctx.fillStyle=grad;ctx.fill();const leftText=`${Math.round(d.value).toLocaleString('it-IT')} €`;const rightText=`(max. ${Math.round(d.max||0).toLocaleString('it-IT')} €)`;const fitted=fitSplitCanvasText(ctx,leftText,rightText,Math.max(56,bw+gap+18),10,7,4);ctx.font=`600 ${fitted.size}px -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif`;const leftW=ctx.measureText(fitted.left).width;const rightW=ctx.measureText(fitted.right).width;const totalW=leftW+fitted.gap+rightW;let startX=x+bw/2-totalW/2;ctx.textAlign='left';ctx.fillStyle=colors.ink;ctx.fillText(fitted.left,startX,y-6);ctx.fillStyle='#d9bf58';ctx.fillText(fitted.right,startX+leftW+fitted.gap,y-6);ctx.save();ctx.translate(x+bw/2,h-43);ctx.rotate(-Math.PI/8);ctx.fillStyle=colors.text;ctx.font='11px -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif';ctx.textAlign='center';ctx.fillText(shortLabel(d.label,12),0,0);ctx.restore();});
+      data.forEach((d,i)=>{const x=pad.l+i*(bw+gap);const barH=plotH*d.value/max;const y=pad.t+plotH-barH;const grad=ctx.createLinearGradient(0,y,0,y+barH);if(d.out){grad.addColorStop(0,'#ff5b52');grad.addColorStop(1,'#d92d20')}else{grad.addColorStop(0,'#22c55e');grad.addColorStop(1,'#0f8f3e')}roundRect(ctx,x,y,bw,barH,8);ctx.fillStyle=grad;ctx.fill();const leftText=`${Math.round(d.value).toLocaleString('it-IT')} €`;const rightText=`(max. ${Math.round(d.max||0).toLocaleString('it-IT')} €)`;const fitted=fitSplitCanvasText(ctx,leftText,rightText,Math.max(56,bw+gap+18),10,7,4);ctx.font=`600 ${fitted.size}px -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif`;const leftW=ctx.measureText(fitted.left).width;const rightW=ctx.measureText(fitted.right).width;const totalW=leftW+fitted.gap+rightW;let startX=x+bw/2-totalW/2;ctx.textAlign='left';ctx.fillStyle=colors.ink;ctx.fillText(fitted.left,startX,y-6);ctx.fillStyle='#f4a261';ctx.fillText(fitted.right,startX+leftW+fitted.gap,y-6);ctx.save();ctx.translate(x+bw/2,h-43);ctx.rotate(-Math.PI/8);ctx.fillStyle=colors.text;ctx.font='11px -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif';ctx.textAlign='center';ctx.fillText(shortLabel(d.label,12),0,0);ctx.restore();});
       ctx.save();ctx.fillStyle=colors.muted;ctx.font='12px -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif';ctx.textAlign='center';ctx.fillText('Categoria',pad.l+plotW/2,h-8);ctx.translate(15,pad.t+plotH/2);ctx.rotate(-Math.PI/2);ctx.fillText('Spesa (€)',0,0);ctx.restore();
     }
     function roundRect(ctx,x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath()}
