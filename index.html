@@ -111,6 +111,10 @@
     .filters{display:grid;grid-template-columns:1.4fr .8fr 1fr .8fr;gap:10px}.collapse-btn{width:100%;height:48px;border:0;border-radius:15px;background:linear-gradient(135deg,rgba(232,236,255,.92),rgba(255,255,255,.72));color:#2447b7;font-weight:850;margin-top:12px;display:flex;align-items:center;justify-content:center;gap:8px}.movement-list{display:grid;gap:14px;margin-top:18px}.move-card{display:grid;grid-template-columns:1fr auto auto;gap:12px;align-items:center;padding:14px;border-radius:18px;background:rgba(255,255,255,.64);box-shadow:inset 0 0 0 1px rgba(15,23,42,.07)}.move-card h3{font-size:15px;margin:0 0 5px}.move-card p{margin:0;color:var(--muted);font-size:12px;font-weight:650}.amount{font-weight:950;letter-spacing:-.02em}.pill{display:inline-flex;align-items:center;justify-content:center;padding:7px 10px;border-radius:999px;font-size:12px;font-weight:900}.pill.ok{background:#dcfce7;color:#166534}.pill.ko{background:#fee2e2;color:#991b1b}.pill.blue{background:#eef4ff;color:#2447b7}.pill.orange{background:#fff7ed;color:#c2410c}.budget-list{display:grid;gap:14px;margin-top:18px}.budget-row{padding:15px;border-radius:19px;background:rgba(255,255,255,.68);box-shadow:inset 0 0 0 1px rgba(15,23,42,.07)}.budget-row.out{background:linear-gradient(135deg,rgba(255,238,235,.92),rgba(255,255,255,.60));box-shadow:inset 0 0 0 1px rgba(217,45,32,.34)}.budget-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.budget-name{font-size:16px;font-weight:900}.budget-meta{color:var(--muted);font-size:13px;font-weight:700;margin-top:4px}.bar{height:11px;background:rgba(15,23,42,.08);border-radius:99px;overflow:hidden;margin-top:13px}.bar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#111827,#1d2a44);width:0}.budget-row.out .bar i{background:linear-gradient(90deg,#b42318,#ef4444)}.amount-line{display:flex;gap:18px;flex-wrap:wrap;margin-top:8px;color:#475467;font-weight:700}.amount-line b{color:var(--red)}.amount-line .res b{color:var(--green)}
     details{margin-top:18px}summary{list-style:none;user-select:none}summary::-webkit-details-marker{display:none}.detail-summary{height:48px;border-radius:15px;background:linear-gradient(135deg,rgba(232,236,255,.92),rgba(255,255,255,.72));color:#2447b7;font-weight:850;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:inset 0 0 0 1px rgba(47,91,255,.08)}
     .category-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px;align-items:start}
+    .category-create-form{margin-top:0}
+    .category-create-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(130px,.72fr) minmax(150px,.75fr);gap:14px;align-items:end}
+    .category-create-grid .field{min-width:0}
+    .category-add-btn{width:100%;height:52px;white-space:nowrap}
     .category-overview{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:18px 0 12px}
     .category-metric{padding:12px;border-radius:18px;background:rgba(255,255,255,.60);box-shadow:inset 0 0 0 1px rgba(15,23,42,.06)}
     .category-metric span{display:block;color:var(--muted);font-size:11px;font-weight:850;text-transform:uppercase;letter-spacing:.02em}
@@ -319,11 +323,11 @@
       #categories .card-title{align-items:flex-start;text-align:left}
       #categories .card-title h2{font-size:28px;line-height:1.05}
       #categories .card-title .subtle{font-size:15px;line-height:1.25;text-align:left}
-      #categoryForm .fields.bottom{display:grid;grid-template-columns:1fr;gap:14px}
-      #categoryForm .field{min-width:0}
+      #categoryForm .category-create-grid{display:grid;grid-template-columns:1fr!important;gap:16px;align-items:stretch}
+      #categoryForm .field{min-width:0;width:100%}
       #categoryForm .input,
-      #categoryForm .select{width:100%;font-size:18px}
-      #categoryForm button.primary{width:100%;height:58px;font-size:19px}
+      #categoryForm .select{width:100%;height:58px;font-size:18px;border-radius:20px}
+      #categoryForm .category-add-btn{width:100%;height:60px;font-size:19px;border-radius:22px}
       .category-toolbar{display:grid;grid-template-columns:1fr;align-items:start}
       .category-toolbar .select{width:100%;font-size:17px}
       .budget-profile-card{padding:18px}
@@ -451,10 +455,7 @@
             <div class="card-title"><h2>Budget</h2><span class="subtle">Categorie ordinate per criticità</span></div>
             <div class="grid-3" id="budgetSummary"></div>
             <div class="grid" id="budgetMini" style="margin-top:18px"></div>
-            <details id="budgetDetails">
-              <summary class="detail-summary">Mostra / Nascondi dettaglio categorie budget <span>⌄</span></summary>
-              <div class="budget-list" id="budgetList"></div>
-            </details>
+            <div class="budget-list" id="budgetList" style="display:none"></div>
           </article>
       </section>
 
@@ -478,11 +479,20 @@
         <div class="cat-page-grid">
           <article class="card card-pad">
             <div class="card-title" style="display:block;text-align:center"><h2>Crea Categorie</h2><p class="subtle" style="margin:6px 0 0">permette di creare le categorie per ogni entrata/uscita</p></div>
-            <form id="categoryForm">
-              <div class="fields bottom" style="grid-template-columns:1.35fr .8fr .7fr;margin-top:0">
-                <div class="field"><label>Nuova categoria</label><input class="input" id="newCatName" placeholder="Nome categoria" /></div>
-                <div class="field"><label>Tipo</label><select class="select" id="newCatType"><option value="uscita">Uscita</option><option value="entrata">Entrata</option></select></div>
-                <button class="primary" type="submit">+ Aggiungi</button>
+            <form id="categoryForm" class="category-create-form">
+              <div class="category-create-grid">
+                <div class="field category-name-field">
+                  <label>Nuova categoria</label>
+                  <input class="input" id="newCatName" placeholder="Es. Spesa alimentare" />
+                </div>
+                <div class="field category-type-field">
+                  <label>Tipo</label>
+                  <select class="select" id="newCatType">
+                    <option value="uscita">Uscita</option>
+                    <option value="entrata">Entrata</option>
+                  </select>
+                </div>
+                <button class="primary category-add-btn" type="submit">+ Aggiungi</button>
               </div>
             </form>
             <div class="setting-card budget-profile-card" style="margin-top:18px">
@@ -507,8 +517,8 @@
                 <option value="budget-desc">Budget decrescente</option>
               </select>
             </div>
-            <details open>
-              <summary class="detail-summary">Mostra / Nascondi categorie definite <span>⌄</span></summary>
+            <details id="categoryDetails">
+              <summary class="detail-summary" id="categoryDetailsSummary">Mostra categorie <span>⌄</span></summary>
               <div class="category-list" id="categoryList" style="margin-top:18px"></div>
             </details>
           </article>
@@ -1483,6 +1493,13 @@
         </div>
         ${renderGroup('Categorie uscita',uscitaCats,'uscita')}
         ${renderGroup('Categorie entrata',entrataCats,'entrata')}`;
+      updateCategoryDetailsLabel();
+    }
+    function updateCategoryDetailsLabel(){
+      const details=document.getElementById('categoryDetails');
+      const summary=document.getElementById('categoryDetailsSummary');
+      if(!details || !summary) return;
+      summary.innerHTML = details.open ? 'Nascondi categorie <span>⌄</span>' : 'Mostra categorie <span>⌄</span>';
     }
     function updateNavPreview(tab=null){
       const homeBtn=document.querySelector('.nav-home-btn');
@@ -1580,18 +1597,19 @@
     }
     function drawCategoryChart(){
       const canvas=document.getElementById('categoryCanvas'); if(!canvas) return;
-      const source=budgetRows().filter(r=>r.spent>0).sort((a,b)=>b.spent-a.spent).slice(0,8).map(r=>({label:r.name,value:r.spent,max:r.max,out:r.out}));
+      const source=budgetRows().sort((a,b)=>b.spent-a.spent || byAlpha(a,b)).map(r=>({label:r.name,value:r.spent,max:r.max,out:r.out}));
       const mobile=window.innerWidth<=560;
       const wrap=canvas.parentElement;
       if(mobile){
         const rows=Math.max(4,source.length||1);
         wrap.style.height=(rows*52+64)+'px';
       }else{
-        wrap.style.height='286px';
+        const rows=Math.max(4,source.length||1);
+        wrap.style.height=Math.max(286,rows*42+118)+'px';
       }
       const {ctx,w,h}=resizeCanvas(canvas); ctx.clearRect(0,0,w,h);
       const colors=themePalette();
-      const data=source.length?source:[{label:'Nessun dato',value:0,out:false}];
+      const data=source.length?source:[{label:'Nessuna categoria uscita',value:0,max:0,out:false}];
       if(mobile){
         const pad={l:16,r:16,t:16,b:16};
         const rowH=48;
@@ -1618,10 +1636,12 @@
           ctx.fillText(fitted.right,startX+spentW+fitted.gap,y+12);
           const barX=pad.l, barY=y+20, barW=w-pad.l-pad.r, barH=14;
           roundRect(ctx,barX,barY,barW,barH,8); ctx.fillStyle='rgba(15,23,42,.08)'; ctx.fill();
-          const fillW=Math.max(6,barW*(d.value/max));
-          const grad=ctx.createLinearGradient(barX,barY,barX+fillW,barY);
-          if(d.out){grad.addColorStop(0,'#ff7b72');grad.addColorStop(1,'#d92d20')}else{grad.addColorStop(0,'#34d399');grad.addColorStop(1,'#0f8f3e')}
-          roundRect(ctx,barX,barY,fillW,barH,8); ctx.fillStyle=grad; ctx.fill();
+          const fillW=d.value>0?Math.max(6,barW*(d.value/max)):0;
+          if(fillW>0){
+            const grad=ctx.createLinearGradient(barX,barY,barX+fillW,barY);
+            if(d.out){grad.addColorStop(0,'#ff7b72');grad.addColorStop(1,'#d92d20')}else{grad.addColorStop(0,'#34d399');grad.addColorStop(1,'#0f8f3e')}
+            roundRect(ctx,barX,barY,fillW,barH,8); ctx.fillStyle=grad; ctx.fill();
+          }
         });
         return;
       }
@@ -1637,7 +1657,7 @@
         ctx.fillStyle=colors.muted;ctx.textAlign='right';ctx.fillText(val.toLocaleString('it-IT')+' €',pad.l-8,y+4);
       }
       const gap=10; const bw=Math.max(18,(plotW-gap*(data.length-1))/Math.max(1,data.length));
-      data.forEach((d,i)=>{const x=pad.l+i*(bw+gap);const barH=plotH*d.value/max;const y=pad.t+plotH-barH;const grad=ctx.createLinearGradient(0,y,0,y+barH);if(d.out){grad.addColorStop(0,'#ff5b52');grad.addColorStop(1,'#d92d20')}else{grad.addColorStop(0,'#22c55e');grad.addColorStop(1,'#0f8f3e')}roundRect(ctx,x,y,bw,barH,8);ctx.fillStyle=grad;ctx.fill();const leftText=`${Math.round(d.value).toLocaleString('it-IT')} €`;const rightText=`(max. ${Math.round(d.max||0).toLocaleString('it-IT')} €)`;const fitted=fitSplitCanvasText(ctx,leftText,rightText,Math.max(56,bw+gap+18),10,7,4);ctx.font=`600 ${fitted.size}px -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif`;const leftW=ctx.measureText(fitted.left).width;const rightW=ctx.measureText(fitted.right).width;const totalW=leftW+fitted.gap+rightW;let startX=x+bw/2-totalW/2;ctx.textAlign='left';ctx.fillStyle=colors.ink;ctx.fillText(fitted.left,startX,y-6);ctx.fillStyle='#f4a261';ctx.fillText(fitted.right,startX+leftW+fitted.gap,y-6);ctx.save();ctx.translate(x+bw/2,h-43);ctx.rotate(-Math.PI/8);ctx.fillStyle=colors.text;ctx.font='11px -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif';ctx.textAlign='center';ctx.fillText(shortLabel(d.label,12),0,0);ctx.restore();});
+      data.forEach((d,i)=>{const x=pad.l+i*(bw+gap);const barH=plotH*d.value/max;const y=pad.t+plotH-barH;if(d.value>0){const grad=ctx.createLinearGradient(0,y,0,y+barH);if(d.out){grad.addColorStop(0,'#ff5b52');grad.addColorStop(1,'#d92d20')}else{grad.addColorStop(0,'#22c55e');grad.addColorStop(1,'#0f8f3e')}roundRect(ctx,x,y,bw,barH,8);ctx.fillStyle=grad;ctx.fill();}const leftText=`${Math.round(d.value).toLocaleString('it-IT')} €`;const rightText=`(max. ${Math.round(d.max||0).toLocaleString('it-IT')} €)`;const fitted=fitSplitCanvasText(ctx,leftText,rightText,Math.max(56,bw+gap+18),10,7,4);ctx.font=`600 ${fitted.size}px -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif`;const leftW=ctx.measureText(fitted.left).width;const rightW=ctx.measureText(fitted.right).width;const totalW=leftW+fitted.gap+rightW;let startX=x+bw/2-totalW/2;ctx.textAlign='left';ctx.fillStyle=colors.ink;ctx.fillText(fitted.left,startX,Math.max(pad.t+12,y-6));ctx.fillStyle='#f4a261';ctx.fillText(fitted.right,startX+leftW+fitted.gap,Math.max(pad.t+12,y-6));ctx.save();ctx.translate(x+bw/2,h-43);ctx.rotate(-Math.PI/8);ctx.fillStyle=colors.text;ctx.font='11px -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif';ctx.textAlign='center';ctx.fillText(shortLabel(d.label,12),0,0);ctx.restore();});
       ctx.save();ctx.fillStyle=colors.muted;ctx.font='12px -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif';ctx.textAlign='center';ctx.fillText('Categoria',pad.l+plotW/2,h-8);ctx.translate(15,pad.t+plotH/2);ctx.rotate(-Math.PI/2);ctx.fillText('Spesa (€)',0,0);ctx.restore();
     }
     function roundRect(ctx,x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath()}
@@ -1741,6 +1761,7 @@
     document.getElementById('categoryReplaceModal').addEventListener('click',e=>{if(e.target.id==='categoryReplaceModal')closeCategoryReplaceModal()});
     document.getElementById('saveCurrentBudgetProfile').addEventListener('click',createBudgetProfileFromCurrent);
     document.getElementById('categorySortMode').addEventListener('change',renderCategories);
+    document.getElementById('categoryDetails')?.addEventListener('toggle',updateCategoryDetailsLabel);
     document.getElementById('categoryForm').addEventListener('submit',e=>{e.preventDefault();const name=document.getElementById('newCatName').value.trim();const type=document.getElementById('newCatType').value;if(!name)return;if(state.categories.some(c=>c.name.toLowerCase()===name.toLowerCase())){showToast('Categoria già presente');return}state.categories.push({id:uid(),name,type,budget:type==='uscita'?0:undefined});saveState();e.target.reset();renderAll();showToast('Categoria aggiunta')});
     ['searchMov','filterType','filterCategory','sortMov'].forEach(id=>document.getElementById(id).addEventListener('input',renderMovements));
     document.getElementById('resetFilters').addEventListener('click',()=>{document.getElementById('searchMov').value='';document.getElementById('filterType').value='all';document.getElementById('filterCategory').value='all';document.getElementById('sortMov').value='recent';renderMovements()});
@@ -1828,6 +1849,9 @@
     state.periodDate = todayKey();
     saveState();
     renderAll();
+    const categoryDetailsEl=document.getElementById('categoryDetails');
+    if(categoryDetailsEl) categoryDetailsEl.open=false;
+    updateCategoryDetailsLabel();
     resetHomeDefaults(true);
     syncSettingsControls();
     setTab(activeTab,false);
