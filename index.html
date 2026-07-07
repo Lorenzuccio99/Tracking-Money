@@ -130,14 +130,14 @@
     .backup-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.backup-btn{min-height:82px;border:0;border-radius:20px;padding:12px;background:rgba(255,255,255,.70);box-shadow:inset 0 0 0 1px rgba(15,23,42,.07),0 10px 25px rgba(44,51,92,.07);font-weight:900;color:#2447b7}.backup-btn.green{color:#087443;background:rgba(235,255,240,.75)}.backup-btn.orange{color:#c2410c;background:rgba(255,247,237,.82)}.backup-btn.purple{color:#5b21b6;background:rgba(245,243,255,.82)}.backup-btn span{display:block;font-size:22px;margin-bottom:4px}.empty{padding:18px;text-align:center;color:var(--muted);font-weight:700;background:rgba(255,255,255,.55);border-radius:18px}.toast{position:fixed;left:50%;bottom:calc(var(--navH) + env(safe-area-inset-bottom) + 52px);transform:translateX(-50%) translateY(24px);opacity:0;z-index:80;background:rgba(17,24,39,.84);color:#fff;padding:12px 16px;border-radius:999px;box-shadow:0 18px 50px rgba(17,24,39,.25);backdrop-filter:blur(20px);transition:.25s ease;font-weight:800}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
     .liquid-nav.split-nav{position:fixed;left:max(14px,calc(env(safe-area-inset-left) + 12px));right:max(14px,calc(env(safe-area-inset-right) + 12px));bottom:max(12px,calc(env(safe-area-inset-bottom) + 8px));z-index:70;width:auto;height:52px;display:grid;grid-template-columns:min(188px,52vw) 68px;justify-content:space-between;gap:0;align-items:center;transform:none;transition:transform .12s cubic-bezier(.2,.8,.2,1),opacity .12s ease,filter .12s ease;overflow:visible;background:transparent;border:0;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none}
     .liquid-nav.split-nav.nav-hidden{transform:translateY(112%);opacity:0;filter:blur(8px);pointer-events:none}
-    .nav-main-group{position:relative;width:min(188px,52vw);height:52px;border-radius:26px;display:grid;grid-template-columns:repeat(3,1fr);padding:4px;background:linear-gradient(135deg,rgba(255,255,255,.12),rgba(255,255,255,.04) 48%,rgba(255,255,255,.015));border:1px solid rgba(255,255,255,.82);box-shadow:0 18px 38px rgba(44,51,92,.07),inset 0 1px 0 rgba(255,255,255,.95),inset 0 -1px 0 rgba(255,255,255,.16),inset 0 0 30px rgba(255,255,255,.08);backdrop-filter:blur(52px) saturate(200%) brightness(1.10);-webkit-backdrop-filter:blur(52px) saturate(200%) brightness(1.10);overflow:hidden}
-    .nav-main-group:before{content:"";position:absolute;inset:-58% -20%;background:radial-gradient(circle at 18% 18%,rgba(255,255,255,.9),transparent 16%),radial-gradient(circle at 78% 20%,rgba(158,138,255,.12),transparent 22%),radial-gradient(circle at 50% 120%,rgba(114,223,255,.10),transparent 30%),linear-gradient(120deg,rgba(255,255,255,.22),transparent 48%);opacity:.98;pointer-events:none}
-    .nav-main-group:after{content:"";position:absolute;inset:0;border-radius:26px;background:linear-gradient(115deg,rgba(255,255,255,.44) 0%,rgba(255,255,255,.16) 28%,transparent 48%,rgba(255,255,255,.10) 72%,rgba(255,255,255,.26) 100%);pointer-events:none;mix-blend-mode:screen}
-    .nav-home-btn{position:relative;z-index:2;width:68px;height:68px;border:1px solid rgba(255,255,255,.78);border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,rgba(255,255,255,.13),rgba(255,255,255,.05) 52%,rgba(255,255,255,.015));box-shadow:0 18px 36px rgba(44,51,92,.08),inset 0 1px 0 rgba(255,255,255,.96),inset 0 -1px 0 rgba(255,255,255,.14),inset 0 0 26px rgba(255,255,255,.07);backdrop-filter:blur(54px) saturate(200%) brightness(1.10);-webkit-backdrop-filter:blur(54px) saturate(200%) brightness(1.10);color:#101828;transition:transform .18s ease,color .22s ease,box-shadow .22s ease,background .22s ease}
-    .nav-home-btn:before{content:"";position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 28% 24%,rgba(255,255,255,.88),transparent 28%),radial-gradient(circle at 70% 76%,rgba(124,110,255,.08),transparent 28%),linear-gradient(120deg,rgba(255,255,255,.20),transparent 56%);pointer-events:none}
-    .nav-home-btn.active,.nav-home-btn.previewed{color:var(--blue);box-shadow:0 18px 32px rgba(47,91,255,.10),inset 0 0 0 1px rgba(47,91,255,.10),inset 0 1px 0 rgba(255,255,255,.96);background:linear-gradient(135deg,rgba(255,255,255,.28),rgba(255,255,255,.08))}
-    .nav-liquid-bubble{position:absolute;z-index:1;top:4px;left:4px;width:calc((100% - 8px)/3);height:calc(100% - 8px);border-radius:22px;background:linear-gradient(135deg,rgba(255,255,255,.14),rgba(255,255,255,.05) 56%,rgba(255,255,255,.015));box-shadow:inset 0 0 0 1px rgba(255,255,255,.80),inset 0 1px 0 rgba(255,255,255,.68),0 12px 26px rgba(47,91,255,.04);backdrop-filter:blur(46px) saturate(200%) brightness(1.10);-webkit-backdrop-filter:blur(46px) saturate(200%) brightness(1.10);transition:transform .34s cubic-bezier(.22,1.08,.36,1),opacity .16s ease,box-shadow .16s ease,background .16s ease;overflow:hidden;pointer-events:none;opacity:0}
-    .nav-liquid-bubble:before{content:"";position:absolute;inset:-42%;background:radial-gradient(circle at 24% 18%,rgba(255,255,255,.92),transparent 18%),radial-gradient(circle at 80% 74%,rgba(117,92,255,.12),transparent 28%),radial-gradient(circle at 42% 120%,rgba(114,223,255,.10),transparent 26%),linear-gradient(120deg,rgba(255,255,255,.22),transparent 54%);opacity:.98}
+    .nav-main-group{position:relative;width:min(188px,52vw);height:52px;border-radius:26px;display:grid;grid-template-columns:repeat(3,1fr);padding:4px;background:linear-gradient(135deg,rgba(255,255,255,.075),rgba(255,255,255,.022) 48%,rgba(255,255,255,.006));border:1px solid rgba(255,255,255,.62);box-shadow:0 18px 38px rgba(44,51,92,.045),inset 0 1px 0 rgba(255,255,255,.76),inset 0 -1px 0 rgba(255,255,255,.10),inset 0 0 28px rgba(255,255,255,.035);backdrop-filter:blur(62px) saturate(220%) brightness(1.13);-webkit-backdrop-filter:blur(62px) saturate(220%) brightness(1.13);overflow:hidden}
+    .nav-main-group:before{content:"";position:absolute;inset:-58% -20%;background:radial-gradient(circle at 18% 18%,rgba(255,255,255,.58),transparent 16%),radial-gradient(circle at 78% 20%,rgba(158,138,255,.075),transparent 22%),radial-gradient(circle at 50% 120%,rgba(114,223,255,.055),transparent 30%),linear-gradient(120deg,rgba(255,255,255,.12),transparent 48%);opacity:.88;pointer-events:none}
+    .nav-main-group:after{content:"";position:absolute;inset:0;border-radius:26px;background:linear-gradient(115deg,rgba(255,255,255,.26) 0%,rgba(255,255,255,.08) 28%,transparent 48%,rgba(255,255,255,.055) 72%,rgba(255,255,255,.14) 100%);pointer-events:none;mix-blend-mode:screen}
+    .nav-home-btn{position:relative;z-index:2;width:68px;height:68px;border:1px solid rgba(255,255,255,.62);border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,rgba(255,255,255,.075),rgba(255,255,255,.024) 52%,rgba(255,255,255,.006));box-shadow:0 18px 36px rgba(44,51,92,.045),inset 0 1px 0 rgba(255,255,255,.78),inset 0 -1px 0 rgba(255,255,255,.09),inset 0 0 26px rgba(255,255,255,.035);backdrop-filter:blur(64px) saturate(220%) brightness(1.13);-webkit-backdrop-filter:blur(64px) saturate(220%) brightness(1.13);color:#101828;transition:transform .18s ease,color .22s ease,box-shadow .22s ease,background .22s ease}
+    .nav-home-btn:before{content:"";position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 28% 24%,rgba(255,255,255,.54),transparent 28%),radial-gradient(circle at 70% 76%,rgba(124,110,255,.045),transparent 28%),linear-gradient(120deg,rgba(255,255,255,.10),transparent 56%);pointer-events:none}
+    .nav-home-btn.active,.nav-home-btn.previewed{color:var(--blue);box-shadow:0 18px 32px rgba(47,91,255,.08),inset 0 0 0 1px rgba(47,91,255,.08),inset 0 1px 0 rgba(255,255,255,.80);background:linear-gradient(135deg,rgba(255,255,255,.13),rgba(255,255,255,.035))}
+    .nav-liquid-bubble{position:absolute;z-index:1;top:4px;left:4px;width:calc((100% - 8px)/3);height:calc(100% - 8px);border-radius:22px;background:linear-gradient(135deg,rgba(255,255,255,.09),rgba(255,255,255,.025) 56%,rgba(255,255,255,.006));box-shadow:inset 0 0 0 1px rgba(255,255,255,.58),inset 0 1px 0 rgba(255,255,255,.45),0 12px 26px rgba(47,91,255,.025);backdrop-filter:blur(58px) saturate(220%) brightness(1.13);-webkit-backdrop-filter:blur(58px) saturate(220%) brightness(1.13);transition:transform .34s cubic-bezier(.22,1.08,.36,1),opacity .16s ease,box-shadow .16s ease,background .16s ease;overflow:hidden;pointer-events:none;opacity:0}
+    .nav-liquid-bubble:before{content:"";position:absolute;inset:-42%;background:radial-gradient(circle at 24% 18%,rgba(255,255,255,.52),transparent 18%),radial-gradient(circle at 80% 74%,rgba(117,92,255,.075),transparent 28%),radial-gradient(circle at 42% 120%,rgba(114,223,255,.055),transparent 26%),linear-gradient(120deg,rgba(255,255,255,.11),transparent 54%);opacity:.86}
     body[data-active-tab="movements"] .nav-liquid-bubble{transform:translateX(0);opacity:1}
     body[data-active-tab="analysis"] .nav-liquid-bubble{transform:translateX(100%);opacity:1}
     body[data-active-tab="categories"] .nav-liquid-bubble{transform:translateX(200%);opacity:1}
@@ -171,11 +171,12 @@
     .modal-backdrop{position:fixed;inset:0;z-index:120;display:none;align-items:flex-end;justify-content:center;padding:18px;background:rgba(15,23,42,.18);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
     .modal-backdrop.open{display:flex;animation:fadeIn .18s ease both}@keyframes fadeIn{from{opacity:0}to{opacity:1}}
     .settings-sheet{width:min(760px,100%);max-height:min(84vh,760px);overflow:auto;border-radius:30px;background:linear-gradient(145deg,rgba(255,255,255,.78),rgba(255,255,255,.52));box-shadow:0 30px 80px rgba(32,41,89,.24), inset 0 1px 0 rgba(255,255,255,.72)}
-    .settings-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
-    .glass-back-btn{position:relative;width:74px;height:74px;border:1px solid rgba(255,255,255,.76);border-radius:28px;background:linear-gradient(145deg,rgba(255,255,255,.26),rgba(255,255,255,.08));box-shadow:0 18px 34px rgba(44,51,92,.10),inset 0 1px 0 rgba(255,255,255,.96),inset 0 -1px 0 rgba(255,255,255,.18);backdrop-filter:blur(32px) saturate(170%) brightness(1.07);-webkit-backdrop-filter:blur(32px) saturate(170%) brightness(1.07);display:grid;place-items:center;color:#111827}
-    .glass-back-btn:before{content:"";position:absolute;inset:0;border-radius:28px;background:radial-gradient(circle at 26% 24%,rgba(255,255,255,.9),transparent 28%),linear-gradient(135deg,rgba(255,255,255,.18),transparent 58%);pointer-events:none}
-    .glass-back-btn svg{position:relative;z-index:1;width:28px;height:28px;stroke:currentColor;fill:none;stroke-width:3.2;stroke-linecap:round;stroke-linejoin:round}
-    .settings-header-spacer{width:42px;height:42px;flex:0 0 auto;opacity:0;pointer-events:none}
+    .settings-toolbar{position:sticky;top:0;z-index:8;display:flex;align-items:center;justify-content:space-between;gap:12px;margin:-4px 0 14px;padding:4px 0 10px;background:linear-gradient(180deg,rgba(255,255,255,.76),rgba(255,255,255,.40));backdrop-filter:blur(24px) saturate(170%);-webkit-backdrop-filter:blur(24px) saturate(170%);border-radius:22px}
+    .glass-back-btn,.glass-close-btn{position:relative;width:44px;height:44px;border:1px solid rgba(255,255,255,.72);border-radius:50%;background:linear-gradient(145deg,rgba(255,255,255,.26),rgba(255,255,255,.07));box-shadow:0 12px 26px rgba(44,51,92,.08),inset 0 1px 0 rgba(255,255,255,.92),inset 0 -1px 0 rgba(255,255,255,.16);backdrop-filter:blur(30px) saturate(180%) brightness(1.08);-webkit-backdrop-filter:blur(30px) saturate(180%) brightness(1.08);display:grid;place-items:center;color:#111827;flex:0 0 auto}
+    .glass-back-btn:before,.glass-close-btn:before{content:"";position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 28% 24%,rgba(255,255,255,.80),transparent 30%),linear-gradient(135deg,rgba(255,255,255,.14),transparent 58%);pointer-events:none}
+    .glass-back-btn svg{position:relative;z-index:1;width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:3.1;stroke-linecap:round;stroke-linejoin:round}
+    .glass-close-btn{border:1px solid rgba(255,255,255,.72);font-size:25px;line-height:1;font-weight:800;padding:0}
+    .glass-close-btn span{position:relative;z-index:1;transform:translateY(-1px)}
     .settings-sheet .backup-grid{margin-top:14px}.modal-close{width:42px;height:42px;border:0;border-radius:15px;background:rgba(255,255,255,.62);box-shadow:inset 0 0 0 1px rgba(15,23,42,.08);font-weight:950;color:#475467}.settings-section{margin-top:8px}.settings-copy{font-size:13px;color:var(--muted);font-weight:650;line-height:1.45;margin:0 0 10px}
 
     .settings-grid{display:grid;gap:14px;margin-top:14px}
@@ -354,8 +355,8 @@
       .sticky-head{padding-left:18px;padding-right:18px;padding-bottom:12px}
       .period-row{margin-top:12px}
       .period-pill{min-width:0;flex:1}
-      .glass-back-btn{width:64px;height:64px;border-radius:24px}
-      .glass-back-btn svg{width:24px;height:24px}
+      .glass-back-btn,.glass-close-btn{width:42px;height:42px}
+      .glass-back-btn svg{width:21px;height:21px}
     }
 
   </style>
@@ -530,14 +531,13 @@
         <button class="glass-back-btn" id="settingsBack" aria-label="Indietro">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 5.5L8 12l6.5 6.5"/></svg>
         </button>
-        <span class="settings-header-spacer" aria-hidden="true"></span>
+        <button class="glass-close-btn" id="settingsClose" aria-label="Chiudi impostazioni"><span>×</span></button>
       </div>
       <div class="card-title">
         <div>
           <h2 id="settingsTitle">Impostazioni</h2>
           <p class="settings-copy">Backup e ripristino dell'app. Sezione spostata qui per tenere più pulita la schermata Categorie.</p>
         </div>
-        <button class="modal-close" id="settingsClose" aria-label="Chiudi impostazioni">×</button>
       </div>
       <div class="settings-section">
         <div class="card-title"><h2>Personalizzazione</h2><span class="subtle">Aspetto e strumenti</span></div>
@@ -749,6 +749,19 @@
 
     function uid(){return Math.random().toString(36).slice(2,10)+Date.now().toString(36).slice(-4)}
     function defaultSettings(){return {savingsTarget:250,savingsGoalNotificationEnabled:false,lastSavingsGoalPeriod:'',seasonalProfile:'',customBudgetProfiles:[],notificationsEnabled:true,notificationThreshold:80}}
+    function normalizeImportedSettings(imported){
+      const importedSettings = imported.settings || imported.impostazioni || {};
+      const merged = {...defaultSettings(), ...importedSettings};
+      if(Array.isArray(imported.customBudgetProfiles) && !Array.isArray(importedSettings.customBudgetProfiles)){
+        merged.customBudgetProfiles = imported.customBudgetProfiles;
+      }
+      if(!Array.isArray(merged.customBudgetProfiles)) merged.customBudgetProfiles = [];
+      merged.savingsTarget = Number(merged.savingsTarget ?? merged.obiettivoRisparmio ?? 250) || 0;
+      merged.notificationThreshold = Number(merged.notificationThreshold ?? merged.sogliaNotifiche ?? 80) || 80;
+      merged.notificationsEnabled = Boolean(merged.notificationsEnabled ?? merged.notificheAbilitate ?? true);
+      merged.savingsGoalNotificationEnabled = Boolean(merged.savingsGoalNotificationEnabled ?? merged.notificaObiettivoRisparmio ?? false);
+      return merged;
+    }
     function loadState(){
       try{
         const raw=localStorage.getItem(STORAGE_KEY);
@@ -757,7 +770,7 @@
           if(!parsed.theme) parsed.theme='light';
           parsed.selectedDate=dateKey(new Date());
           parsed.periodDate=parsed.periodDate || parsed.selectedDate;
-          parsed.settings={...defaultSettings(),...(parsed.settings||{})};
+          parsed.settings=normalizeImportedSettings(parsed);
           if(['normal','summer','christmas'].includes(parsed.settings.seasonalProfile)) parsed.settings.seasonalProfile='';
           return parsed;
         }
@@ -860,18 +873,21 @@
 
       if(!normalizedMovements.length && rawMovements.length) throw new Error('bad');
 
-      const importedSettings = imported.settings || imported.impostazioni || {};
+      const importedSettings = normalizeImportedSettings(imported);
       const selectedDate =
         imported.selectedDate ||
         imported.dataSelezionata ||
         normalizedMovements.slice().sort((a,b)=>b.date.localeCompare(a.date))[0]?.date ||
         dateKey(new Date());
+      const importedTheme = String(imported.theme || imported.tema || defaultS.theme || 'light').toLowerCase();
 
       return {
         selectedDate,
+        periodDate: imported.periodDate || imported.dataPeriodo || selectedDate,
         movementsOpen: Boolean(imported.movementsOpen ?? imported.movimentiAperti ?? false),
-        theme: imported.theme === 'dark' ? 'dark' : 'light',
-        settings: {...defaultSettings(), ...importedSettings},
+        activeTab: imported.activeTab || imported.tabAttiva || 'home',
+        theme: importedTheme === 'dark' ? 'dark' : 'light',
+        settings: importedSettings,
         categories: normalizedCategories.sort(byAlpha),
         movements: normalizedMovements
       };
@@ -1756,7 +1772,7 @@
     document.getElementById('cancelWipeAll').addEventListener('click',closeWipeAllModal);
     document.getElementById('confirmWipeAll').addEventListener('click',confirmWipeAll);
     document.getElementById('importBtn').addEventListener('click',()=>document.getElementById('importFile').click());
-    document.getElementById('importFile').addEventListener('change',e=>{const file=e.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=()=>{try{const parsed=JSON.parse(reader.result);state=normalizeImportedBackup(parsed);state.activeTab='home';activeTab='home';applyTheme(state.theme);saveState();renderAll();syncSettingsControls();setTab('home',false);showAppPopup(`Backup importato correttamente. Movimenti importati: ${state.movements.length}. Categorie importate: ${state.categories.length}.`)}catch(err){showAppPopup('Backup non valido o non compatibile. Controlla che sia un file JSON esportato dall’app precedente.')}finally{e.target.value=''}};reader.readAsText(file)});
+    document.getElementById('importFile').addEventListener('change',e=>{const file=e.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=()=>{try{const parsed=JSON.parse(reader.result);state=normalizeImportedBackup(parsed);activeTab=state.activeTab||'home';applyTheme(state.theme);saveState();renderAll();syncSettingsControls();setTab(activeTab,false);showAppPopup(`Backup importato correttamente. Personalizzazioni, impostazioni, movimenti e categorie sono stati ripristinati. Movimenti importati: ${state.movements.length}. Categorie importate: ${state.categories.length}.`)}catch(err){showAppPopup('Backup non valido o non compatibile. Controlla che sia un file JSON esportato dall’app precedente.')}finally{e.target.value=''}};reader.readAsText(file)});
     window.addEventListener('resize',()=>{if(activeTab==='analysis') drawCharts()});
     window.addEventListener('scroll',()=>{const nav=document.getElementById('bottomNav');nav.classList.add('nav-hidden');clearTimeout(scrollTimer);scrollTimer=setTimeout(()=>nav.classList.remove('nav-hidden'),90)},{passive:true});
     // All'apertura dell'app porta sempre il riferimento alla data odierna.
