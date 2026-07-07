@@ -28,3 +28,22 @@ Dopo il deploy:
 1. Cancella l'icona vecchia dalla Home.
 2. Apri Safari e vai al link con ?v=4.
 3. Aggiungi di nuovo alla schermata Home.
+
+
+Versione v42 - OFFLINE FIRST:
+- Service worker riscritto in modalità offline-first.
+- La PWA salva in cache index.html, manifest, sw.js, README e tutte le icone.
+- Navigazione offline protetta: se manca connessione, l'app apre la copia salvata.
+- Start URL aggiornato a ./index.html?v=42.
+- Aggiunto avviso interno quando il dispositivo passa offline/online.
+
+Uso corretto:
+1. Carica tutti i file su GitHub Pages.
+2. Apri l'app online almeno una volta con ?v=42.
+3. Attendi qualche secondo.
+4. Apri l'app dalla schermata Home dell'iPhone.
+5. Da quel momento l'app può aprirsi anche senza Wi-Fi o dati mobili.
+
+Nota:
+- Gli aggiornamenti futuri richiedono sempre una prima apertura online della nuova versione.
+- I dati restano locali sul dispositivo. Esegui spesso Backup Completo JSON.
