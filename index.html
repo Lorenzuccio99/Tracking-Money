@@ -108,7 +108,7 @@
 
     #movements.view.active{min-height:calc(100dvh - 250px)}
     #movements .mov-budget-grid{padding-bottom:calc(var(--navH) + env(safe-area-inset-bottom) + 90px)}
-    .filters{display:grid;grid-template-columns:1.4fr .8fr 1fr .8fr;gap:10px}.collapse-btn{width:100%;height:48px;border:0;border-radius:15px;background:linear-gradient(135deg,rgba(232,236,255,.92),rgba(255,255,255,.72));color:#2447b7;font-weight:850;margin-top:12px;display:flex;align-items:center;justify-content:center;gap:8px}.movement-list{display:grid;gap:14px;margin-top:18px}.move-card{display:grid;grid-template-columns:1fr auto auto;gap:12px;align-items:center;padding:14px;border-radius:18px;background:rgba(255,255,255,.64);box-shadow:inset 0 0 0 1px rgba(15,23,42,.07)}.move-card h3{font-size:15px;margin:0 0 5px}.move-card p{margin:0;color:var(--muted);font-size:12px;font-weight:650}.amount{font-weight:950;letter-spacing:-.02em}.pill{display:inline-flex;align-items:center;justify-content:center;padding:7px 10px;border-radius:999px;font-size:12px;font-weight:900}.pill.ok{background:#dcfce7;color:#166534}.pill.ko{background:#fee2e2;color:#991b1b}.pill.blue{background:#eef4ff;color:#2447b7}.pill.orange{background:#fff7ed;color:#c2410c}.budget-list{display:grid;gap:14px;margin-top:18px}.budget-row{padding:15px;border-radius:19px;background:rgba(255,255,255,.68);box-shadow:inset 0 0 0 1px rgba(15,23,42,.07)}.budget-row.out{background:linear-gradient(135deg,rgba(255,238,235,.92),rgba(255,255,255,.60));box-shadow:inset 0 0 0 1px rgba(217,45,32,.34)}.budget-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.budget-name{font-size:16px;font-weight:900}.budget-meta{color:var(--muted);font-size:13px;font-weight:700;margin-top:4px}.bar{height:11px;background:rgba(15,23,42,.08);border-radius:99px;overflow:hidden;margin-top:13px}.bar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#111827,#1d2a44);width:0}.budget-row.out .bar i{background:linear-gradient(90deg,#b42318,#ef4444)}.amount-line{display:flex;gap:18px;flex-wrap:wrap;margin-top:8px;color:#475467;font-weight:700}.amount-line b{color:var(--red)}.amount-line .res b{color:var(--green)}
+    .filters{display:grid;grid-template-columns:1.4fr .8fr 1fr .8fr;gap:10px}.collapse-btn{width:100%;height:48px;border:0;border-radius:15px;background:linear-gradient(135deg,rgba(232,236,255,.92),rgba(255,255,255,.72));color:#2447b7;font-weight:850;margin-top:12px;display:flex;align-items:center;justify-content:center;gap:8px}.movement-list{display:grid;gap:14px;margin-top:18px}.move-card{display:grid;grid-template-columns:42px minmax(0,1fr) auto;grid-template-areas:"sign main amount" "sign main actions";gap:10px 12px;align-items:center;padding:14px;border-radius:20px;background:rgba(255,255,255,.64);box-shadow:inset 0 0 0 1px rgba(15,23,42,.07),0 10px 24px rgba(44,51,92,.05)}.move-card.entrata{background:linear-gradient(135deg,rgba(235,255,240,.82),rgba(255,255,255,.58))}.move-card.uscita{background:linear-gradient(135deg,rgba(255,238,235,.86),rgba(255,255,255,.58))}.move-sign{grid-area:sign;width:42px;height:42px;border-radius:16px;display:grid;place-items:center;font-size:20px;font-weight:950;background:rgba(255,255,255,.66);box-shadow:inset 0 0 0 1px rgba(15,23,42,.06)}.move-main{grid-area:main;min-width:0}.move-top{display:flex;align-items:center;gap:8px;min-width:0}.move-card h3{font-size:15px;margin:0;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.move-card p{margin:5px 0 0;color:var(--muted);font-size:12px;font-weight:700;line-height:1.25}.move-card small{display:block;margin-top:4px;color:#475467;font-size:12px;font-weight:850}.move-amount{grid-area:amount;text-align:right;font-size:18px;font-weight:950;letter-spacing:-.035em;white-space:nowrap}.move-actions{grid-area:actions;display:flex;gap:8px;justify-content:flex-end}.move-actions .secondary,.move-actions .danger{height:36px;border-radius:13px;padding:0 12px;font-size:12px}.amount{font-weight:950;letter-spacing:-.02em}.pill{display:inline-flex;align-items:center;justify-content:center;padding:7px 10px;border-radius:999px;font-size:12px;font-weight:900}.pill.ok{background:#dcfce7;color:#166534}.pill.ko{background:#fee2e2;color:#991b1b}.pill.blue{background:#eef4ff;color:#2447b7}.pill.orange{background:#fff7ed;color:#c2410c}.budget-list{display:grid;gap:14px;margin-top:18px}.budget-row{padding:15px;border-radius:19px;background:rgba(255,255,255,.68);box-shadow:inset 0 0 0 1px rgba(15,23,42,.07)}.budget-row.out{background:linear-gradient(135deg,rgba(255,238,235,.92),rgba(255,255,255,.60));box-shadow:inset 0 0 0 1px rgba(217,45,32,.34)}.budget-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.budget-name{font-size:16px;font-weight:900}.budget-meta{color:var(--muted);font-size:13px;font-weight:700;margin-top:4px}.bar{height:11px;background:rgba(15,23,42,.08);border-radius:99px;overflow:hidden;margin-top:13px}.bar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#111827,#1d2a44);width:0}.budget-row.out .bar i{background:linear-gradient(90deg,#b42318,#ef4444)}.amount-line{display:flex;gap:18px;flex-wrap:wrap;margin-top:8px;color:#475467;font-weight:700}.amount-line b{color:var(--red)}.amount-line .res b{color:var(--green)}
     details{margin-top:18px}summary{list-style:none;user-select:none}summary::-webkit-details-marker{display:none}.detail-summary{height:48px;border-radius:15px;background:linear-gradient(135deg,rgba(232,236,255,.92),rgba(255,255,255,.72));color:#2447b7;font-weight:850;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:inset 0 0 0 1px rgba(47,91,255,.08)}
     .category-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px;align-items:start}
     .category-create-form{margin-top:0}
@@ -353,6 +353,12 @@
       .budget-input{width:76px;height:38px;text-align:center}
       .cat-actions{justify-content:flex-end}
       .cat-delete-mini{width:38px;height:38px;border-radius:15px}
+      .move-card{grid-template-columns:42px minmax(0,1fr);grid-template-areas:"sign main" "amount amount" "actions actions";align-items:start;padding:15px;border-radius:22px}
+      .move-top{justify-content:space-between}
+      .move-card h3{font-size:16px;white-space:normal}
+      .move-amount{text-align:left;font-size:22px;padding:10px 12px;border-radius:16px;background:rgba(255,255,255,.58);box-shadow:inset 0 0 0 1px rgba(15,23,42,.05)}
+      .move-actions{justify-content:stretch}
+      .move-actions .secondary,.move-actions .danger{flex:1;height:42px}
     }
 
   
@@ -1427,12 +1433,22 @@
       const box=document.getElementById('movementList');
       box.style.display=state.movementsOpen?'grid':'none';
       document.getElementById('toggleMovements').innerHTML=state.movementsOpen?'Nascondi movimenti ▴':'Mostra movimenti ▾';
-      box.innerHTML=ms.map(m=>`
-        <div class="move-card">
-          <div><h3>${escapeHtml(m.desc||'Movimento')}</h3><p>${movementDateTimeLabel(m)} · ${escapeHtml(m.category)} · ${m.type}</p></div>
-          <div class="amount ${m.type==='entrata'?'greenText':'redText'}">${m.type==='entrata'?'+':'-'} ${fmt.format(m.amount)}</div>
-          <div style="display:flex;gap:8px"><button class="secondary" onclick="editMovement('${m.id}')">Modifica</button><button class="danger" onclick="deleteMovement('${m.id}')">Elimina</button></div>
-        </div>`).join('') || '<div class="empty">Nessun movimento nel periodo selezionato.</div>';
+      box.innerHTML=ms.map(m=>{
+        const isIncome=m.type==='entrata';
+        return `<div class="move-card ${isIncome?'entrata':'uscita'}">
+          <div class="move-sign ${isIncome?'greenText':'redText'}">${isIncome?'↗':'↘'}</div>
+          <div class="move-main">
+            <div class="move-top">
+              <h3>${escapeHtml(m.desc||'Movimento')}</h3>
+              <span class="pill ${isIncome?'ok':'ko'}">${isIncome?'Entrata':'Uscita'}</span>
+            </div>
+            <p>${movementDateTimeLabel(m)}</p>
+            <small>${escapeHtml(m.category)}</small>
+          </div>
+          <div class="move-amount amount ${isIncome?'greenText':'redText'}">${isIncome?'+':'-'} ${fmt.format(m.amount)}</div>
+          <div class="move-actions"><button class="secondary" onclick="editMovement('${m.id}')">Modifica</button><button class="danger" onclick="deleteMovement('${m.id}')">Elimina</button></div>
+        </div>`;
+      }).join('') || '<div class="empty">Nessun movimento nel periodo selezionato.</div>';
     }
     function renderCategories(){
       const mode=document.getElementById('categorySortMode')?.value || 'type-alpha';
@@ -1753,6 +1769,10 @@
     document.getElementById('mDate').addEventListener('change',e=>{state.selectedDate=e.target.value||todayKey();saveState()});
 
     document.getElementById('mDesc').addEventListener('input',e=>{if(/\d/.test(e.target.value)){showAppPopup('Non sono ammessi caratteri numerici');e.target.value=e.target.value.replace(/\d/g,'')}});
+    const newCatNameInput=document.getElementById('newCatName');
+    newCatNameInput.addEventListener('keydown',e=>{if(/^\d$/.test(e.key)){e.preventDefault();showAppPopup('Non sono ammessi caratteri numerici nel nome della categoria.')}});
+    newCatNameInput.addEventListener('input',e=>{if(/\d/.test(e.target.value)){showAppPopup('Non sono ammessi caratteri numerici nel nome della categoria.');e.target.value=e.target.value.replace(/\d/g,'')}});
+
     document.getElementById('mAmount').addEventListener('input',e=>{if(/[a-zA-ZÀ-ÖØ-öø-ÿ]/.test(e.target.value)){showAppPopup('Non sono ammessi caratteri alfabetici');e.target.value=e.target.value.replace(/[a-zA-ZÀ-ÖØ-öø-ÿ]/g,'')}});
     document.getElementById('messageModalOk').addEventListener('click',closeAppPopup);
     document.getElementById('messageModal').addEventListener('click',e=>{if(e.target.id==='messageModal')closeAppPopup()});
@@ -1762,7 +1782,7 @@
     document.getElementById('saveCurrentBudgetProfile').addEventListener('click',createBudgetProfileFromCurrent);
     document.getElementById('categorySortMode').addEventListener('change',renderCategories);
     document.getElementById('categoryDetails')?.addEventListener('toggle',updateCategoryDetailsLabel);
-    document.getElementById('categoryForm').addEventListener('submit',e=>{e.preventDefault();const name=document.getElementById('newCatName').value.trim();const type=document.getElementById('newCatType').value;if(!name)return;if(state.categories.some(c=>c.name.toLowerCase()===name.toLowerCase())){showToast('Categoria già presente');return}state.categories.push({id:uid(),name,type,budget:type==='uscita'?0:undefined});saveState();e.target.reset();renderAll();showToast('Categoria aggiunta')});
+    document.getElementById('categoryForm').addEventListener('submit',e=>{e.preventDefault();const nameInput=document.getElementById('newCatName');const name=nameInput.value.trim();const type=document.getElementById('newCatType').value;if(!name)return;if(/\d/.test(name)){showAppPopup('Non sono ammessi caratteri numerici nel nome della categoria.');nameInput.focus();return}if(state.categories.some(c=>c.name.toLowerCase()===name.toLowerCase())){showToast('Categoria già presente');return}state.categories.push({id:uid(),name,type,budget:type==='uscita'?0:undefined});saveState();e.target.reset();renderAll();showToast('Categoria aggiunta')});
     ['searchMov','filterType','filterCategory','sortMov'].forEach(id=>document.getElementById(id).addEventListener('input',renderMovements));
     document.getElementById('resetFilters').addEventListener('click',()=>{document.getElementById('searchMov').value='';document.getElementById('filterType').value='all';document.getElementById('filterCategory').value='all';document.getElementById('sortMov').value='recent';renderMovements()});
     document.getElementById('toggleMovements').addEventListener('click',()=>{state.movementsOpen=!state.movementsOpen;saveState();renderMovements()});

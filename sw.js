@@ -1,4 +1,4 @@
-const CACHE_NAME = 'app-tracking-spese-v31';
+const CACHE_NAME = 'app-tracking-spese-v32';
 const ASSETS = [
   './',
   './index.html',
