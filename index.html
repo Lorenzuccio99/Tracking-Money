@@ -100,6 +100,11 @@
     .analysis-mobile-note{margin-top:12px;font-size:12px;color:var(--muted);font-weight:700}
     #dashboardStats .stat{min-height:92px;padding:13px 15px}
     #dashboardStats .stat .value{font-size:clamp(18px,2.7vw,25px)}
+    #dashboardStats .stat.stat-compact{min-height:68px;padding:9px 15px 7px}
+    #dashboardStats .stat.stat-compact .stat-foot{margin-top:2px}
+    #dashboardStats .stat.stat-compact .value{line-height:1.02}
+    #dashboardStats .stat.stat-saldo{min-height:78px;padding:10px 15px 8px}
+    #dashboardStats .stat.stat-saldo .stat-foot{margin-top:4px}
 
     #movements.view.active{min-height:calc(100dvh - 250px)}
     #movements .mov-budget-grid{padding-bottom:calc(var(--navH) + env(safe-area-inset-bottom) + 90px)}
@@ -1297,12 +1302,12 @@
       const t=totals();
       const saldoIsPositive = t.saldo >= 0;
       const stats=[
-        {label:'Entrate Totali',value:t.entrate,cardClass:'green',textClass:'greenText',icon:'↗',foot:''},
-        ...(t.extra>0?[{label:'Entrate Extra',value:t.extra,cardClass:'green',textClass:'greenText',icon:'✦',foot:'periodo attuale'}]:[]),
-        {label:'Uscite Totali',value:t.uscite,cardClass:'red',textClass:'redText',icon:'↘',foot:''},
-        {label:'Saldo',value:t.saldo,cardClass:saldoIsPositive?'saldoPositive':'saldoNegative',textClass:saldoIsPositive?'saldoPositiveText':'saldoNegativeText',icon:saldoIsPositive?'✓':'!',foot:saldoIsPositive?'saldo positivo':'saldo negativo'}
+        {label:'Entrate Totali',value:t.entrate,cardClass:'green',textClass:'greenText',icon:'↗',foot:'',sizeClass:'stat-compact'},
+        ...(t.extra>0?[{label:'Entrate Extra',value:t.extra,cardClass:'green',textClass:'greenText',icon:'✦',foot:'periodo attuale',sizeClass:''}]:[]),
+        {label:'Uscite Totali',value:t.uscite,cardClass:'red',textClass:'redText',icon:'↘',foot:'',sizeClass:'stat-compact'},
+        {label:'Saldo',value:t.saldo,cardClass:saldoIsPositive?'saldoPositive':'saldoNegative',textClass:saldoIsPositive?'saldoPositiveText':'saldoNegativeText',icon:saldoIsPositive?'✓':'!',foot:saldoIsPositive?'saldo positivo':'saldo negativo',sizeClass:'stat-saldo'}
       ];
-      document.getElementById('dashboardStats').innerHTML=stats.map(s=>`<div class="stat ${s.cardClass}"><div><div class="label">${s.label}</div><div class="value ${s.textClass}">${fmt.format(s.value)}</div></div><div class="stat-foot"><span>${s.foot}</span><span class="mini-icon">${s.icon}</span></div></div>`).join('');
+      document.getElementById('dashboardStats').innerHTML=stats.map(s=>`<div class="stat ${s.cardClass} ${s.sizeClass||''}"><div><div class="label">${s.label}</div><div class="value ${s.textClass}">${fmt.format(s.value)}</div></div><div class="stat-foot"><span>${s.foot}</span><span class="mini-icon">${s.icon}</span></div></div>`).join('');
       const p=currentPeriod();
       const realToday=toDate(dateKey(new Date()));
       const refDate = realToday < p.start ? p.start : (realToday > p.end ? p.end : realToday);
@@ -1466,6 +1471,25 @@
       ctx.save();ctx.fillStyle=colors.muted;ctx.font='12px -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif';ctx.textAlign='center';ctx.fillText('Mese finanziario',pad.l+plotW/2,h-8);ctx.translate(15,pad.t+plotH/2);ctx.rotate(-Math.PI/2);ctx.fillText('Uscite (€)',0,0);ctx.restore();
       ctx.textAlign='left';
     }
+    function fitSplitCanvasText(ctx,leftText,rightText,maxWidth,fontBase,fontMin=8,gap=4){
+      let size=fontBase;
+      const setFont=()=>{ctx.font=`600 ${size}px -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif`;};
+      setFont();
+      let total=ctx.measureText(leftText).width + gap + ctx.measureText(rightText).width;
+      while(size>fontMin && total>maxWidth){
+        size-=1;
+        setFont();
+        total=ctx.measureText(leftText).width + gap + ctx.measureText(rightText).width;
+      }
+      if(total<=maxWidth) return {left:leftText,right:rightText,size,gap};
+      let truncated=rightText;
+      while(truncated.length>6 && total>maxWidth){
+        truncated=truncated.slice(0,-2)+'…)';
+        setFont();
+        total=ctx.measureText(leftText).width + gap + ctx.measureText(truncated).width;
+      }
+      return {left:leftText,right:truncated,size,gap};
+    }
     function fitCanvasText(ctx,text,maxWidth,fontBase,fontMin=9){
       let size=fontBase;
       ctx.font=`600 ${size}px -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif`;
@@ -1503,12 +1527,19 @@
           ctx.font='700 12px -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif';
           ctx.textAlign='left';
           ctx.fillText(label,pad.l,y+12);
-          const valueText=`${fmt.format(d.value)} (max. ${fmt.format(d.max||0)})`;
-          ctx.fillStyle=colors.muted;
-          const rightText=fitCanvasText(ctx,valueText,Math.max(90,w-pad.l-pad.r-125),11,8);
-          ctx.textAlign='right';
-          ctx.fillText(rightText,w-pad.r,y+12);
+          const spentText=fmt.format(d.value);
+          const maxText=`(max. ${fmt.format(d.max||0)})`;
+          const fitted=fitSplitCanvasText(ctx,spentText,maxText,Math.max(96,w-pad.l-pad.r-125),11,7,4);
+          ctx.font=`600 ${fitted.size}px -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif`;
+          const spentW=ctx.measureText(fitted.left).width;
+          const maxW=ctx.measureText(fitted.right).width;
+          const totalW=spentW + fitted.gap + maxW;
+          let startX=w-pad.r-totalW;
           ctx.textAlign='left';
+          ctx.fillStyle=colors.muted;
+          ctx.fillText(fitted.left,startX,y+12);
+          ctx.fillStyle='#d9bf58';
+          ctx.fillText(fitted.right,startX+spentW+fitted.gap,y+12);
           const barX=pad.l, barY=y+20, barW=w-pad.l-pad.r, barH=14;
           roundRect(ctx,barX,barY,barW,barH,8); ctx.fillStyle='rgba(15,23,42,.08)'; ctx.fill();
           const fillW=Math.max(6,barW*(d.value/max));
@@ -1530,7 +1561,7 @@
         ctx.fillStyle=colors.muted;ctx.textAlign='right';ctx.fillText(val.toLocaleString('it-IT')+' €',pad.l-8,y+4);
       }
       const gap=10; const bw=Math.max(18,(plotW-gap*(data.length-1))/Math.max(1,data.length));
-      data.forEach((d,i)=>{const x=pad.l+i*(bw+gap);const barH=plotH*d.value/max;const y=pad.t+plotH-barH;const grad=ctx.createLinearGradient(0,y,0,y+barH);if(d.out){grad.addColorStop(0,'#ff5b52');grad.addColorStop(1,'#d92d20')}else{grad.addColorStop(0,'#22c55e');grad.addColorStop(1,'#0f8f3e')}roundRect(ctx,x,y,bw,barH,8);ctx.fillStyle=grad;ctx.fill();ctx.fillStyle=colors.ink;ctx.textAlign='center';const labelValue=fitCanvasText(ctx,`${Math.round(d.value).toLocaleString('it-IT')} € (max. ${Math.round(d.max||0).toLocaleString('it-IT')} €)`,Math.max(42,bw+gap+14),10,7);ctx.fillText(labelValue,x+bw/2,y-6);ctx.save();ctx.translate(x+bw/2,h-43);ctx.rotate(-Math.PI/8);ctx.fillStyle=colors.text;ctx.font='11px -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif';ctx.fillText(shortLabel(d.label,12),0,0);ctx.restore();});
+      data.forEach((d,i)=>{const x=pad.l+i*(bw+gap);const barH=plotH*d.value/max;const y=pad.t+plotH-barH;const grad=ctx.createLinearGradient(0,y,0,y+barH);if(d.out){grad.addColorStop(0,'#ff5b52');grad.addColorStop(1,'#d92d20')}else{grad.addColorStop(0,'#22c55e');grad.addColorStop(1,'#0f8f3e')}roundRect(ctx,x,y,bw,barH,8);ctx.fillStyle=grad;ctx.fill();const leftText=`${Math.round(d.value).toLocaleString('it-IT')} €`;const rightText=`(max. ${Math.round(d.max||0).toLocaleString('it-IT')} €)`;const fitted=fitSplitCanvasText(ctx,leftText,rightText,Math.max(56,bw+gap+18),10,7,4);ctx.font=`600 ${fitted.size}px -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif`;const leftW=ctx.measureText(fitted.left).width;const rightW=ctx.measureText(fitted.right).width;const totalW=leftW+fitted.gap+rightW;let startX=x+bw/2-totalW/2;ctx.textAlign='left';ctx.fillStyle=colors.ink;ctx.fillText(fitted.left,startX,y-6);ctx.fillStyle='#d9bf58';ctx.fillText(fitted.right,startX+leftW+fitted.gap,y-6);ctx.save();ctx.translate(x+bw/2,h-43);ctx.rotate(-Math.PI/8);ctx.fillStyle=colors.text;ctx.font='11px -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif';ctx.textAlign='center';ctx.fillText(shortLabel(d.label,12),0,0);ctx.restore();});
       ctx.save();ctx.fillStyle=colors.muted;ctx.font='12px -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif';ctx.textAlign='center';ctx.fillText('Categoria',pad.l+plotW/2,h-8);ctx.translate(15,pad.t+plotH/2);ctx.rotate(-Math.PI/2);ctx.fillText('Spesa (€)',0,0);ctx.restore();
     }
     function roundRect(ctx,x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath()}
