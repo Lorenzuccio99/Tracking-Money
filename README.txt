@@ -47,3 +47,15 @@ Uso corretto:
 Nota:
 - Gli aggiornamenti futuri richiedono sempre una prima apertura online della nuova versione.
 - I dati restano locali sul dispositivo. Esegui spesso Backup Completo JSON.
+
+
+Versione v49:
+- Effetto liquid glass migliorato nella barra di navigazione inferiore.
+- Tenendo il dito premuto su un pulsante e trascinando verso un altro, l'anteprima segue il dito e seleziona la sezione solo al rilascio.
+
+
+Versione v50:
+- Effetto liquid glass premium nella barra inferiore.
+- Aggiunta lente dinamica con glow cromatico.
+- La lente cambia posizione e dimensione mentre trascini il dito tra i pulsanti.
+- Selezione confermata solo al rilascio del dito.

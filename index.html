@@ -166,6 +166,18 @@
     .nav-item{position:relative;z-index:2;border:0;border-radius:20px;background:transparent;color:#101828;font-size:11px;font-weight:850;display:flex;align-items:center;justify-content:center;padding:0;transition:color .18s ease,transform .18s ease,filter .18s ease;text-shadow:none}
     .nav-item.active{color:var(--blue);background:transparent;box-shadow:none}
     .nav-item.pressed,.nav-home-btn.pressed{transform:scale(.95)}
+    body[data-nav-dragging="1"] .nav-liquid-bubble{opacity:1;transition:transform .18s cubic-bezier(.22,.98,.28,1),opacity .08s ease,box-shadow .18s ease,background .18s ease;box-shadow:inset 0 0 0 1px rgba(255,255,255,.44),inset 0 1px 0 rgba(255,255,255,.34),0 14px 28px rgba(47,91,255,.08),0 0 20px rgba(255,255,255,.12);background:linear-gradient(135deg,rgba(255,255,255,.08),rgba(255,255,255,.022) 56%,rgba(255,255,255,.006));}
+    body[data-nav-dragging="1"] .nav-liquid-bubble:before{opacity:.92}
+    body[data-nav-dragging="1"] .nav-main-group{overflow:visible}
+    body[data-nav-dragging="1"] .nav-item.previewed,body[data-nav-dragging="1"] .nav-home-btn.previewed{color:var(--blue)}
+    .nav-drag-lens{position:absolute;left:0;top:0;z-index:3;width:var(--nav-lens-w,74px);height:var(--nav-lens-h,62px);border-radius:var(--nav-lens-r,999px);opacity:0;pointer-events:none;transform:translate3d(var(--nav-lens-x,0px),var(--nav-lens-y,0px),0) scale(.76);transform-origin:center;transition:transform .22s cubic-bezier(.18,1.22,.28,1),opacity .10s ease,width .22s cubic-bezier(.18,1.22,.28,1),height .22s cubic-bezier(.18,1.22,.28,1),border-radius .22s ease;overflow:hidden;background:linear-gradient(135deg,rgba(255,255,255,.16),rgba(255,255,255,.045) 46%,rgba(255,255,255,.012));border:1px solid rgba(255,255,255,.58);box-shadow:0 18px 48px rgba(44,51,92,.12),0 0 0 1px rgba(255,255,255,.18),inset 0 1px 0 rgba(255,255,255,.72),inset 0 -1px 0 rgba(255,255,255,.10),inset 0 0 34px rgba(255,255,255,.10);backdrop-filter:blur(82px) saturate(260%) brightness(1.22);-webkit-backdrop-filter:blur(82px) saturate(260%) brightness(1.22);filter:drop-shadow(0 10px 24px rgba(47,91,255,.12))}
+    .nav-drag-lens:before{content:"";position:absolute;inset:-48%;background:radial-gradient(circle at 18% 16%,rgba(255,255,255,.58),transparent 18%),radial-gradient(circle at 82% 18%,rgba(80,160,255,.18),transparent 22%),radial-gradient(circle at 72% 82%,rgba(190,80,255,.18),transparent 24%),conic-gradient(from 120deg,rgba(255,255,255,.32),rgba(88,166,255,.20),rgba(255,86,190,.16),rgba(255,255,255,.28),rgba(255,255,255,.32));opacity:.76;mix-blend-mode:screen;animation:navLensSheen 1.8s linear infinite}
+    .nav-drag-lens:after{content:"";position:absolute;inset:5px;border-radius:inherit;background:linear-gradient(145deg,rgba(255,255,255,.28),rgba(255,255,255,.035) 48%,rgba(255,255,255,.01));box-shadow:inset 0 0 0 1px rgba(255,255,255,.26);opacity:.72}
+    body[data-nav-dragging="1"] .nav-drag-lens{opacity:1;transform:translate3d(var(--nav-lens-x,0px),var(--nav-lens-y,0px),0) scale(1.04)}
+    body[data-nav-dragging="1"] .nav-item,body[data-nav-dragging="1"] .nav-home-btn{z-index:4}
+    body[data-nav-dragging="1"] .nav-item:not(.pressed),body[data-nav-dragging="1"] .nav-home-btn:not(.pressed){opacity:.72;filter:saturate(.88)}
+    body[data-nav-dragging="1"] .nav-item.pressed,body[data-nav-dragging="1"] .nav-home-btn.pressed{transform:scale(1.03);filter:saturate(1.22) brightness(1.05)}
+    @keyframes navLensSheen{0%{transform:translateX(-8%) rotate(0deg)}50%{transform:translateX(8%) rotate(12deg)}100%{transform:translateX(-8%) rotate(0deg)}}
     .nav-item .ico,.nav-home-btn .ico{width:22px;height:22px;display:grid;place-items:center}
     .nav-item svg,.nav-home-btn svg{width:22px;height:22px;display:block;fill:none;stroke:currentColor;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
     .nav-home-btn svg{width:25px;height:25px}
@@ -665,6 +677,7 @@
       <button type="button" class="nav-item" data-tab="analysis" aria-label="Analisi"><span class="ico"><svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="16" r="9"/><path d="M16 7v9h9"/></svg></span><span class="nav-label">Analisi</span></button>
       <button type="button" class="nav-item" data-tab="categories" aria-label="Categorie"><span class="ico"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 4l12 12-12 12L4 16 16 4z"/><path d="M16 9l7 7-7 7-7-7 7-7z"/></svg></span><span class="nav-label">Categorie</span></button>
     </div>
+    <span class="nav-drag-lens" id="navDragLens" aria-hidden="true"></span>
     <button type="button" class="nav-home-btn active" data-tab="home" aria-label="Home"><span class="ico"><svg viewBox="0 0 32 32" aria-hidden="true"><rect x="7" y="8" width="17" height="17" rx="4"/><path d="M20 6h6v6"/><path d="M25 7l-12 12"/></svg></span><span class="nav-label">Home</span></button>
   </nav>
 
@@ -2141,43 +2154,137 @@
     document.getElementById('toggleMovements').addEventListener('click',()=>{state.movementsOpen=!state.movementsOpen;saveState();renderMovements();syncMovementScrollLock()});
     const navButtons=[...document.querySelectorAll('.nav-item,.nav-home-btn')];
     let navPressedButton=null;
+    let navInteractionActive=false;
+    let navPointerId=null;
     function clearNavPressedState(){navButtons.forEach(btn=>btn.classList.remove('pressed'))}
+    function setNavDragging(active){
+      if(active) document.body.dataset.navDragging='1';
+      else delete document.body.dataset.navDragging;
+    }
+    function getNavButtonFromPoint(x,y){
+      const el=document.elementFromPoint(x,y);
+      return el ? el.closest('.nav-item,.nav-home-btn') : null;
+    }
+    function moveNavLensToButton(btn){
+      const nav=document.getElementById('bottomNav');
+      if(!nav || !btn) return;
+      const navRect=nav.getBoundingClientRect();
+      const r=btn.getBoundingClientRect();
+      const isHome=btn.classList.contains('nav-home-btn');
+      const extraW=isHome?18:22;
+      const extraH=isHome?16:18;
+      const w=Math.round(r.width+extraW);
+      const h=Math.round(r.height+extraH);
+      const x=Math.round(r.left-navRect.left-(extraW/2));
+      const y=Math.round(r.top-navRect.top-(extraH/2));
+      nav.style.setProperty('--nav-lens-x',x+'px');
+      nav.style.setProperty('--nav-lens-y',y+'px');
+      nav.style.setProperty('--nav-lens-w',w+'px');
+      nav.style.setProperty('--nav-lens-h',h+'px');
+      nav.style.setProperty('--nav-lens-r',isHome?'999px':'28px');
+    }
     function previewNavButton(btn){
       if(!btn) return;
       navPressedButton=btn;
       clearNavPressedState();
       btn.classList.add('pressed');
+      moveNavLensToButton(btn);
       updateNavPreview(btn.dataset.tab);
+      setNavDragging(true);
     }
     function cancelNavPreview(){
       navPressedButton=null;
+      navInteractionActive=false;
+      navPointerId=null;
       clearNavPressedState();
       updateNavPreview(null);
+      setNavDragging(false);
     }
     function commitNavButton(btn){
-      if(!btn) return;
+      if(!btn){ cancelNavPreview(); return; }
+      const nextTab=btn.dataset.tab;
       clearNavPressedState();
       navPressedButton=null;
+      navInteractionActive=false;
+      navPointerId=null;
       updateNavPreview(null);
-      setTab(btn.dataset.tab);
+      setNavDragging(false);
+      setTab(nextTab);
+    }
+    function updateNavDragFromPoint(x,y){
+      if(!navInteractionActive) return;
+      const btn=getNavButtonFromPoint(x,y);
+      if(btn) previewNavButton(btn);
+    }
+    function startNavInteraction(btn,pointerId=null){
+      navInteractionActive=true;
+      navPointerId=pointerId;
+      previewNavButton(btn);
+    }
+    function endNavInteraction(x,y,shouldCommit=true){
+      if(!navInteractionActive){ cancelNavPreview(); return; }
+      const btn=(typeof x==='number' && typeof y==='number') ? getNavButtonFromPoint(x,y) : navPressedButton;
+      if(shouldCommit && btn) commitNavButton(btn);
+      else cancelNavPreview();
     }
     if('PointerEvent' in window){
       navButtons.forEach(btn=>{
-        btn.addEventListener('pointerdown',e=>{ if(e.pointerType==='mouse' && e.button!==0) return; previewNavButton(btn); });
-        btn.addEventListener('pointerup',e=>{ if(navPressedButton===btn){ e.preventDefault(); commitNavButton(btn); } });
-        btn.addEventListener('pointerleave',()=>{ if(navPressedButton===btn) cancelNavPreview(); });
-        btn.addEventListener('pointercancel',()=>{ if(navPressedButton===btn) cancelNavPreview(); });
+        btn.addEventListener('pointerdown',e=>{
+          if(e.pointerType==='mouse' && e.button!==0) return;
+          e.preventDefault();
+          startNavInteraction(btn,e.pointerId);
+        });
         btn.addEventListener('click',e=>e.preventDefault());
+      });
+      window.addEventListener('pointermove',e=>{
+        if(!navInteractionActive) return;
+        if(navPointerId!==null && e.pointerId!==navPointerId) return;
+        updateNavDragFromPoint(e.clientX,e.clientY);
+      },{passive:true});
+      window.addEventListener('pointerup',e=>{
+        if(!navInteractionActive) return;
+        if(navPointerId!==null && e.pointerId!==navPointerId) return;
+        e.preventDefault();
+        endNavInteraction(e.clientX,e.clientY,true);
+      },{passive:false});
+      window.addEventListener('pointercancel',e=>{
+        if(!navInteractionActive) return;
+        if(navPointerId!==null && e.pointerId!==navPointerId) return;
+        cancelNavPreview();
       });
     }else{
       navButtons.forEach(btn=>{
-        btn.addEventListener('touchstart',()=>previewNavButton(btn),{passive:true});
-        btn.addEventListener('touchend',e=>{ e.preventDefault(); commitNavButton(btn); },{passive:false});
-        btn.addEventListener('touchcancel',cancelNavPreview,{passive:true});
-        btn.addEventListener('mousedown',e=>{ if(e.button!==0) return; previewNavButton(btn); });
-        btn.addEventListener('mouseup',()=>{ if(navPressedButton===btn) commitNavButton(btn); });
-        btn.addEventListener('mouseleave',()=>{ if(navPressedButton===btn) cancelNavPreview(); });
+        btn.addEventListener('touchstart',e=>{
+          const t=e.touches[0];
+          startNavInteraction(btn,'touch');
+          if(t) updateNavDragFromPoint(t.clientX,t.clientY);
+        },{passive:true});
+        btn.addEventListener('mousedown',e=>{
+          if(e.button!==0) return;
+          e.preventDefault();
+          startNavInteraction(btn,'mouse');
+        });
         btn.addEventListener('click',e=>e.preventDefault());
+      });
+      window.addEventListener('touchmove',e=>{
+        if(!navInteractionActive) return;
+        const t=e.touches[0] || e.changedTouches[0];
+        if(!t) return;
+        updateNavDragFromPoint(t.clientX,t.clientY);
+      },{passive:true});
+      window.addEventListener('touchend',e=>{
+        if(!navInteractionActive) return;
+        const t=e.changedTouches[0];
+        endNavInteraction(t ? t.clientX : null, t ? t.clientY : null, true);
+      },{passive:true});
+      window.addEventListener('touchcancel',()=>{ if(navInteractionActive) cancelNavPreview(); },{passive:true});
+      window.addEventListener('mousemove',e=>{
+        if(!navInteractionActive || navPointerId!=='mouse') return;
+        updateNavDragFromPoint(e.clientX,e.clientY);
+      });
+      window.addEventListener('mouseup',e=>{
+        if(!navInteractionActive || navPointerId!=='mouse') return;
+        endNavInteraction(e.clientX,e.clientY,true);
       });
     }
     function preventMovementSectionScroll(e){if(document.body.classList.contains('movements-scroll-locked')) e.preventDefault()}
