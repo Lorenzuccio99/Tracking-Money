@@ -1327,13 +1327,14 @@
     function groupDrawerRowsByYear(items,renderRow,emptyText='Nessun periodo disponibile.'){
       if(!items.length) return `<div class="drawer-card"><p>${escapeHtml(emptyText)}</p></div>`;
       const grouped=new Map();
+      const currentYear=currentPeriod().labelYear;
       items.forEach(item=>{
         const year=item.labelYear || getPeriod(toDate(item.date)).labelYear;
         if(!grouped.has(year)) grouped.set(year,[]);
         grouped.get(year).push(item);
       });
       return [...grouped.entries()].sort((a,b)=>Number(b[0])-Number(a[0])).map(([year,rows])=>`
-        <details class="drawer-year" open>
+        <details class="drawer-year" ${Number(year)===Number(currentYear)?'open':''}>
           <summary><span>${year}</span><span class="pill blue">${rows.length}</span></summary>
           <div class="drawer-list">${rows.map(renderRow).join('')}</div>
         </details>`).join('');
@@ -1375,7 +1376,7 @@
       } else if(panel==='help'){
         box.innerHTML=`
           <div class="drawer-card help-hero">
-            <h3>Help interattivo</h3>
+            <h3>Help</h3>
             <p>Guida completa dell'app. Apri solo la sezione che ti serve o usa i collegamenti rapidi sotto.</p>
             <div class="help-grid">
               <button class="help-chip" onclick="setTab('home');closeSideMenu()">Home<small>Inserimento e riepilogo</small></button>
@@ -1455,19 +1456,19 @@
                 <p><b>Residuo Budget:</b> valore budget meno budget speso.</p>
                 <p><b>Non allocato:</b> quota delle entrate non assegnata a categorie budget.</p>
                 <p><b>Profili budget:</b> puoi crearli, rinominarli, applicarli ed eliminarli dalle Impostazioni.</p>
-                <div class="help-callout">Non puoi creare un profilo budget senza nome e non puoi inserire numeri nel nome di una categoria.</div>
+                <div class="help-callout">Non puoi creare un profilo budget senza nome. Nel nome categoria non puoi inserire numeri. Nel valore budget puoi inserire solo caratteri numerici.</div>
               </div>
             </details>
             <details>
               <summary>8. Menu rapido</summary>
               <div class="help-body">
                 <p><b>Riepilogo rapido:</b> lettura veloce del periodo.</p>
-                <p><b>Salvadanaio:</b> somma i saldi dei periodi. Se un periodo è negativo, viene sottratto dall’accumulato.</p>
-                <p><b>Mese corrente:</b> riporta al periodo attuale.</p>
-                <p><b>Categorie critiche:</b> mostra categorie sopra soglia o fuori budget.</p>
+                <p><b>Salvadanaio:</b> somma i saldi dei periodi. Se un periodo è negativo, viene sottratto dall’accumulato. I periodi sono divisi per anno: l’anno corrente resta aperto, gli anni passati restano chiusi.</p>
+                <p><b>Mese corrente:</b> quando lo premi ti porta direttamente nel periodo odierno e mostra il nome del periodo corrente al centro.</p>
+                <p><b>Categorie critiche:</b> mostra categorie sopra soglia o fuori budget. Puoi nascondere o mostrare la lista con il tasto dedicato.</p>
                 <p><b>Investimenti:</b> aggrega i movimenti della categoria Investimenti.</p>
-                <p><b>Archivio mesi:</b> apre periodi già registrati.</p>
-                <p><b>Punto interrogativo:</b> apre questa guida e resta sempre sotto il contenuto dell’accesso rapido aperto.</p>
+                <p><b>Archivio mesi:</b> apre periodi già registrati, divisi per anno. L’anno corrente resta aperto, gli anni passati restano chiusi.</p>
+                <p><b>Punto interrogativo:</b> apre questa guida e resta sempre sotto il contenuto dell’accesso rapido aperto, senza sovrapporsi alle liste.</p>
               </div>
             </details>
             <details>
@@ -1482,7 +1483,7 @@
             <details>
               <summary>10. Backup, import e PDF</summary>
               <div class="help-body">
-                <p><b>Backup Completo JSON:</b> salva movimenti, categorie, budget, profili e impostazioni.</p><p><b>Backup mensile:</b> alla fine del periodo l'app ti consiglia di scaricare un backup completo.</p>
+                <p><b>Backup Completo JSON:</b> salva movimenti, categorie, budget, profili e impostazioni.</p><p><b>Backup mensile:</b> alla fine del periodo l'app ti chiede se vuoi scaricare subito un backup completo. Con “Sì” scarica il JSON, con “No” chiude il popup.</p>
                 <p><b>Importa Backup:</b> ripristina un backup precedente mantenendo personalizzazioni e dati.</p>
                 <p><b>Esporta PDF:</b> genera un report ordinato del periodo scelto, incluso quello in corso.</p>
                 <div class="help-callout">Non caricare mai backup JSON reali su GitHub pubblico: contengono dati personali.</div>
