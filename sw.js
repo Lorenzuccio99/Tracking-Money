@@ -1,4 +1,4 @@
-const CACHE_NAME = 'app-tracking-spese-v44-offline-first';
+const CACHE_NAME = 'app-tracking-spese-v46-offline-first';
 const APP_SHELL = [
   './',
   './index.html',
