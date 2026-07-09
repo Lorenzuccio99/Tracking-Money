@@ -59,3 +59,14 @@ Versione v50:
 - Aggiunta lente dinamica con glow cromatico.
 - La lente cambia posizione e dimensione mentre trascini il dito tra i pulsanti.
 - Selezione confermata solo al rilascio del dito.
+
+
+Versione v51:
+- Corretto artefatto rettangolare visibile durante la pressione/trascinamento della barra liquid glass.
+- Durante il drag resta visibile solo la lente premium, con maschera arrotondata.
+
+
+Versione v52:
+- Bloccato menu copia/incolla/selezione testo sulla barra liquid glass.
+- Disattivati context menu, selectstart, copy, cut, paste e dragstart sulla navigazione inferiore.
+- Disattivato il callout iOS sulla liquid glass.
