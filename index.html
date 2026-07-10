@@ -540,7 +540,7 @@
           <button class="icon-btn" id="menuBtn" aria-label="Menu">☰</button>
           <div class="title">
             <h1>APP Tracking Spese</h1>
-            <p>Lorenzo Vizzini</p>
+            <p>Giuseppe Busalacchi</p>
           </div>
           <button class="icon-btn" id="settingsBtn" aria-label="Impostazioni">⚙</button>
         </div>
@@ -1411,7 +1411,7 @@
               <summary>2. Mese finanziario</summary>
               <div class="help-body">
                 <p>Il periodo non segue per forza il mese solare. L'app usa un <b>mese finanziario</b> basato sul ciclo stipendio. Il giorno di avvio di un nuovo periodo viene considerato solo nel nuovo periodo, mai anche nel precedente.</p>
-                <p>La regola base considera il 27 come riferimento. Se il 27 cade di sabato, domenica o festivo italiano, il giorno utile viene anticipato.</p>
+                <p>La regola base considera l'8 come riferimento. Se l'8 cade di sabato, domenica o festivo italiano, il giorno utile viene anticipato all'ultimo giorno lavorativo precedente.</p>
                 <ul class="help-list">
                   <li><b>Freccia sinistra/destra:</b> cambia periodo.</li>
                   <li><b>Archivio mesi:</b> apre un periodo già registrato.</li>
@@ -1595,14 +1595,14 @@
     }
     function isNonWorkingDay(d){return d.getDay()===0 || d.getDay()===6 || isItalianHoliday(d)}
     function payday(year,monthIndex){
-      let d=new Date(year,monthIndex,27);
+      let d=new Date(year,monthIndex,8);
       while(isNonWorkingDay(d)) d=addDays(d,-1);
       return d;
     }
     function periodForLabel(year,monthIndex){
-      const start=payday(year,monthIndex-1);
-      const currentPayday=payday(year,monthIndex);
-      const end=addDays(currentPayday,-1);
+      const start=payday(year,monthIndex);
+      const nextPayday=payday(year,monthIndex+1);
+      const end=addDays(nextPayday,-1);
       return {
         start,end,
         labelMonth:monthIndex,
