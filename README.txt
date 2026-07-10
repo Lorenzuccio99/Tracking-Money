@@ -84,3 +84,10 @@ Versione v55:
 - Confermata base Lorenzo Vizzini.
 - Confermata logica periodo con stipendio giorno 27.
 - Mantiene bugfix v54: Movimenti arrotondato, zoom bloccato, scroll overlay corretto, apertura sempre Home.
+
+
+Versione v56:
+- Corretta la larghezza delle barre nella sezione Analisi → Spesa per categoria.
+- Ogni barra ora viene calcolata rispetto al budget massimo della propria categoria.
+- La correzione si applica a tutte le categorie.
+- Le categorie con budget 0 e spesa superiore a 0 risultano completamente fuori budget.

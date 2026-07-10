@@ -3,7 +3,7 @@
   "short_name": "Spese",
   "description": "App personale offline per il tracking delle spese mensili.",
   "lang": "it",
-  "start_url": "./index.html?v=55",
+  "start_url": "./index.html?v=56",
   "scope": "./",
   "display": "standalone",
   "background_color": "#f7f8ff",
