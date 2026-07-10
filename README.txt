@@ -49,17 +49,38 @@ Nota:
 - I dati restano locali sul dispositivo. Esegui spesso Backup Completo JSON.
 
 
-Versione v48:
-- Personalizzazione intestazione: Giuseppe Busalacchi.
-- Periodo finanziario adattato allo stipendio dell'8 del mese.
-- Se l'8 cade di sabato, domenica o festivo italiano, l'inizio periodo viene anticipato all'ultimo giorno lavorativo precedente.
-- Il giorno di inizio nuovo periodo è conteggiato solo nel nuovo periodo.
+Versione v49:
+- Effetto liquid glass migliorato nella barra di navigazione inferiore.
+- Tenendo il dito premuto su un pulsante e trascinando verso un altro, l'anteprima segue il dito e seleziona la sezione solo al rilascio.
 
 
-Versione v53:
-- Base v48: Giuseppe Busalacchi + stipendio giorno 8.
-- Applicate le modifiche liquid glass premium delle versioni successive.
-- Drag live tra pulsanti della barra inferiore.
-- Lente premium con glow cromatico e riflesso animato.
-- Rimosso l'artefatto rettangolare durante la pressione.
-- Bloccati copia/incolla, selezione e callout iOS sulla barra liquid glass.
+Versione v50:
+- Effetto liquid glass premium nella barra inferiore.
+- Aggiunta lente dinamica con glow cromatico.
+- La lente cambia posizione e dimensione mentre trascini il dito tra i pulsanti.
+- Selezione confermata solo al rilascio del dito.
+
+
+Versione v51:
+- Corretto artefatto rettangolare visibile durante la pressione/trascinamento della barra liquid glass.
+- Durante il drag resta visibile solo la lente premium, con maschera arrotondata.
+
+
+Versione v52:
+- Bloccato menu copia/incolla/selezione testo sulla barra liquid glass.
+- Disattivati context menu, selectstart, copy, cut, paste e dragstart sulla navigazione inferiore.
+- Disattivato il callout iOS sulla liquid glass.
+
+
+Versione v54:
+- Corretto riquadro Movimenti con maschera arrotondata e anti-spigoli.
+- Bloccati zoom, riduzione zoom, pinch, gesture iOS e doppio tap.
+- Corretto bug scroll su menu rapido e impostazioni quando la sezione Movimenti era bloccata.
+- All'apertura l'app parte sempre dalla Home.
+
+
+Versione v55:
+- Cache reset della v54.
+- Confermata base Lorenzo Vizzini.
+- Confermata logica periodo con stipendio giorno 27.
+- Mantiene bugfix v54: Movimenti arrotondato, zoom bloccato, scroll overlay corretto, apertura sempre Home.

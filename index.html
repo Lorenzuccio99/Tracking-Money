@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover" />
   <title>APP Tracking Spese</title>
   <meta name="theme-color" content="#eef2ff" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -107,10 +107,12 @@
     #dashboardStats .stat.stat-saldo .stat-foot{margin-top:4px}
 
     #movements.view.active{min-height:calc(100dvh - 250px)}
-    #movements .mov-budget-grid{padding-bottom:calc(var(--navH) + env(safe-area-inset-bottom) + 90px)}
-    body.movements-scroll-locked{height:100dvh;overflow:hidden;overscroll-behavior:none;touch-action:none}
+    #movements .mov-budget-grid{padding-bottom:calc(var(--navH) + env(safe-area-inset-bottom) + 90px);border-radius:26px;overflow:visible}
+    #movements .mov-budget-grid > .card{border-radius:26px!important;overflow:hidden;clip-path:inset(0 round 26px);-webkit-mask-image:-webkit-radial-gradient(white,black);contain:paint;isolation:isolate}
+    body.movements-scroll-locked{height:100dvh;overflow:hidden;overscroll-behavior:none}
     body.movements-scroll-locked #movements.view.active{min-height:auto;overflow:hidden}
     body.movements-scroll-locked #movements .mov-budget-grid{padding-bottom:0}
+    #sideMenu.open .side-drawer,#settingsModal.open .settings-sheet{-webkit-overflow-scrolling:touch;overscroll-behavior:contain;touch-action:pan-y!important}
     .filters{display:grid;grid-template-columns:1.4fr .8fr 1fr .8fr;gap:10px}.collapse-btn{width:100%;height:48px;border:0;border-radius:15px;background:linear-gradient(135deg,rgba(232,236,255,.92),rgba(255,255,255,.72));color:#2447b7;font-weight:850;margin-top:12px;display:flex;align-items:center;justify-content:center;gap:8px}.movement-list{display:grid;gap:14px;margin-top:18px}.move-card{display:grid;grid-template-columns:42px minmax(0,1fr) auto;grid-template-areas:"sign main amount" "sign main actions";gap:10px 12px;align-items:center;padding:14px;border-radius:20px;background:rgba(255,255,255,.64);box-shadow:inset 0 0 0 1px rgba(15,23,42,.07),0 10px 24px rgba(44,51,92,.05)}.move-card.entrata{background:linear-gradient(135deg,rgba(235,255,240,.82),rgba(255,255,255,.58))}.move-card.uscita{background:linear-gradient(135deg,rgba(255,238,235,.86),rgba(255,255,255,.58))}.move-sign{grid-area:sign;width:42px;height:42px;border-radius:16px;display:grid;place-items:center;font-size:20px;font-weight:950;background:rgba(255,255,255,.66);box-shadow:inset 0 0 0 1px rgba(15,23,42,.06)}.move-main{grid-area:main;min-width:0}.move-top{display:flex;align-items:center;gap:8px;min-width:0}.move-card h3{font-size:15px;margin:0;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.move-card p{margin:5px 0 0;color:var(--muted);font-size:12px;font-weight:700;line-height:1.25}.move-card small{display:block;margin-top:4px;color:#475467;font-size:12px;font-weight:850}.move-amount{grid-area:amount;text-align:right;font-size:18px;font-weight:950;letter-spacing:-.035em;white-space:nowrap}.move-actions{grid-area:actions;display:flex;gap:8px;justify-content:flex-end}.move-actions .secondary,.move-actions .danger{height:36px;border-radius:13px;padding:0 12px;font-size:12px}.amount{font-weight:950;letter-spacing:-.02em}.pill{display:inline-flex;align-items:center;justify-content:center;padding:7px 10px;border-radius:999px;font-size:12px;font-weight:900}.pill.ok{background:#dcfce7;color:#166534}.pill.ko{background:#fee2e2;color:#991b1b}.pill.blue{background:#eef4ff;color:#2447b7}.pill.orange{background:#fff7ed;color:#c2410c}.budget-list{display:grid;gap:14px;margin-top:18px}.budget-row{padding:15px;border-radius:19px;background:rgba(255,255,255,.68);box-shadow:inset 0 0 0 1px rgba(15,23,42,.07)}.budget-row.out{background:linear-gradient(135deg,rgba(255,238,235,.92),rgba(255,255,255,.60));box-shadow:inset 0 0 0 1px rgba(217,45,32,.34)}.budget-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.budget-name{font-size:16px;font-weight:900}.budget-meta{color:var(--muted);font-size:13px;font-weight:700;margin-top:4px}.bar{height:11px;background:rgba(15,23,42,.08);border-radius:99px;overflow:hidden;margin-top:13px}.bar i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#111827,#1d2a44);width:0}.budget-row.out .bar i{background:linear-gradient(90deg,#b42318,#ef4444)}.amount-line{display:flex;gap:18px;flex-wrap:wrap;margin-top:8px;color:#475467;font-weight:700}.amount-line b{color:var(--red)}.amount-line .res b{color:var(--green)}
     details{margin-top:18px}summary{list-style:none;user-select:none}summary::-webkit-details-marker{display:none}.detail-summary{height:48px;border-radius:15px;background:linear-gradient(135deg,rgba(232,236,255,.92),rgba(255,255,255,.72));color:#2447b7;font-weight:850;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:inset 0 0 0 1px rgba(47,91,255,.08)}
     .category-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px;align-items:start}
@@ -540,7 +542,7 @@
           <button class="icon-btn" id="menuBtn" aria-label="Menu">☰</button>
           <div class="title">
             <h1>APP Tracking Spese</h1>
-            <p>Giuseppe Busalacchi</p>
+            <p>Lorenzo Vizzini</p>
           </div>
           <button class="icon-btn" id="settingsBtn" aria-label="Impostazioni">⚙</button>
         </div>
@@ -933,7 +935,7 @@
     });
 
     let state = loadState();
-    let activeTab = (state && state.activeTab) ? state.activeTab : 'home';
+    let activeTab = 'home';
     applyTheme(state.theme || 'light');
     let scrollTimer = null;
 
@@ -1334,8 +1336,8 @@
     function closePdfExportModal(){const modal=document.getElementById('pdfExportModal'); modal.classList.remove('open'); modal.setAttribute('aria-hidden','true')}
     function confirmPdfExport(){const select=document.getElementById('pdfPeriodSelect'); const p=(select._periods||[])[Number(select.value)||0]; closePdfExportModal(); exportCurrentPeriodPdf(p||currentPeriod())}
 
-    function openSideMenu(panel='quick'){const m=document.getElementById('sideMenu');m.classList.add('open');m.setAttribute('aria-hidden','false');renderDrawerContent(panel)}
-    function closeSideMenu(){const m=document.getElementById('sideMenu');m.classList.remove('open');m.setAttribute('aria-hidden','true')}
+    function openSideMenu(panel='quick'){document.body.classList.remove('movements-scroll-locked');const m=document.getElementById('sideMenu');m.classList.add('open');m.setAttribute('aria-hidden','false');renderDrawerContent(panel)}
+    function closeSideMenu(){const m=document.getElementById('sideMenu');m.classList.remove('open');m.setAttribute('aria-hidden','true');syncMovementScrollLock()}
     function setDrawerActive(panel){document.querySelectorAll('.drawer-menu-item').forEach(b=>b.classList.toggle('active',b.dataset.panel===panel))}
     function groupDrawerRowsByYear(items,renderRow,emptyText='Nessun periodo disponibile.'){
       if(!items.length) return `<div class="drawer-card"><p>${escapeHtml(emptyText)}</p></div>`;
@@ -1411,7 +1413,7 @@
               <summary>2. Mese finanziario</summary>
               <div class="help-body">
                 <p>Il periodo non segue per forza il mese solare. L'app usa un <b>mese finanziario</b> basato sul ciclo stipendio. Il giorno di avvio di un nuovo periodo viene considerato solo nel nuovo periodo, mai anche nel precedente.</p>
-                <p>La regola base considera l'8 come riferimento. Se l'8 cade di sabato, domenica o festivo italiano, il giorno utile viene anticipato all'ultimo giorno lavorativo precedente.</p>
+                <p>La regola base considera il 27 come riferimento. Se il 27 cade di sabato, domenica o festivo italiano, il giorno utile viene anticipato.</p>
                 <ul class="help-list">
                   <li><b>Freccia sinistra/destra:</b> cambia periodo.</li>
                   <li><b>Archivio mesi:</b> apre un periodo già registrato.</li>
@@ -1595,14 +1597,14 @@
     }
     function isNonWorkingDay(d){return d.getDay()===0 || d.getDay()===6 || isItalianHoliday(d)}
     function payday(year,monthIndex){
-      let d=new Date(year,monthIndex,8);
+      let d=new Date(year,monthIndex,27);
       while(isNonWorkingDay(d)) d=addDays(d,-1);
       return d;
     }
     function periodForLabel(year,monthIndex){
-      const start=payday(year,monthIndex);
-      const nextPayday=payday(year,monthIndex+1);
-      const end=addDays(nextPayday,-1);
+      const start=payday(year,monthIndex-1);
+      const currentPayday=payday(year,monthIndex);
+      const end=addDays(currentPayday,-1);
       return {
         start,end,
         labelMonth:monthIndex,
@@ -1838,8 +1840,11 @@
         if(homeBtn) homeBtn.classList.remove('previewed');
       }
     }
+    function isAnyOverlayOpen(){
+      return !!document.querySelector('#sideMenu.open,#settingsModal.open,#messageModal.open,#wipeAllModal.open,#categoryReplaceModal.open,#pdfExportModal.open,#monthlyBackupModal.open');
+    }
     function syncMovementScrollLock(){
-      const locked=activeTab==='movements' && !state.movementsOpen;
+      const locked=activeTab==='movements' && !state.movementsOpen && !isAnyOverlayOpen();
       document.body.classList.toggle('movements-scroll-locked',locked);
       if(locked) window.scrollTo({top:0,left:0,behavior:'auto'});
     }
@@ -2287,7 +2292,11 @@
         endNavInteraction(e.clientX,e.clientY,true);
       });
     }
-    function preventMovementSectionScroll(e){if(document.body.classList.contains('movements-scroll-locked')) e.preventDefault()}
+    function preventMovementSectionScroll(e){
+      if(!document.body.classList.contains('movements-scroll-locked')) return;
+      if(e.target.closest('.side-drawer,#settingsModal .settings-sheet,.modal-backdrop.open')) return;
+      e.preventDefault();
+    }
     window.addEventListener('wheel',preventMovementSectionScroll,{passive:false});
     window.addEventListener('touchmove',preventMovementSectionScroll,{passive:false});
     const bottomNavEl=document.getElementById('bottomNav');
@@ -2296,14 +2305,19 @@
     });
     bottomNavEl.addEventListener('touchstart',e=>{if(e.target.closest('.nav-item,.nav-home-btn')) e.preventDefault()},{passive:false});
     window.addEventListener('blur',cancelNavPreview);
+    ['gesturestart','gesturechange','gestureend'].forEach(evt=>{
+      document.addEventListener(evt,e=>e.preventDefault(),{passive:false});
+    });
+    document.addEventListener('wheel',e=>{if(e.ctrlKey)e.preventDefault()},{passive:false});
+    document.addEventListener('dblclick',e=>e.preventDefault(),{passive:false});
     document.getElementById('menuBtn').addEventListener('click',()=>openSideMenu('quick'));
     document.getElementById('sideMenuClose').addEventListener('click',closeSideMenu);
     document.getElementById('sideMenu').addEventListener('click',e=>{if(e.target.id==='sideMenu')closeSideMenu()});
     document.getElementById('drawerHelpFab').addEventListener('click',()=>renderDrawerContent('help'));
     document.querySelectorAll('.drawer-menu-item').forEach(b=>b.addEventListener('click',()=>{if(b.dataset.panel==='current'){goToCurrentMonth(false);renderDrawerContent('current');return}renderDrawerContent(b.dataset.panel)}));
     const settingsModal=document.getElementById('settingsModal');
-    function openSettings(){syncSettingsControls();settingsModal.classList.add('open');settingsModal.setAttribute('aria-hidden','false')}
-    function closeSettings(){settingsModal.classList.remove('open');settingsModal.setAttribute('aria-hidden','true')}
+    function openSettings(){document.body.classList.remove('movements-scroll-locked');syncSettingsControls();settingsModal.classList.add('open');settingsModal.setAttribute('aria-hidden','false')}
+    function closeSettings(){settingsModal.classList.remove('open');settingsModal.setAttribute('aria-hidden','true');syncMovementScrollLock()}
     document.getElementById('settingsBtn').addEventListener('click',openSettings);
     document.getElementById('settingsBack').addEventListener('click',closeSettings);
     const settingsCloseBtn=document.getElementById('settingsClose');if(settingsCloseBtn)settingsCloseBtn.addEventListener('click',closeSettings);
@@ -2344,7 +2358,10 @@
     updateCategoryDetailsLabel();
     resetHomeDefaults(true);
     syncSettingsControls();
-    setTab(activeTab,false);
+    activeTab='home';
+    state.activeTab='home';
+    saveState();
+    setTab('home',false);
     checkMonthlyBackupReminder();
     /* PIN rimosso */
   </script>
