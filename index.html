@@ -2370,12 +2370,39 @@
 
   <script>
     if ('serviceWorker' in navigator) {
-      window.addEventListener('load', async () => {
+      (async () => {
+        const hadController = Boolean(navigator.serviceWorker.controller);
+        let firstControlReloaded = false;
+
+        if (!hadController) {
+          navigator.serviceWorker.addEventListener('controllerchange', () => {
+            if (firstControlReloaded) return;
+            firstControlReloaded = true;
+            if (!sessionStorage.getItem('tracking-sw-first-control-v57')) {
+              sessionStorage.setItem('tracking-sw-first-control-v57', '1');
+              location.reload();
+            }
+          });
+        }
+
         try {
-          const registration = await navigator.serviceWorker.register('./sw.js', { scope: './' });
-          registration.update();
-        } catch (error) {}
-      });
+          const registration = await navigator.serviceWorker.register('./sw.js', {
+            scope: './',
+            updateViaCache: 'none'
+          });
+          await registration.update();
+          await navigator.serviceWorker.ready;
+
+          if (!localStorage.getItem('tracking-offline-ready-v57')) {
+            localStorage.setItem('tracking-offline-ready-v57', '1');
+            if (typeof showToast === 'function') showToast('App pronta anche senza connessione');
+          }
+        } catch (error) {
+          if (typeof showToast === 'function' && navigator.onLine) {
+            showToast('Installazione modalità offline non completata');
+          }
+        }
+      })();
     }
     window.addEventListener('offline', () => {
       if (typeof showToast === 'function') showToast('Modalità offline attiva');

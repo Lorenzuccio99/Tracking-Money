@@ -91,3 +91,12 @@ Versione v56:
 - Ogni barra ora viene calcolata rispetto al budget massimo della propria categoria.
 - La correzione si applica a tutte le categorie.
 - Le categorie con budget 0 e spesa superiore a 0 risultano completamente fuori budget.
+
+
+Versione v57:
+- Navigazione realmente cache-first: l'app apre prima la copia offline e aggiorna in background.
+- Start URL stabile senza query di versione.
+- Cache dell'HTML principale obbligatoria e cache delle altre risorse indipendente.
+- Un file secondario mancante non annulla più tutta l'installazione offline.
+- Registrazione del service worker immediata, senza attendere il caricamento completo della pagina.
+- Primo controllo automatico e messaggio “App pronta anche senza connessione”.
