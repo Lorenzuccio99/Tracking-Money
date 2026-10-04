@@ -812,6 +812,126 @@
       body:not(.dark-mode):before,body:not(.dark-mode):after{animation:none!important}
     }
 
+
+    /* ===== v60 PREMIUM PLUS ===== */
+
+    /* Transizioni tra sezioni più iOS-like */
+    .view.active{animation:none!important}
+    .view.view-enter-forward{animation:iosViewForward .34s cubic-bezier(.22,.9,.24,1) both!important}
+    .view.view-enter-back{animation:iosViewBack .34s cubic-bezier(.22,.9,.24,1) both!important}
+    @keyframes iosViewForward{
+      from{opacity:0;transform:translate3d(14px,5px,0) scale(.994);filter:blur(2px)}
+      to{opacity:1;transform:translate3d(0,0,0) scale(1);filter:blur(0)}
+    }
+    @keyframes iosViewBack{
+      from{opacity:0;transform:translate3d(-14px,5px,0) scale(.994);filter:blur(2px)}
+      to{opacity:1;transform:translate3d(0,0,0) scale(1);filter:blur(0)}
+    }
+
+    /* Micro pressione card: il vetro "cede" leggermente */
+    .card{transition:transform .22s cubic-bezier(.2,.8,.2,1),box-shadow .22s ease,border-color .22s ease}
+    .card.premium-card-pressed{
+      transform:translateY(1.5px) scale(.997);
+      box-shadow:0 10px 30px rgba(47,64,110,.08),inset 0 1px 0 rgba(255,255,255,.74)!important;
+    }
+
+    /* Movimenti: azioni titolo */
+    .movement-card-title{align-items:center!important}
+    .movement-title-actions{display:flex;align-items:center;justify-content:flex-end;gap:10px;flex-wrap:wrap}
+    .movement-calc-btn{
+      height:34px;padding:0 13px;border:1px solid rgba(255,255,255,.82);border-radius:999px;
+      background:linear-gradient(145deg,rgba(255,255,255,.62),rgba(238,245,255,.28));
+      color:#2f68f6;font-size:12px;font-weight:850;letter-spacing:-.01em;
+      box-shadow:0 8px 20px rgba(47,91,255,.08),inset 0 1px 0 rgba(255,255,255,.92);
+      backdrop-filter:blur(22px) saturate(175%);-webkit-backdrop-filter:blur(22px) saturate(175%);
+      -webkit-tap-highlight-color:transparent;
+      transition:transform .16s ease,background .18s ease,box-shadow .18s ease;
+    }
+    .movement-calc-btn:active{transform:scale(.96)}
+    .movement-calc-btn.active{
+      color:#fff;border-color:rgba(47,104,246,.42);
+      background:linear-gradient(135deg,#4b82ff,#665cf6);
+      box-shadow:0 10px 24px rgba(47,91,255,.22),inset 0 1px 0 rgba(255,255,255,.32);
+    }
+
+    /* Toolbar di somma selettiva */
+    .expense-selection-toolbar{
+      margin-top:12px;padding:12px 13px;border-radius:20px;
+      display:flex;align-items:center;justify-content:space-between;gap:12px;
+      background:linear-gradient(145deg,rgba(255,255,255,.70),rgba(236,244,255,.34));
+      border:1px solid rgba(255,255,255,.88);
+      box-shadow:0 14px 32px rgba(42,61,110,.09),inset 0 1px 0 rgba(255,255,255,.95);
+      backdrop-filter:blur(26px) saturate(180%);-webkit-backdrop-filter:blur(26px) saturate(180%);
+      animation:selectionToolbarIn .25s cubic-bezier(.2,.9,.2,1) both;
+    }
+    .expense-selection-toolbar[hidden]{display:none!important}
+    @keyframes selectionToolbarIn{from{opacity:0;transform:translateY(-5px) scale(.985)}to{opacity:1;transform:none}}
+    .expense-selection-copy{min-width:0}
+    .expense-selection-copy strong{display:block;font-size:13px;color:#172033}
+    .expense-selection-copy small{display:block;margin-top:3px;color:#667085;font-size:11px;font-weight:700}
+    .expense-selection-actions{display:flex;gap:7px;flex:0 0 auto}
+    .expense-selection-cancel,.expense-selection-total{
+      height:34px;border-radius:13px;padding:0 12px;font-size:12px;font-weight:850;border:0;
+    }
+    .expense-selection-cancel{background:rgba(255,255,255,.64);color:#475467;box-shadow:inset 0 0 0 1px rgba(15,23,42,.08)}
+    .expense-selection-total{background:linear-gradient(135deg,#3478f6,#675cf6);color:#fff;box-shadow:0 8px 18px rgba(52,120,246,.20)}
+    .expense-selection-total:disabled{opacity:.42;box-shadow:none}
+
+    /* Selezione delle uscite direttamente sulle card */
+    #movements.expense-selection-mode .move-actions{display:none!important}
+    #movements.expense-selection-mode .move-card{cursor:pointer;position:relative;transition:transform .16s ease,box-shadow .18s ease,background .18s ease,opacity .18s ease}
+    #movements.expense-selection-mode .move-card.uscita:active{transform:scale(.985)}
+    #movements.expense-selection-mode .move-card.uscita.selected{
+      background:linear-gradient(135deg,rgba(231,242,255,.90),rgba(243,239,255,.74))!important;
+      box-shadow:inset 0 0 0 1.5px rgba(52,120,246,.48),0 12px 28px rgba(52,120,246,.10)!important;
+    }
+    #movements.expense-selection-mode .move-card.entrata{
+      opacity:.42;filter:saturate(.70);pointer-events:auto;
+    }
+    #movements.expense-selection-mode .move-card.uscita .move-sign{
+      color:#3478f6!important;background:rgba(255,255,255,.72)!important;
+      box-shadow:inset 0 0 0 1px rgba(52,120,246,.18),0 7px 18px rgba(52,120,246,.08);
+    }
+    .expense-check{font-size:19px;font-weight:950;line-height:1}
+    .move-card.selected .expense-check{
+      width:25px;height:25px;border-radius:50%;display:grid;place-items:center;
+      color:#fff;background:linear-gradient(135deg,#3478f6,#655cf6);
+      box-shadow:0 6px 14px rgba(52,120,246,.28);
+    }
+
+    /* Nuvoletta categorie */
+    .category-chart-wrap{position:relative;overflow:visible!important}
+    .category-cloud-tooltip{min-width:138px}
+    #categoryCanvas{cursor:pointer}
+
+    /* Rende le nuvolette più "glass" */
+    .chart-cloud-tooltip{
+      box-shadow:0 18px 44px rgba(38,53,96,.17),0 0 0 1px rgba(255,255,255,.30),inset 0 1px 0 rgba(255,255,255,1)!important;
+    }
+
+    body.dark-mode .movement-calc-btn,
+    body.dark-mode .expense-selection-toolbar{
+      background:linear-gradient(145deg,rgba(41,48,70,.80),rgba(28,34,52,.56));
+      border-color:rgba(255,255,255,.10);
+    }
+    body.dark-mode .expense-selection-copy strong{color:#eef2ff}
+    body.dark-mode .expense-selection-copy small{color:#aab5cf}
+
+    @media(max-width:560px){
+      .movement-card-title{align-items:flex-start!important}
+      .movement-title-actions{gap:7px}
+      .movement-calc-btn{height:32px;padding:0 10px;font-size:11px}
+      #resetFilters{font-size:12px!important}
+      .expense-selection-toolbar{align-items:stretch;flex-direction:column}
+      .expense-selection-actions{width:100%}
+      .expense-selection-cancel,.expense-selection-total{flex:1}
+    }
+
+    @media(prefers-reduced-motion:reduce){
+      .view.view-enter-forward,.view.view-enter-back,.expense-selection-toolbar{animation:none!important}
+      .card{transition:none!important}
+    }
+
 </style>
 </head>
 <body>
@@ -874,7 +994,10 @@
           </article>
           <article class="card chart-card category-chart-card">
             <div class="card-title"><h2>Spesa per categoria</h2><div class="legend"><span><i class="dot green"></i>Dentro budget</span><span><i class="dot red"></i>Fuori budget</span></div></div>
-            <div class="chart-wrap"><canvas id="categoryCanvas"></canvas></div>
+            <div class="chart-wrap category-chart-wrap">
+              <canvas id="categoryCanvas"></canvas>
+              <div class="chart-cloud-tooltip category-cloud-tooltip" id="categoryChartTooltip" role="status" aria-live="polite"></div>
+            </div>
             <div class="info-note"><span class="info-badge">i</span><span>Le categorie in rosso hanno superato il budget assegnato.</span></div>
           </article>
         </div>
@@ -890,7 +1013,13 @@
       <section class="view" id="movements" data-title="Movimenti">
         <div class="mov-budget-grid">
           <article class="card card-pad full">
-            <div class="card-title"><h2>Movimenti</h2><button class="ghost" id="resetFilters">Reset filtri</button></div>
+            <div class="card-title movement-card-title">
+              <h2>Movimenti</h2>
+              <div class="movement-title-actions">
+                <button class="movement-calc-btn" id="movementCalcBtn" type="button">Calcola spese</button>
+                <button class="ghost" id="resetFilters" type="button">Reset filtri</button>
+              </div>
+            </div>
             <div class="filters">
               <input class="input" id="searchMov" placeholder="Cerca movimento..." />
               <select class="select" id="filterType"><option value="all">Tutti i tipi</option><option value="entrata">Entrate</option><option value="uscita">Uscite</option></select>
@@ -898,6 +1027,16 @@
               <select class="select" id="sortMov"><option value="recent">Più recenti</option><option value="oldest">Meno recenti</option><option value="high">Importo alto</option><option value="low">Importo basso</option></select>
             </div>
             <button class="collapse-btn" id="toggleMovements">Mostra movimenti ▾</button>
+            <div class="expense-selection-toolbar" id="expenseSelectionToolbar" hidden>
+              <div class="expense-selection-copy">
+                <strong id="expenseSelectionCount">0 spese selezionate</strong>
+                <small id="expenseSelectionSum">Totale provvisorio: 0,00 €</small>
+              </div>
+              <div class="expense-selection-actions">
+                <button class="expense-selection-cancel" id="expenseSelectionCancel" type="button">Annulla</button>
+                <button class="expense-selection-total" id="expenseSelectionTotal" type="button">Totale</button>
+              </div>
+            </div>
             <div class="movement-list" id="movementList" style="display:none"></div>
           </article>
         </div>
@@ -1767,6 +1906,7 @@
                 <p><b>Investimenti:</b> aggrega i movimenti della categoria Investimenti.</p>
                 <p><b>Archivio mesi:</b> apre periodi già registrati, divisi per anno. L’anno corrente resta aperto, gli anni passati restano chiusi.</p>
                 <p><b>Punto interrogativo:</b> apre questa guida e resta sempre sotto il contenuto dell’accesso rapido aperto, senza sovrapporsi alle liste.</p>
+                <p><b>Calcola spese:</b> nella sezione Movimenti attiva una selezione temporanea delle sole uscite. Tocca le spese che vuoi sommare e premi “Totale” per visualizzare l’importo complessivo in un popup dell’app.</p>
               </div>
             </details>
             <details>
@@ -2013,7 +2153,93 @@
           <div class="bar"><i style="width:${Math.min(100,r.pct)}%"></i></div>
         </div>`).join('') || '<div class="empty">Nessuna categoria budget.</div>';
     }
+    let movementSelectionMode=false;
+    const selectedExpenseIds=new Set();
+    let movementSelectionPeriodKey='';
+
+    function currentMovementSelectionPeriodKey(){
+      const p=currentPeriod();
+      return `${dateKey(p.start)}|${dateKey(p.end)}`;
+    }
+    function ensureMovementSelectionContext(){
+      const key=currentMovementSelectionPeriodKey();
+      if(movementSelectionPeriodKey!==key){
+        movementSelectionPeriodKey=key;
+        selectedExpenseIds.clear();
+        movementSelectionMode=false;
+      }
+    }
+    function selectedExpenseMovements(){
+      return state.movements.filter(m=>selectedExpenseIds.has(m.id)&&m.type==='uscita');
+    }
+    function selectedExpenseTotal(){
+      return selectedExpenseMovements().reduce((sum,m)=>sum+(Number(m.amount)||0),0);
+    }
+    function updateExpenseSelectionUI(){
+      const section=document.getElementById('movements');
+      const toolbar=document.getElementById('expenseSelectionToolbar');
+      const btn=document.getElementById('movementCalcBtn');
+      const count=document.getElementById('expenseSelectionCount');
+      const sumEl=document.getElementById('expenseSelectionSum');
+      const totalBtn=document.getElementById('expenseSelectionTotal');
+      if(section) section.classList.toggle('expense-selection-mode',movementSelectionMode);
+      if(toolbar) toolbar.hidden=!movementSelectionMode;
+      if(btn){
+        btn.classList.toggle('active',movementSelectionMode);
+        btn.textContent=movementSelectionMode?'Selezione attiva':'Calcola spese';
+      }
+      const selected=selectedExpenseMovements();
+      if(count) count.textContent=`${selected.length} ${selected.length===1?'spesa selezionata':'spese selezionate'}`;
+      if(sumEl) sumEl.textContent=`Totale provvisorio: ${fmt.format(selectedExpenseTotal())}`;
+      if(totalBtn) totalBtn.disabled=selected.length===0;
+    }
+    function startMovementExpenseSelection(){
+      ensureMovementSelectionContext();
+      movementSelectionMode=true;
+      selectedExpenseIds.clear();
+      state.movementsOpen=true;
+      saveState();
+      renderMovements();
+      showToast('Tocca le uscite che vuoi sommare');
+    }
+    function cancelMovementExpenseSelection(){
+      movementSelectionMode=false;
+      selectedExpenseIds.clear();
+      renderMovements();
+    }
+    function toggleMovementExpenseSelectionMode(){
+      if(movementSelectionMode) cancelMovementExpenseSelection();
+      else startMovementExpenseSelection();
+    }
+    function toggleMovementExpenseSelection(id,event){
+      if(!movementSelectionMode) return;
+      if(event && event.target.closest('button')) return;
+      const movement=state.movements.find(m=>m.id===id);
+      if(!movement) return;
+      if(movement.type!=='uscita'){
+        showToast('Per il totale spese puoi selezionare solo le uscite');
+        return;
+      }
+      if(selectedExpenseIds.has(id)) selectedExpenseIds.delete(id);
+      else selectedExpenseIds.add(id);
+      renderMovements();
+    }
+    function confirmSelectedExpenseTotal(){
+      const selected=selectedExpenseMovements();
+      if(!selected.length){
+        showAppPopup('Seleziona almeno una spesa da sommare.');
+        return;
+      }
+      const total=selectedExpenseTotal();
+      const count=selected.length;
+      movementSelectionMode=false;
+      selectedExpenseIds.clear();
+      renderMovements();
+      showAppPopup(`Hai speso ${fmt.format(total)} nelle ${count} ${count===1?'spesa selezionata':'spese selezionate'}.`);
+    }
+
     function renderMovements(){
+      ensureMovementSelectionContext();
       const q=document.getElementById('searchMov').value.toLowerCase().trim();
       const ft=document.getElementById('filterType').value;
       const fc=document.getElementById('filterCategory').value;
@@ -2031,8 +2257,13 @@
       syncMovementScrollLock();
       box.innerHTML=ms.map(m=>{
         const isIncome=m.type==='entrata';
-        return `<div class="move-card ${isIncome?'entrata':'uscita'}">
-          <div class="move-sign ${isIncome?'greenText':'redText'}">${isIncome?'↗':'↘'}</div>
+        const selected=selectedExpenseIds.has(m.id);
+        const selectionSign=movementSelectionMode&&!isIncome
+          ? `<span class="expense-check">${selected?'✓':'○'}</span>`
+          : (isIncome?'↗':'↘');
+        const clickAttr=movementSelectionMode?` onclick="toggleMovementExpenseSelection('${m.id}',event)"`:'';
+        return `<div class="move-card ${isIncome?'entrata':'uscita'} ${selected?'selected':''}"${clickAttr}>
+          <div class="move-sign ${movementSelectionMode&&!isIncome?'blueText':(isIncome?'greenText':'redText')}">${selectionSign}</div>
           <div class="move-main">
             <div class="move-top">
               <h3>${escapeHtml(m.desc||'Movimento')}</h3>
@@ -2045,6 +2276,7 @@
           <div class="move-actions"><button class="secondary" onclick="editMovement('${m.id}')">Modifica</button><button class="danger" onclick="deleteMovement('${m.id}')">Elimina</button></div>
         </div>`;
       }).join('') || '<div class="empty">Nessun movimento nel periodo selezionato.</div>';
+      updateExpenseSelectionUI();
     }
     function renderCategories(){
       const mode=document.getElementById('categorySortMode')?.value || 'type-alpha';
@@ -2131,20 +2363,32 @@
       document.body.classList.toggle('movements-scroll-locked',locked);
       if(locked) window.scrollTo({top:0,left:0,behavior:'auto'});
     }
-    function syncActiveTabUI(){
+    const premiumTabOrder=['home','movements','analysis','categories'];
+    function syncActiveTabUI(previousTab=null){
       const safeTab=['home','analysis','movements','categories'].includes(activeTab)?activeTab:'home';
       activeTab=safeTab;
-      document.querySelectorAll('.view').forEach(v=>{v.classList.remove('active'); if(v.id===safeTab) v.classList.add('active')});
+      const previousIndex=premiumTabOrder.indexOf(previousTab);
+      const nextIndex=premiumTabOrder.indexOf(safeTab);
+      document.querySelectorAll('.view').forEach(v=>{
+        v.classList.remove('active','view-enter-forward','view-enter-back');
+        if(v.id===safeTab){
+          v.classList.add('active');
+          if(previousTab && previousTab!==safeTab){
+            v.classList.add(nextIndex>=previousIndex?'view-enter-forward':'view-enter-back');
+          }
+        }
+      });
       document.querySelectorAll('.nav-item,.nav-home-btn').forEach(b=>b.classList.toggle('active',b.dataset.tab===safeTab));
       document.body.dataset.activeTab=safeTab;
       updateNavPreview(null);
       syncMovementScrollLock();
     }
     function setTab(tab,scroll=true){
+      const previousTab=activeTab;
       activeTab=['home','analysis','movements','categories'].includes(tab)?tab:'home';
       state.activeTab=activeTab;
       saveState();
-      syncActiveTabUI();
+      syncActiveTabUI(previousTab);
       if(activeTab==='analysis') setTimeout(drawCharts,80);
       if(scroll) window.scrollTo({top:0,behavior:'smooth'});
     }
@@ -2379,6 +2623,7 @@
       const {ctx,w,h}=resizeCanvas(canvas);ctx.clearRect(0,0,w,h);
       const colors=themePalette();
       const data=source.length?source:[{label:'Nessuna categoria uscita',value:0,max:0,out:false}];
+      canvas._categoryHitAreas=[];
 
       if(mobile){
         const pad={l:16,r:16,t:15,b:14};const rowH=52;
@@ -2395,6 +2640,7 @@
           ctx.fillStyle=colors.dark?'#ffb46a':'#f39a56';ctx.fillText(fitted.right,startX+spentW+fitted.gap,y+12);
 
           const barX=pad.l,barY=y+22,barW=w-pad.l-pad.r,barH=12;
+          canvas._categoryHitAreas.push({x:pad.l,y:y,w:w-pad.l-pad.r,h:42,anchorX:barX+barW/2,anchorY:barY,data:d});
           roundRect(ctx,barX,barY,barW,barH,7);ctx.fillStyle=colors.dark?'rgba(255,255,255,.075)':'rgba(86,98,126,.095)';ctx.fill();
           ctx.save();roundRect(ctx,barX,barY,barW,barH,7);ctx.clip();
           const trackShine=ctx.createLinearGradient(0,barY,0,barY+barH);trackShine.addColorStop(0,'rgba(255,255,255,.34)');trackShine.addColorStop(.45,'rgba(255,255,255,.04)');trackShine.addColorStop(1,'rgba(0,0,0,.025)');ctx.fillStyle=trackShine;ctx.fillRect(barX,barY,barW,barH);ctx.restore();
@@ -2420,6 +2666,7 @@
       const gap=12,bw=Math.max(18,(plotW-gap*(data.length-1))/Math.max(1,data.length));
       data.forEach((d,i)=>{
         const x=pad.l+i*(bw+gap),barH=plotH*(d.value/max),y=pad.t+plotH-barH;
+        canvas._categoryHitAreas.push({x:x-Math.min(8,gap/2),y:pad.t,w:bw+Math.min(16,gap),h:plotH,anchorX:x+bw/2,anchorY:Math.max(pad.t+16,y),data:d});
         if(d.value>0){
           const grad=ctx.createLinearGradient(0,y,0,y+Math.max(barH,1));
           if(d.out){grad.addColorStop(0,'#ff766c');grad.addColorStop(1,'#e63b33')}else{grad.addColorStop(0,'#55dfaa');grad.addColorStop(1,'#16a45a')}
@@ -2433,6 +2680,38 @@
       });
       ctx.fillStyle=colors.muted;ctx.font='500 10px -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif';ctx.textAlign='center';ctx.fillText('Categoria',pad.l+plotW/2,h-7);
     }
+
+    function hideCategoryChartTooltip(){
+      const tip=document.getElementById('categoryChartTooltip');
+      if(tip) tip.classList.remove('show','ok','ko');
+    }
+    function showCategoryChartTooltip(hit){
+      const canvas=document.getElementById('categoryCanvas');
+      const tip=document.getElementById('categoryChartTooltip');
+      if(!canvas||!tip||!hit) return;
+      const wrap=canvas.parentElement;
+      const d=hit.data;
+      const safeX=Math.max(78,Math.min(wrap.clientWidth-78,hit.anchorX));
+      const safeY=Math.max(54,hit.anchorY);
+      tip.style.left=safeX+'px';
+      tip.style.top=safeY+'px';
+      tip.classList.remove('ok','ko');
+      tip.classList.add(d.out?'ko':'ok');
+      const status=d.out?'Fuori budget':'Dentro budget';
+      tip.innerHTML=`<strong>${escapeHtml(d.label)}</strong><b>${fmt.format(d.value)}</b><small>${status} · max. ${fmt.format(d.max||0)}</small>`;
+      requestAnimationFrame(()=>tip.classList.add('show'));
+    }
+    function handleCategoryChartPointer(event){
+      const canvas=document.getElementById('categoryCanvas');
+      if(!canvas||!Array.isArray(canvas._categoryHitAreas)) return;
+      const rect=canvas.getBoundingClientRect();
+      const x=event.clientX-rect.left;
+      const y=event.clientY-rect.top;
+      const hit=canvas._categoryHitAreas.find(a=>x>=a.x&&x<=a.x+a.w&&y>=a.y&&y<=a.y+a.h);
+      if(hit) showCategoryChartTooltip(hit);
+      else hideCategoryChartTooltip();
+    }
+
     function roundRect(ctx,x,y,w,h,r){ctx.beginPath();ctx.moveTo(x+r,y);ctx.arcTo(x+w,y,x+w,y+h,r);ctx.arcTo(x+w,y+h,x,y+h,r);ctx.arcTo(x,y+h,x,y,r);ctx.arcTo(x,y,x+w,y,r);ctx.closePath()}
     function shortLabel(s,maxLen=14){return s.length>maxLen?s.slice(0,Math.max(1,maxLen-2))+'…':s}
     function escapeHtml(s){return String(s).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]))}
@@ -2592,6 +2871,9 @@
     ['searchMov','filterType','filterCategory','sortMov'].forEach(id=>document.getElementById(id).addEventListener('input',renderMovements));
     document.getElementById('resetFilters').addEventListener('click',()=>{document.getElementById('searchMov').value='';document.getElementById('filterType').value='all';document.getElementById('filterCategory').value='all';document.getElementById('sortMov').value='recent';renderMovements()});
     document.getElementById('toggleMovements').addEventListener('click',()=>{state.movementsOpen=!state.movementsOpen;saveState();renderMovements();syncMovementScrollLock()});
+    document.getElementById('movementCalcBtn').addEventListener('click',toggleMovementExpenseSelectionMode);
+    document.getElementById('expenseSelectionCancel').addEventListener('click',cancelMovementExpenseSelection);
+    document.getElementById('expenseSelectionTotal').addEventListener('click',confirmSelectedExpenseTotal);
     const navButtons=[...document.querySelectorAll('.nav-item,.nav-home-btn')];
     let navPressedButton=null;
     let navInteractionActive=false;
@@ -2739,9 +3021,24 @@
     if(monthlyCanvasInteraction){
       monthlyCanvasInteraction.addEventListener('pointerup',handleMonthlyChartPointer,{passive:true});
     }
+    const categoryCanvasInteraction=document.getElementById('categoryCanvas');
+    if(categoryCanvasInteraction){
+      categoryCanvasInteraction.addEventListener('pointerup',handleCategoryChartPointer,{passive:true});
+    }
     document.addEventListener('pointerdown',e=>{
       if(!e.target.closest('.monthly-chart-wrap')) hideMonthlyChartTooltip();
+      if(!e.target.closest('.category-chart-wrap')) hideCategoryChartTooltip();
     },{passive:true});
+
+    /* Micro-pressione fisica delle card, senza interferire con controlli/input */
+    document.addEventListener('pointerdown',e=>{
+      const card=e.target.closest('.card');
+      if(!card || e.target.closest('button,input,select,textarea,a,summary')) return;
+      card.classList.add('premium-card-pressed');
+    },{passive:true});
+    ['pointerup','pointercancel'].forEach(evt=>document.addEventListener(evt,()=>{
+      document.querySelectorAll('.card.premium-card-pressed').forEach(card=>card.classList.remove('premium-card-pressed'));
+    },{passive:true}));
 
     function preventMovementSectionScroll(e){
       if(!document.body.classList.contains('movements-scroll-locked')) return;

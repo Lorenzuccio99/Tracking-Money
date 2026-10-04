@@ -119,3 +119,11 @@ Versione v59:
 - Grafico Uscite mensili: pallini verdi/rossi in base al budget del periodo.
 - Pallini con glow dinamico.
 - Tooltip a nuvoletta al tap/click con valore, stato budget e budget totale del periodo.
+
+
+Versione v60:
+- Transizioni più iOS-like tra Home, Movimenti, Analisi e Categorie.
+- Micro-pressione premium sulle card.
+- Grafico Spesa per categoria interattivo con tooltip a nuvoletta.
+- Nuova funzione Movimenti → Calcola spese: selezione temporanea delle uscite e totale in-app.
+- Nessuna modifica alla struttura dei dati, backup, periodi o formule finanziarie.
