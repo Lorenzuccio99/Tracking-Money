@@ -100,3 +100,12 @@ Versione v57:
 - Un file secondario mancante non annulla più tutta l'installazione offline.
 - Registrazione del service worker immediata, senza attendere il caricamento completo della pagina.
 - Primo controllo automatico e messaggio “App pronta anche senza connessione”.
+
+
+Versione v58 - Premium Design:
+- Nessuna modifica ai dati, backup, periodi, categorie o flussi funzionali.
+- Nuovo visual Liquid Glass più trasparente, card Apple-like e micro-animazioni.
+- Grafico mensile ridisegnato con curva smussata, gradienti e scala dinamica.
+- Grafico categorie ridisegnato mantenendo la stessa logica budget/spesa.
+- Ripple/goccia sui pulsanti e navigazione inferiore più premium.
+- Inclusa ANTEPRIMA_LOCALE.html per prototipazione senza GitHub.
