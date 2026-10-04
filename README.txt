@@ -109,3 +109,13 @@ Versione v58 - Premium Design:
 - Grafico categorie ridisegnato mantenendo la stessa logica budget/spesa.
 - Ripple/goccia sui pulsanti e navigazione inferiore più premium.
 - Inclusa ANTEPRIMA_LOCALE.html per prototipazione senza GitHub.
+
+
+Versione v59:
+- Nuovo sfondo astratto chiaro e dinamico.
+- Reset filtri senza riquadro glass/bianco.
+- Header mobile ottimizzato e titolo leggermente ridotto/abbassato.
+- Barra liquid glass inferiore più leggibile e definita su iPhone.
+- Grafico Uscite mensili: pallini verdi/rossi in base al budget del periodo.
+- Pallini con glow dinamico.
+- Tooltip a nuvoletta al tap/click con valore, stato budget e budget totale del periodo.

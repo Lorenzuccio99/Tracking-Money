@@ -1,6 +1,6 @@
-const CACHE_NAME = 'app-tracking-spese-v58-premium-design';
+const CACHE_NAME = 'app-tracking-spese-v59-visual-graph-fix';
 const INDEX_URL = './index.html';
-const VERSIONED_INDEX_URL = './index.html?v=58';
+const VERSIONED_INDEX_URL = './index.html?v=59';
 
 const APP_SHELL = [
   './',

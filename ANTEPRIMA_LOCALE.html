@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover" />
-  <title>APP Tracking Spese · Anteprima Locale</title>
+  <title>APP Tracking Spese</title>
   <meta name="theme-color" content="#eef2ff" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
@@ -663,6 +663,155 @@
     @media (prefers-reduced-motion:reduce){
       *,*:before,*:after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
     }
+
+    /* ===== v59 VISUAL / LIQUID GLASS / CHART INTERACTION ===== */
+
+    /* Sfondo chiaro, astratto e dinamico */
+    body:not(.dark-mode){
+      background:
+        radial-gradient(circle at 6% 10%,rgba(255,198,164,.32),transparent 31%),
+        radial-gradient(circle at 92% 12%,rgba(159,207,255,.34),transparent 33%),
+        radial-gradient(circle at 78% 82%,rgba(207,181,255,.25),transparent 36%),
+        radial-gradient(circle at 16% 86%,rgba(159,241,218,.22),transparent 31%),
+        linear-gradient(145deg,#fffdf9 0%,#f6fbff 38%,#f8f6ff 70%,#f3fffb 100%);
+      background-size:145% 145%,155% 155%,150% 150%,160% 160%,100% 100%;
+      background-position:0% 0%,100% 0%,100% 100%,0% 100%,50% 50%;
+      animation:appPastelDrift 22s cubic-bezier(.45,.05,.3,1) infinite alternate;
+    }
+    body:not(.dark-mode):before{
+      width:720px;height:260px;left:-240px;top:190px;
+      background:linear-gradient(120deg,rgba(255,223,193,.30),rgba(255,255,255,.08),rgba(255,173,189,.16));
+      border-color:rgba(255,255,255,.62);
+      filter:blur(9px);
+      animation:v59BlobOne 18s ease-in-out infinite alternate;
+    }
+    body:not(.dark-mode):after{
+      width:820px;height:300px;right:-250px;bottom:60px;
+      background:linear-gradient(120deg,rgba(155,221,255,.24),rgba(203,178,255,.23),rgba(174,245,225,.12));
+      border-color:rgba(255,255,255,.58);
+      filter:blur(10px);
+      animation:v59BlobTwo 21s ease-in-out infinite alternate;
+    }
+    @keyframes appPastelDrift{
+      0%{background-position:0% 0%,100% 4%,96% 100%,4% 96%,50% 50%}
+      50%{background-position:12% 7%,92% 12%,86% 92%,12% 88%,50% 50%}
+      100%{background-position:20% 12%,82% 18%,78% 84%,20% 78%,50% 50%}
+    }
+    @keyframes v59BlobOne{
+      from{transform:translate3d(-2%,0,0) rotate(-12deg) scale(.98);opacity:.78}
+      to{transform:translate3d(8%,5%,0) rotate(-6deg) scale(1.06);opacity:1}
+    }
+    @keyframes v59BlobTwo{
+      from{transform:translate3d(2%,1%,0) rotate(-9deg) scale(1.02);opacity:.76}
+      to{transform:translate3d(-7%,-5%,0) rotate(-3deg) scale(1.08);opacity:1}
+    }
+
+    /* Reset filtri: solo testo, nessun riquadro / vetro */
+    #resetFilters{
+      -webkit-appearance:none!important;appearance:none!important;
+      background:transparent!important;border:0!important;outline:0!important;
+      box-shadow:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
+      padding:6px 2px!important;border-radius:0!important;overflow:visible!important;
+      color:var(--blue)!important;font-weight:850!important;
+    }
+    #resetFilters:before,#resetFilters:after{display:none!important}
+    #resetFilters:focus,#resetFilters:focus-visible,#resetFilters:active{
+      background:transparent!important;border:0!important;box-shadow:none!important;outline:0!important;
+    }
+
+    /* Header mobile più distanziato dalla parte superiore */
+    @media (max-width:560px){
+      .sticky-head{
+        padding-top:calc(20px + env(safe-area-inset-top))!important;
+        padding-bottom:14px!important;
+      }
+      .topbar-inner{grid-template-columns:46px minmax(0,1fr) 46px!important;gap:8px!important;min-height:56px}
+      .title{padding-top:4px}
+      .title h1{
+        font-size:clamp(21px,6.2vw,26px)!important;
+        line-height:1.04!important;
+        letter-spacing:-.045em!important;
+        white-space:nowrap;
+      }
+      .title p{margin-top:6px!important;font-size:13px!important}
+      .period-row{margin-top:15px!important}
+    }
+
+    /* Liquid glass inferiore: ancora trasparente, ma leggibile e definito */
+    .liquid-nav.split-nav{
+      filter:drop-shadow(0 15px 28px rgba(39,58,110,.13))!important;
+    }
+    .nav-main-group{
+      background:linear-gradient(145deg,rgba(255,255,255,.56),rgba(255,255,255,.25) 56%,rgba(235,243,255,.18))!important;
+      border:1px solid rgba(255,255,255,.82)!important;
+      box-shadow:0 18px 44px rgba(41,58,108,.12),inset 0 1px 0 rgba(255,255,255,.92),inset 0 -1px 0 rgba(255,255,255,.24)!important;
+      backdrop-filter:blur(30px) saturate(190%) brightness(1.08)!important;
+      -webkit-backdrop-filter:blur(30px) saturate(190%) brightness(1.08)!important;
+    }
+    .nav-main-group:after{
+      background:linear-gradient(120deg,rgba(255,255,255,.36),rgba(255,255,255,.08) 44%,rgba(170,208,255,.08) 70%,rgba(255,255,255,.20))!important;
+      opacity:.84!important;
+    }
+    .nav-home-btn{
+      background:linear-gradient(145deg,rgba(255,255,255,.60),rgba(255,255,255,.24))!important;
+      border:1px solid rgba(255,255,255,.84)!important;
+      box-shadow:0 18px 42px rgba(41,58,108,.13),inset 0 1px 0 rgba(255,255,255,.94),inset 0 -1px 0 rgba(255,255,255,.22)!important;
+      backdrop-filter:blur(30px) saturate(190%) brightness(1.08)!important;
+      -webkit-backdrop-filter:blur(30px) saturate(190%) brightness(1.08)!important;
+    }
+    .nav-item,.nav-home-btn{color:#26334a!important}
+    .nav-item.active,.nav-home-btn.active,.nav-home-btn.previewed{color:#2f68f6!important}
+    .nav-item svg,.nav-home-btn svg{
+      filter:drop-shadow(0 1px 1px rgba(255,255,255,.75)) drop-shadow(0 3px 8px rgba(37,52,91,.10));
+    }
+    .nav-liquid-bubble{
+      background:linear-gradient(145deg,rgba(255,255,255,.72),rgba(228,240,255,.34) 60%,rgba(207,221,255,.16))!important;
+      border:1px solid rgba(255,255,255,.80);
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.94),0 10px 25px rgba(47,91,255,.10)!important;
+    }
+
+    /* Tooltip a nuvoletta del grafico mensile */
+    .monthly-chart-wrap{overflow:visible!important}
+    .chart-cloud-tooltip{
+      --tooltip-accent:#30b45f;
+      position:absolute;z-index:8;left:50%;top:50%;
+      min-width:122px;max-width:190px;
+      padding:10px 12px 9px;border-radius:16px;
+      background:linear-gradient(145deg,rgba(255,255,255,.94),rgba(247,250,255,.84));
+      border:1px solid rgba(255,255,255,.96);
+      box-shadow:0 16px 38px rgba(38,53,96,.16),inset 0 1px 0 rgba(255,255,255,1);
+      backdrop-filter:blur(24px) saturate(180%);-webkit-backdrop-filter:blur(24px) saturate(180%);
+      transform:translate(-50%,calc(-100% - 14px)) scale(.94);
+      transform-origin:50% 100%;
+      opacity:0;visibility:hidden;pointer-events:none;
+      transition:opacity .16s ease,transform .2s cubic-bezier(.18,.9,.22,1),visibility .16s;
+      text-align:center;color:#172033;
+    }
+    .chart-cloud-tooltip.show{opacity:1;visibility:visible;transform:translate(-50%,calc(-100% - 14px)) scale(1)}
+    .chart-cloud-tooltip:after{
+      content:"";position:absolute;left:50%;bottom:-6px;width:12px;height:12px;
+      transform:translateX(-50%) rotate(45deg);
+      background:rgba(249,251,255,.93);
+      border-right:1px solid rgba(255,255,255,.96);border-bottom:1px solid rgba(255,255,255,.96);
+    }
+    .chart-cloud-tooltip strong{display:block;font-size:11px;line-height:1.1;color:#667085;margin-bottom:4px}
+    .chart-cloud-tooltip b{display:block;font-size:17px;line-height:1.05;color:var(--tooltip-accent);letter-spacing:-.03em}
+    .chart-cloud-tooltip small{display:block;font-size:10px;line-height:1.2;color:#667085;margin-top:5px;font-weight:700}
+    .chart-cloud-tooltip.ok{--tooltip-accent:#1a9f4e}
+    .chart-cloud-tooltip.ko{--tooltip-accent:#d92d20}
+    body.dark-mode .chart-cloud-tooltip{
+      background:linear-gradient(145deg,rgba(30,35,51,.94),rgba(21,26,40,.90));
+      border-color:rgba(255,255,255,.14);color:#f4f6ff;
+      box-shadow:0 16px 38px rgba(0,0,0,.30),inset 0 1px 0 rgba(255,255,255,.10);
+    }
+    body.dark-mode .chart-cloud-tooltip:after{background:rgba(24,29,43,.96);border-color:rgba(255,255,255,.08)}
+    body.dark-mode .chart-cloud-tooltip strong,body.dark-mode .chart-cloud-tooltip small{color:#aeb8cf}
+
+    @media (prefers-reduced-motion:reduce){
+      body:not(.dark-mode){animation:none!important}
+      body:not(.dark-mode):before,body:not(.dark-mode):after{animation:none!important}
+    }
+
 </style>
 </head>
 <body>
@@ -718,7 +867,10 @@
         <div class="analysis-grid">
           <article class="card chart-card">
             <div class="card-title"><h2>Uscite mensili</h2><span class="pill blue" id="lineChartBadge">Maggio 2026</span></div>
-            <div class="chart-wrap"><canvas id="monthlyCanvas"></canvas></div>
+            <div class="chart-wrap monthly-chart-wrap">
+              <canvas id="monthlyCanvas"></canvas>
+              <div class="chart-cloud-tooltip" id="monthlyChartTooltip" role="status" aria-live="polite"></div>
+            </div>
           </article>
           <article class="card chart-card category-chart-card">
             <div class="card-title"><h2>Spesa per categoria</h2><div class="legend"><span><i class="dot green"></i>Dentro budget</span><span><i class="dot red"></i>Fuori budget</span></div></div>
@@ -1997,21 +2149,39 @@
       if(scroll) window.scrollTo({top:0,behavior:'smooth'});
     }
     function drawCharts(){
-      drawMonthlyChart();drawCategoryChart();
+      drawMonthlyChart();drawCategoryChart();startMonthlyGlowAnimation();
       document.querySelectorAll('#analysis canvas').forEach(canvas=>{canvas.classList.remove('chart-premium-enter');void canvas.offsetWidth;canvas.classList.add('chart-premium-enter')});
     }
     function resizeCanvas(canvas){const r=canvas.getBoundingClientRect();const dpr=window.devicePixelRatio||1;canvas.width=Math.max(320,Math.floor(r.width*dpr));canvas.height=Math.max(220,Math.floor(r.height*dpr));const ctx=canvas.getContext('2d');ctx.setTransform(dpr,0,0,dpr,0,0);return {ctx,w:r.width,h:r.height}}
+    let monthlyGlowPhase=0;
+    let monthlyGlowAnimationId=0;
+    let monthlyGlowLastFrame=0;
+
+    function periodBudgetSummary(period){
+      const totalsNow=totalsForPeriod(period);
+      const rows=budgetRowsForPeriod(period);
+      const budgetTotal=rows.reduce((acc,row)=>acc+(Number(row.max)||0),0);
+      const out=budgetTotal>0 ? totalsNow.uscite>budgetTotal : totalsNow.uscite>0;
+      return {value:totalsNow.uscite,budget:budgetTotal,out};
+    }
+
     function drawMonthlyChart(){
       const canvas=document.getElementById('monthlyCanvas'); if(!canvas) return;
       const {ctx,w,h}=resizeCanvas(canvas); ctx.clearRect(0,0,w,h);
       const p=currentPeriod(); const todayPeriod=getPeriod(new Date()); const periods=[];
       for(let i=5;i>=0;i--){const d=new Date(p.labelYear,p.labelMonth-i,1);periods.push(periodForLabel(d.getFullYear(),d.getMonth()))}
-      const data=periods.map(pp=>({
-        label:monthNames[pp.labelMonth].slice(0,3),
-        value:sum(state.movements.filter(m=>m.type==='uscita'&&inPeriod(m,pp))),
-        isCurrent: pp.labelMonth===todayPeriod.labelMonth && pp.labelYear===todayPeriod.labelYear
-      }));
-      drawLine(ctx,w,h,data);
+      const data=periods.map(pp=>{
+        const summary=periodBudgetSummary(pp);
+        return {
+          label:monthNames[pp.labelMonth].slice(0,3),
+          fullLabel:pp.label,
+          value:summary.value,
+          budget:summary.budget,
+          out:summary.out,
+          isCurrent:pp.labelMonth===todayPeriod.labelMonth && pp.labelYear===todayPeriod.labelYear
+        };
+      });
+      drawLine(ctx,w,h,data,canvas);
     }
     function niceChartStep(maxValue){
       const raw=Math.max(1,maxValue)/4;
@@ -2033,10 +2203,10 @@
         ctx.bezierCurveTo(cp1x,cp1y,cp2x,cp2y,p2.x,p2.y);
       }
     }
-    function drawLine(ctx,w,h,data){
+    function drawLine(ctx,w,h,data,canvas){
       const colors=themePalette();
       const mobile=window.innerWidth<=560;
-      const pad={l:mobile?52:64,r:18,t:24,b:50};
+      const pad={l:mobile?52:64,r:18,t:26,b:50};
       const plotW=Math.max(10,w-pad.l-pad.r),plotH=Math.max(10,h-pad.t-pad.b);
       const highest=Math.max(...data.map(d=>d.value),0);
       const step=niceChartStep(highest||100);
@@ -2057,30 +2227,117 @@
         ctx.fillText(Math.round(val).toLocaleString('it-IT')+' €',pad.l-8,y+3.5);
       }
 
-      const pts=data.map((d,i)=>({x:pad.l+plotW*(i/(data.length-1||1)),y:pad.t+plotH*(1-d.value/max),...d}));
+      const pts=data.map((d,i)=>({
+        x:pad.l+plotW*(i/(data.length-1||1)),
+        y:pad.t+plotH*(1-d.value/max),
+        ...d
+      }));
+      if(canvas) canvas._monthlyPoints=pts.map(p=>({...p}));
+
       if(pts.length){
         const area=ctx.createLinearGradient(0,pad.t,0,pad.t+plotH);
-        area.addColorStop(0,colors.dark?'rgba(88,132,255,.28)':'rgba(52,120,246,.23)');
-        area.addColorStop(.55,colors.dark?'rgba(88,132,255,.10)':'rgba(80,130,255,.075)');
+        area.addColorStop(0,colors.dark?'rgba(88,132,255,.27)':'rgba(76,137,255,.21)');
+        area.addColorStop(.55,colors.dark?'rgba(88,132,255,.09)':'rgba(105,156,255,.065)');
         area.addColorStop(1,'rgba(52,120,246,0)');
         ctx.beginPath();smoothChartPath(ctx,pts);ctx.lineTo(pts[pts.length-1].x,pad.t+plotH);ctx.lineTo(pts[0].x,pad.t+plotH);ctx.closePath();ctx.fillStyle=area;ctx.fill();
 
         const line=ctx.createLinearGradient(pad.l,0,w-pad.r,0);
-        line.addColorStop(0,'#63a0ff');line.addColorStop(.55,'#3478f6');line.addColorStop(1,'#6b5df6');
-        ctx.beginPath();smoothChartPath(ctx,pts);ctx.strokeStyle=line;ctx.lineWidth=3.1;ctx.lineCap='round';ctx.lineJoin='round';
-        ctx.shadowColor=colors.dark?'rgba(75,125,255,.28)':'rgba(52,120,246,.20)';ctx.shadowBlur=10;ctx.stroke();ctx.shadowBlur=0;
+        line.addColorStop(0,'#70a9ff');line.addColorStop(.55,'#3478f6');line.addColorStop(1,'#7768f6');
+        ctx.beginPath();smoothChartPath(ctx,pts);ctx.strokeStyle=line;ctx.lineWidth=3.05;ctx.lineCap='round';ctx.lineJoin='round';
+        ctx.shadowColor=colors.dark?'rgba(75,125,255,.28)':'rgba(52,120,246,.18)';ctx.shadowBlur=10;ctx.stroke();ctx.shadowBlur=0;
 
+        const pulse=(Math.sin(monthlyGlowPhase)+1)/2;
         pts.forEach(p=>{
-          if(p.isCurrent){ctx.beginPath();ctx.arc(p.x,p.y,10,0,Math.PI*2);ctx.fillStyle='rgba(255,159,10,.12)';ctx.fill()}
-          ctx.beginPath();ctx.arc(p.x,p.y,p.isCurrent?5.2:3.7,0,Math.PI*2);ctx.fillStyle=p.isCurrent?'#ff9f0a':'#3478f6';ctx.fill();
-          ctx.strokeStyle=colors.dark?'#141827':'rgba(255,255,255,.96)';ctx.lineWidth=2.2;ctx.stroke();
+          const pointColor=p.out?'#ff453a':'#30c768';
+          const glowColor=p.out?'rgba(255,69,58,':'rgba(48,199,104,';
+          const haloR=(p.isCurrent?10.5:9)+(pulse*3.2);
+
+          ctx.save();
+          ctx.beginPath();ctx.arc(p.x,p.y,haloR,0,Math.PI*2);
+          const halo=ctx.createRadialGradient(p.x,p.y,1,p.x,p.y,haloR);
+          halo.addColorStop(0,glowColor+(0.30+0.12*pulse)+')');
+          halo.addColorStop(.45,glowColor+(0.16+0.08*pulse)+')');
+          halo.addColorStop(1,glowColor+'0)');
+          ctx.fillStyle=halo;ctx.fill();
+          ctx.restore();
+
+          ctx.save();
+          ctx.shadowColor=pointColor;
+          ctx.shadowBlur=8+5*pulse;
+          ctx.beginPath();ctx.arc(p.x,p.y,p.isCurrent?5.3:4.3,0,Math.PI*2);
+          ctx.fillStyle=pointColor;ctx.fill();
+          ctx.shadowBlur=0;
+          ctx.strokeStyle=colors.dark?'rgba(18,22,34,.95)':'rgba(255,255,255,.98)';
+          ctx.lineWidth=2.2;ctx.stroke();
+
+          ctx.beginPath();ctx.arc(p.x-1.3,p.y-1.4,1.15,0,Math.PI*2);
+          ctx.fillStyle='rgba(255,255,255,.88)';ctx.fill();
+          ctx.restore();
         });
       }
 
-      data.forEach((d,i)=>{ctx.fillStyle=d.isCurrent?'#ff9f0a':colors.text;ctx.font=`${d.isCurrent?'700':'600'} 10.5px -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif`;ctx.textAlign='center';ctx.fillText(d.label,pts[i].x,h-24)});
-      ctx.fillStyle=colors.muted;ctx.font='500 10px -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif';ctx.textAlign='center';ctx.fillText('Mese finanziario',pad.l+plotW/2,h-6);
+      data.forEach((d,i)=>{
+        ctx.fillStyle=d.isCurrent?'#3478f6':colors.text;
+        ctx.font=`${d.isCurrent?'750':'600'} 10.5px -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif`;
+        ctx.textAlign='center';ctx.fillText(d.label,pts[i].x,h-24);
+      });
+      ctx.fillStyle=colors.muted;ctx.font='500 10px -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif';
+      ctx.textAlign='center';ctx.fillText('Mese finanziario',pad.l+plotW/2,h-6);
       ctx.restore();ctx.textAlign='left';
     }
+
+    function startMonthlyGlowAnimation(){
+      if(monthlyGlowAnimationId) return;
+      const reduceMotion=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if(reduceMotion) return;
+      const frame=(ts)=>{
+        monthlyGlowAnimationId=requestAnimationFrame(frame);
+        if(document.hidden || activeTab!=='analysis') return;
+        if(ts-monthlyGlowLastFrame<90) return;
+        monthlyGlowLastFrame=ts;
+        monthlyGlowPhase+=0.22;
+        drawMonthlyChart();
+      };
+      monthlyGlowAnimationId=requestAnimationFrame(frame);
+    }
+
+    function hideMonthlyChartTooltip(){
+      const tip=document.getElementById('monthlyChartTooltip');
+      if(tip) tip.classList.remove('show','ok','ko');
+    }
+
+    function showMonthlyChartTooltip(point){
+      const canvas=document.getElementById('monthlyCanvas');
+      const tip=document.getElementById('monthlyChartTooltip');
+      if(!canvas||!tip||!point) return;
+      const wrap=canvas.parentElement;
+      const safeX=Math.max(74,Math.min(wrap.clientWidth-74,point.x));
+      const safeY=Math.max(54,point.y);
+      tip.style.left=safeX+'px';
+      tip.style.top=safeY+'px';
+      tip.classList.remove('ok','ko');
+      tip.classList.add(point.out?'ko':'ok');
+      const status=point.out?'Fuori budget':'Dentro budget';
+      const budgetLabel=point.budget>0?`Budget ${fmt.format(point.budget)}`:'Budget non disponibile';
+      tip.innerHTML=`<strong>${escapeHtml(point.fullLabel||point.label)}</strong><b>${fmt.format(point.value)}</b><small>${status} · ${budgetLabel}</small>`;
+      requestAnimationFrame(()=>tip.classList.add('show'));
+    }
+
+    function handleMonthlyChartPointer(event){
+      const canvas=document.getElementById('monthlyCanvas');
+      if(!canvas || !Array.isArray(canvas._monthlyPoints)) return;
+      const rect=canvas.getBoundingClientRect();
+      const x=event.clientX-rect.left;
+      const y=event.clientY-rect.top;
+      let nearest=null,nearestDistance=Infinity;
+      canvas._monthlyPoints.forEach(point=>{
+        const d=Math.hypot(point.x-x,point.y-y);
+        if(d<nearestDistance){nearest=point;nearestDistance=d}
+      });
+      if(nearest && nearestDistance<=30) showMonthlyChartTooltip(nearest);
+      else hideMonthlyChartTooltip();
+    }
+
     function fitSplitCanvasText(ctx,leftText,rightText,maxWidth,fontBase,fontMin=8,gap=4){
       let size=fontBase;
       const setFont=()=>{ctx.font=`600 ${size}px -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif`;};
@@ -2472,10 +2729,18 @@
     }
     const premiumRippleSelector='.icon-btn,.period-btn,.primary,.secondary,.ghost,.collapse-btn,.mini-primary,.drawer-menu-item,.nav-item,.nav-home-btn,.detail-summary';
     document.addEventListener('pointerdown',e=>{
-      const btn=e.target.closest(premiumRippleSelector);if(!btn)return;
+      const btn=e.target.closest(premiumRippleSelector);if(!btn||btn.id==='resetFilters')return;
       const r=btn.getBoundingClientRect();const drop=document.createElement('span');drop.className='liquid-ripple';
       drop.style.left=(e.clientX-r.left)+'px';drop.style.top=(e.clientY-r.top)+'px';btn.appendChild(drop);
       setTimeout(()=>drop.remove(),780);
+    },{passive:true});
+
+    const monthlyCanvasInteraction=document.getElementById('monthlyCanvas');
+    if(monthlyCanvasInteraction){
+      monthlyCanvasInteraction.addEventListener('pointerup',handleMonthlyChartPointer,{passive:true});
+    }
+    document.addEventListener('pointerdown',e=>{
+      if(!e.target.closest('.monthly-chart-wrap')) hideMonthlyChartTooltip();
     },{passive:true});
 
     function preventMovementSectionScroll(e){
@@ -2553,8 +2818,47 @@
   </script>
 
   <script>
-    // Anteprima locale: service worker disattivato in file://.
-    window.addEventListener('offline',()=>{if(typeof showToast==='function')showToast('Anteprima locale')});
+    if ('serviceWorker' in navigator && location.protocol !== 'file:') {
+      (async () => {
+        const hadController = Boolean(navigator.serviceWorker.controller);
+        let firstControlReloaded = false;
+
+        if (!hadController) {
+          navigator.serviceWorker.addEventListener('controllerchange', () => {
+            if (firstControlReloaded) return;
+            firstControlReloaded = true;
+            if (!sessionStorage.getItem('tracking-sw-first-control-v57')) {
+              sessionStorage.setItem('tracking-sw-first-control-v57', '1');
+              location.reload();
+            }
+          });
+        }
+
+        try {
+          const registration = await navigator.serviceWorker.register('./sw.js', {
+            scope: './',
+            updateViaCache: 'none'
+          });
+          await registration.update();
+          await navigator.serviceWorker.ready;
+
+          if (!localStorage.getItem('tracking-offline-ready-v57')) {
+            localStorage.setItem('tracking-offline-ready-v57', '1');
+            if (typeof showToast === 'function') showToast('App pronta anche senza connessione');
+          }
+        } catch (error) {
+          if (typeof showToast === 'function' && navigator.onLine) {
+            showToast('Installazione modalità offline non completata');
+          }
+        }
+      })();
+    }
+    window.addEventListener('offline', () => {
+      if (typeof showToast === 'function') showToast('Modalità offline attiva');
+    });
+    window.addEventListener('online', () => {
+      if (typeof showToast === 'function') showToast('Connessione ripristinata');
+    });
   </script>
 </body>
 </html>
