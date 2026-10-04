@@ -142,3 +142,17 @@ Versione v61:
 Versione v62:
 - Sfondo light più contrastato e leggermente più scuro rispetto alla v61.
 - Mantiene tutti i fix tooltip/performance della v61.
+
+
+Versione v63:
+- Sfondo più scuro soprattutto nella parte alta.
+- Movimento dinamico del background durante lo scroll verticale.
+- Mantiene i fix grafico/tooltip/performance della v61/v62.
+
+
+Versione v64:
+- Rifinitura soft premium: card più morbide, vetro più fisico e bordi luminosi più sottili.
+- Rifinitura Apple glass moderna: più contrasto, soprattutto nella parte alta, mantenendo trasparenza e blur.
+- Bottom navigation e controlli glass più leggibili.
+- Mantiene lo sfondo dinamico allo scroll introdotto nella v63.
+- Nessuna modifica a funzioni, dati o logica finanziaria.

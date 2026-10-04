@@ -1,6 +1,6 @@
-const CACHE_NAME = 'app-tracking-spese-v62-background-contrast';
+const CACHE_NAME = 'app-tracking-spese-v64-apple-glass-refinement';
 const INDEX_URL = './index.html';
-const VERSIONED_INDEX_URL = './index.html?v=62';
+const VERSIONED_INDEX_URL = './index.html?v=64';
 
 const APP_SHELL = [
   './',
