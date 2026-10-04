@@ -137,3 +137,8 @@ Versione v61:
 - Eliminato il loop canvas continuo che ridisegnava il grafico circa 11 volte al secondo.
 - Ridotti alcuni blur costosi su iPhone mantenendo l'effetto liquid glass.
 - Resize dei grafici debounced.
+
+
+Versione v62:
+- Sfondo light più contrastato e leggermente più scuro rispetto alla v61.
+- Mantiene tutti i fix tooltip/performance della v61.

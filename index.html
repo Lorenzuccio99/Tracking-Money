@@ -935,12 +935,11 @@
 
     /* ===== v61 BACKGROUND / TOOLTIP / PERFORMANCE ===== */
 
-    /* Nuovo sfondo: aurora chiara, differente dalla v59 e più efficiente.
-       Il fondo resta statico; si muovono solo due layer GPU via transform. */
+    /* v62: sfondo un po' più scuro / contrastato mantenendo look premium */
     body:not(.dark-mode){
       background:
-        radial-gradient(circle at 50% -12%,rgba(255,255,255,.98),rgba(255,255,255,.48) 30%,transparent 58%),
-        linear-gradient(155deg,#fffaf7 0%,#f5fbff 32%,#f1f7ff 56%,#faf5ff 78%,#f4fff9 100%)!important;
+        radial-gradient(circle at 50% -10%,rgba(255,255,255,.94),rgba(255,255,255,.36) 28%,transparent 56%),
+        linear-gradient(155deg,#f4ede7 0%,#e8f1fb 29%,#e4ecfb 54%,#eee5f7 77%,#e8f5ee 100%)!important;
       background-size:100% 100%!important;
       background-position:50% 50%!important;
       animation:none!important;
@@ -959,22 +958,22 @@
       width:92vw!important;height:38vh!important;left:-28vw!important;top:17vh!important;
       border-radius:45% 55% 64% 36% / 48% 38% 62% 52%!important;
       background:
-        radial-gradient(circle at 26% 40%,rgba(109,190,255,.33),transparent 38%),
-        radial-gradient(circle at 70% 52%,rgba(145,119,255,.20),transparent 43%),
-        linear-gradient(120deg,rgba(255,255,255,.15),rgba(131,212,255,.12))!important;
-      filter:blur(26px)!important;
-      opacity:.86;
+        radial-gradient(circle at 26% 40%,rgba(91,176,255,.42),transparent 38%),
+        radial-gradient(circle at 70% 52%,rgba(133,110,255,.28),transparent 43%),
+        linear-gradient(120deg,rgba(255,255,255,.12),rgba(113,197,255,.16))!important;
+      filter:blur(25px)!important;
+      opacity:.94;
       animation:v61AuroraOne 18s ease-in-out infinite alternate!important;
     }
     body:not(.dark-mode):after{
       width:96vw!important;height:36vh!important;right:-32vw!important;bottom:11vh!important;
       border-radius:62% 38% 42% 58% / 42% 58% 44% 56%!important;
       background:
-        radial-gradient(circle at 34% 44%,rgba(255,180,198,.25),transparent 36%),
-        radial-gradient(circle at 72% 50%,rgba(113,226,195,.25),transparent 42%),
-        linear-gradient(120deg,rgba(203,180,255,.17),rgba(255,255,255,.08))!important;
-      filter:blur(28px)!important;
-      opacity:.82;
+        radial-gradient(circle at 34% 44%,rgba(255,161,185,.31),transparent 36%),
+        radial-gradient(circle at 72% 50%,rgba(88,214,183,.30),transparent 42%),
+        linear-gradient(120deg,rgba(186,161,255,.23),rgba(255,255,255,.06))!important;
+      filter:blur(27px)!important;
+      opacity:.90;
       animation:v61AuroraTwo 21s ease-in-out infinite alternate!important;
     }
     @keyframes v61AuroraOne{
