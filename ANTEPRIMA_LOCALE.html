@@ -932,6 +932,129 @@
       .card{transition:none!important}
     }
 
+
+    /* ===== v61 BACKGROUND / TOOLTIP / PERFORMANCE ===== */
+
+    /* Nuovo sfondo: aurora chiara, differente dalla v59 e più efficiente.
+       Il fondo resta statico; si muovono solo due layer GPU via transform. */
+    body:not(.dark-mode){
+      background:
+        radial-gradient(circle at 50% -12%,rgba(255,255,255,.98),rgba(255,255,255,.48) 30%,transparent 58%),
+        linear-gradient(155deg,#fffaf7 0%,#f5fbff 32%,#f1f7ff 56%,#faf5ff 78%,#f4fff9 100%)!important;
+      background-size:100% 100%!important;
+      background-position:50% 50%!important;
+      animation:none!important;
+    }
+    body:not(.dark-mode):before,
+    body:not(.dark-mode):after{
+      position:fixed!important;
+      z-index:-1!important;
+      pointer-events:none!important;
+      border:0!important;
+      will-change:transform;
+      backface-visibility:hidden;
+      -webkit-backface-visibility:hidden;
+    }
+    body:not(.dark-mode):before{
+      width:92vw!important;height:38vh!important;left:-28vw!important;top:17vh!important;
+      border-radius:45% 55% 64% 36% / 48% 38% 62% 52%!important;
+      background:
+        radial-gradient(circle at 26% 40%,rgba(109,190,255,.33),transparent 38%),
+        radial-gradient(circle at 70% 52%,rgba(145,119,255,.20),transparent 43%),
+        linear-gradient(120deg,rgba(255,255,255,.15),rgba(131,212,255,.12))!important;
+      filter:blur(26px)!important;
+      opacity:.86;
+      animation:v61AuroraOne 18s ease-in-out infinite alternate!important;
+    }
+    body:not(.dark-mode):after{
+      width:96vw!important;height:36vh!important;right:-32vw!important;bottom:11vh!important;
+      border-radius:62% 38% 42% 58% / 42% 58% 44% 56%!important;
+      background:
+        radial-gradient(circle at 34% 44%,rgba(255,180,198,.25),transparent 36%),
+        radial-gradient(circle at 72% 50%,rgba(113,226,195,.25),transparent 42%),
+        linear-gradient(120deg,rgba(203,180,255,.17),rgba(255,255,255,.08))!important;
+      filter:blur(28px)!important;
+      opacity:.82;
+      animation:v61AuroraTwo 21s ease-in-out infinite alternate!important;
+    }
+    @keyframes v61AuroraOne{
+      from{transform:translate3d(0,0,0) rotate(-8deg) scale(1)}
+      to{transform:translate3d(14vw,4vh,0) rotate(-2deg) scale(1.07)}
+    }
+    @keyframes v61AuroraTwo{
+      from{transform:translate3d(0,0,0) rotate(7deg) scale(1.02)}
+      to{transform:translate3d(-12vw,-5vh,0) rotate(1deg) scale(1.08)}
+    }
+
+    /* Pallini luminosi: animazione CSS, non ridisegno continuo del canvas */
+    .monthly-point-layer{
+      position:absolute;inset:0;z-index:3;pointer-events:none;overflow:visible;
+    }
+    .monthly-live-point{
+      --point-color:#30c768;
+      --point-glow:rgba(48,199,104,.34);
+      position:absolute;width:12px;height:12px;border-radius:50%;
+      transform:translate(-50%,-50%);
+      background:var(--point-color);
+      border:2px solid rgba(255,255,255,.98);
+      box-shadow:0 0 0 4px var(--point-glow),0 0 14px var(--point-glow),0 3px 8px rgba(31,48,82,.13);
+      animation:v61PointPulse 2.2s ease-in-out infinite;
+      will-change:transform,box-shadow;
+    }
+    .monthly-live-point:after{
+      content:"";position:absolute;width:3px;height:3px;border-radius:50%;
+      left:2px;top:1px;background:rgba(255,255,255,.94);
+    }
+    .monthly-live-point.ko{--point-color:#ff453a;--point-glow:rgba(255,69,58,.34)}
+    .monthly-live-point.current{width:13px;height:13px}
+    .monthly-live-point:nth-child(2n){animation-delay:-.55s}
+    .monthly-live-point:nth-child(3n){animation-delay:-1.05s}
+    @keyframes v61PointPulse{
+      0%,100%{box-shadow:0 0 0 3px var(--point-glow),0 0 11px var(--point-glow),0 3px 8px rgba(31,48,82,.12)}
+      50%{box-shadow:0 0 0 6px color-mix(in srgb,var(--point-glow) 68%,transparent),0 0 18px var(--point-glow),0 4px 11px rgba(31,48,82,.14)}
+    }
+
+    /* Tooltip: freccia può spostarsi e puntare esattamente al pallino */
+    .chart-cloud-tooltip{--tooltip-arrow-x:50%}
+    .chart-cloud-tooltip:after{left:var(--tooltip-arrow-x)!important}
+    .monthly-chart-wrap,.category-chart-wrap{position:relative!important}
+
+    /* Transizioni sezioni senza filter/blur: più fluide su iPhone */
+    @keyframes iosViewForward{
+      from{opacity:0;transform:translate3d(10px,4px,0) scale(.996)}
+      to{opacity:1;transform:translate3d(0,0,0) scale(1)}
+    }
+    @keyframes iosViewBack{
+      from{opacity:0;transform:translate3d(-10px,4px,0) scale(.996)}
+      to{opacity:1;transform:translate3d(0,0,0) scale(1)}
+    }
+
+    /* Riduzione controllata dei blur più costosi sui display mobili:
+       l'effetto glass resta, ma con meno lavoro grafico. */
+    @media(max-width:560px){
+      .card{
+        backdrop-filter:blur(16px) saturate(150%)!important;
+        -webkit-backdrop-filter:blur(16px) saturate(150%)!important;
+      }
+      .sticky-head{
+        backdrop-filter:blur(18px) saturate(155%)!important;
+        -webkit-backdrop-filter:blur(18px) saturate(155%)!important;
+      }
+      .nav-main-group,.nav-home-btn{
+        backdrop-filter:blur(22px) saturate(175%) brightness(1.06)!important;
+        -webkit-backdrop-filter:blur(22px) saturate(175%) brightness(1.06)!important;
+      }
+      .chart-cloud-tooltip{
+        backdrop-filter:blur(18px) saturate(165%)!important;
+        -webkit-backdrop-filter:blur(18px) saturate(165%)!important;
+      }
+    }
+
+    @media(prefers-reduced-motion:reduce){
+      body:not(.dark-mode):before,body:not(.dark-mode):after,
+      .monthly-live-point{animation:none!important}
+    }
+
 </style>
 </head>
 <body>
@@ -989,6 +1112,7 @@
             <div class="card-title"><h2>Uscite mensili</h2><span class="pill blue" id="lineChartBadge">Maggio 2026</span></div>
             <div class="chart-wrap monthly-chart-wrap">
               <canvas id="monthlyCanvas"></canvas>
+              <div class="monthly-point-layer" id="monthlyPointLayer" aria-hidden="true"></div>
               <div class="chart-cloud-tooltip" id="monthlyChartTooltip" role="status" aria-live="polite"></div>
             </div>
           </article>
@@ -2393,7 +2517,7 @@
       if(scroll) window.scrollTo({top:0,behavior:'smooth'});
     }
     function drawCharts(){
-      drawMonthlyChart();drawCategoryChart();startMonthlyGlowAnimation();
+      drawMonthlyChart();drawCategoryChart();
       document.querySelectorAll('#analysis canvas').forEach(canvas=>{canvas.classList.remove('chart-premium-enter');void canvas.offsetWidth;canvas.classList.add('chart-premium-enter')});
     }
     function resizeCanvas(canvas){const r=canvas.getBoundingClientRect();const dpr=window.devicePixelRatio||1;canvas.width=Math.max(320,Math.floor(r.width*dpr));canvas.height=Math.max(220,Math.floor(r.height*dpr));const ctx=canvas.getContext('2d');ctx.setTransform(dpr,0,0,dpr,0,0);return {ctx,w:r.width,h:r.height}}
@@ -2490,32 +2614,13 @@
         ctx.beginPath();smoothChartPath(ctx,pts);ctx.strokeStyle=line;ctx.lineWidth=3.05;ctx.lineCap='round';ctx.lineJoin='round';
         ctx.shadowColor=colors.dark?'rgba(75,125,255,.28)':'rgba(52,120,246,.18)';ctx.shadowBlur=10;ctx.stroke();ctx.shadowBlur=0;
 
-        const pulse=(Math.sin(monthlyGlowPhase)+1)/2;
         pts.forEach(p=>{
           const pointColor=p.out?'#ff453a':'#30c768';
-          const glowColor=p.out?'rgba(255,69,58,':'rgba(48,199,104,';
-          const haloR=(p.isCurrent?10.5:9)+(pulse*3.2);
-
           ctx.save();
-          ctx.beginPath();ctx.arc(p.x,p.y,haloR,0,Math.PI*2);
-          const halo=ctx.createRadialGradient(p.x,p.y,1,p.x,p.y,haloR);
-          halo.addColorStop(0,glowColor+(0.30+0.12*pulse)+')');
-          halo.addColorStop(.45,glowColor+(0.16+0.08*pulse)+')');
-          halo.addColorStop(1,glowColor+'0)');
-          ctx.fillStyle=halo;ctx.fill();
-          ctx.restore();
-
-          ctx.save();
-          ctx.shadowColor=pointColor;
-          ctx.shadowBlur=8+5*pulse;
-          ctx.beginPath();ctx.arc(p.x,p.y,p.isCurrent?5.3:4.3,0,Math.PI*2);
+          ctx.beginPath();ctx.arc(p.x,p.y,p.isCurrent?4.6:3.9,0,Math.PI*2);
           ctx.fillStyle=pointColor;ctx.fill();
-          ctx.shadowBlur=0;
           ctx.strokeStyle=colors.dark?'rgba(18,22,34,.95)':'rgba(255,255,255,.98)';
-          ctx.lineWidth=2.2;ctx.stroke();
-
-          ctx.beginPath();ctx.arc(p.x-1.3,p.y-1.4,1.15,0,Math.PI*2);
-          ctx.fillStyle='rgba(255,255,255,.88)';ctx.fill();
+          ctx.lineWidth=2;ctx.stroke();
           ctx.restore();
         });
       }
@@ -2528,21 +2633,24 @@
       ctx.fillStyle=colors.muted;ctx.font='500 10px -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif';
       ctx.textAlign='center';ctx.fillText('Mese finanziario',pad.l+plotW/2,h-6);
       ctx.restore();ctx.textAlign='left';
+      if(canvas) syncMonthlyPointLayer(canvas,pts);
+    }
+
+    function syncMonthlyPointLayer(canvas,points){
+      const layer=document.getElementById('monthlyPointLayer');
+      if(!layer||!canvas) return;
+      const wrap=canvas.parentElement;
+      const canvasRect=canvas.getBoundingClientRect();
+      const wrapRect=wrap.getBoundingClientRect();
+      const offsetX=canvasRect.left-wrapRect.left;
+      const offsetY=canvasRect.top-wrapRect.top;
+      layer.innerHTML=points.map((p,i)=>`<span class="monthly-live-point ${p.out?'ko':'ok'} ${p.isCurrent?'current':''}" style="left:${offsetX+p.x}px;top:${offsetY+p.y}px" data-point-index="${i}"></span>`).join('');
     }
 
     function startMonthlyGlowAnimation(){
-      if(monthlyGlowAnimationId) return;
-      const reduceMotion=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      if(reduceMotion) return;
-      const frame=(ts)=>{
-        monthlyGlowAnimationId=requestAnimationFrame(frame);
-        if(document.hidden || activeTab!=='analysis') return;
-        if(ts-monthlyGlowLastFrame<90) return;
-        monthlyGlowLastFrame=ts;
-        monthlyGlowPhase+=0.22;
-        drawMonthlyChart();
-      };
-      monthlyGlowAnimationId=requestAnimationFrame(frame);
+      /* v61: il glow è animato via CSS sui punti DOM.
+         Nessun ridisegno continuo del canvas: risparmio CPU/GPU su iPhone. */
+      return;
     }
 
     function hideMonthlyChartTooltip(){
@@ -2555,16 +2663,36 @@
       const tip=document.getElementById('monthlyChartTooltip');
       if(!canvas||!tip||!point) return;
       const wrap=canvas.parentElement;
-      const safeX=Math.max(74,Math.min(wrap.clientWidth-74,point.x));
-      const safeY=Math.max(54,point.y);
-      tip.style.left=safeX+'px';
-      tip.style.top=safeY+'px';
+      const canvasRect=canvas.getBoundingClientRect();
+      const wrapRect=wrap.getBoundingClientRect();
+
+      const targetX=(canvasRect.left-wrapRect.left)+point.x;
+      const targetY=(canvasRect.top-wrapRect.top)+point.y;
+
+      const halfTip=Math.max(76,Math.min(102,(tip.offsetWidth||152)/2));
+      const safeCenterX=Math.max(halfTip+8,Math.min(wrap.clientWidth-halfTip-8,targetX));
+      const safeTopY=Math.max(54,targetY);
+
+      const arrowOffset=Math.max(14,Math.min((tip.offsetWidth||152)-14,(tip.offsetWidth||152)/2+(targetX-safeCenterX)));
+      tip.style.left=safeCenterX+'px';
+      tip.style.top=safeTopY+'px';
+      tip.style.setProperty('--tooltip-arrow-x',arrowOffset+'px');
+
       tip.classList.remove('ok','ko');
       tip.classList.add(point.out?'ko':'ok');
       const status=point.out?'Fuori budget':'Dentro budget';
       const budgetLabel=point.budget>0?`Budget ${fmt.format(point.budget)}`:'Budget non disponibile';
       tip.innerHTML=`<strong>${escapeHtml(point.fullLabel||point.label)}</strong><b>${fmt.format(point.value)}</b><small>${status} · ${budgetLabel}</small>`;
-      requestAnimationFrame(()=>tip.classList.add('show'));
+      requestAnimationFrame(()=>{
+        /* ricalcola dopo che il contenuto ha definito la larghezza reale della nuvoletta */
+        const realWidth=tip.offsetWidth||152;
+        const realHalf=realWidth/2;
+        const finalCenterX=Math.max(realHalf+8,Math.min(wrap.clientWidth-realHalf-8,targetX));
+        const finalArrow=Math.max(14,Math.min(realWidth-14,realHalf+(targetX-finalCenterX)));
+        tip.style.left=finalCenterX+'px';
+        tip.style.setProperty('--tooltip-arrow-x',finalArrow+'px');
+        tip.classList.add('show');
+      });
     }
 
     function handleMonthlyChartPointer(event){
@@ -2690,16 +2818,31 @@
       const tip=document.getElementById('categoryChartTooltip');
       if(!canvas||!tip||!hit) return;
       const wrap=canvas.parentElement;
+      const canvasRect=canvas.getBoundingClientRect();
+      const wrapRect=wrap.getBoundingClientRect();
       const d=hit.data;
-      const safeX=Math.max(78,Math.min(wrap.clientWidth-78,hit.anchorX));
-      const safeY=Math.max(54,hit.anchorY);
-      tip.style.left=safeX+'px';
-      tip.style.top=safeY+'px';
+      const targetX=(canvasRect.left-wrapRect.left)+hit.anchorX;
+      const targetY=(canvasRect.top-wrapRect.top)+hit.anchorY;
+
+      const initialWidth=tip.offsetWidth||156;
+      const safeCenterX=Math.max(initialWidth/2+8,Math.min(wrap.clientWidth-initialWidth/2-8,targetX));
+      tip.style.left=safeCenterX+'px';
+      tip.style.top=Math.max(54,targetY)+'px';
+      tip.style.setProperty('--tooltip-arrow-x',Math.max(14,Math.min(initialWidth-14,initialWidth/2+(targetX-safeCenterX)))+'px');
+
       tip.classList.remove('ok','ko');
       tip.classList.add(d.out?'ko':'ok');
       const status=d.out?'Fuori budget':'Dentro budget';
       tip.innerHTML=`<strong>${escapeHtml(d.label)}</strong><b>${fmt.format(d.value)}</b><small>${status} · max. ${fmt.format(d.max||0)}</small>`;
-      requestAnimationFrame(()=>tip.classList.add('show'));
+      requestAnimationFrame(()=>{
+        const realWidth=tip.offsetWidth||156;
+        const realHalf=realWidth/2;
+        const finalCenterX=Math.max(realHalf+8,Math.min(wrap.clientWidth-realHalf-8,targetX));
+        const finalArrow=Math.max(14,Math.min(realWidth-14,realHalf+(targetX-finalCenterX)));
+        tip.style.left=finalCenterX+'px';
+        tip.style.setProperty('--tooltip-arrow-x',finalArrow+'px');
+        tip.classList.add('show');
+      });
     }
     function handleCategoryChartPointer(event){
       const canvas=document.getElementById('categoryCanvas');
@@ -3094,7 +3237,11 @@
     document.getElementById('confirmWipeAll').addEventListener('click',confirmWipeAll);
     document.getElementById('importBtn').addEventListener('click',()=>document.getElementById('importFile').click());
     document.getElementById('importFile').addEventListener('change',e=>{const file=e.target.files[0];if(!file)return;const reader=new FileReader();reader.onload=()=>{try{const parsed=JSON.parse(reader.result);state=normalizeImportedBackup(parsed);activeTab=state.activeTab||'home';applyTheme(state.theme);saveState();renderAll();syncSettingsControls();setTab(activeTab,false);showAppPopup(`Backup importato correttamente. Personalizzazioni, impostazioni, movimenti e categorie sono stati ripristinati. Movimenti importati: ${state.movements.length}. Categorie importate: ${state.categories.length}.`)}catch(err){showAppPopup('Backup non valido o non compatibile. Controlla che sia un file JSON esportato dall’app precedente.')}finally{e.target.value=''}};reader.readAsText(file)});
-    window.addEventListener('resize',()=>{if(activeTab==='analysis') drawCharts()});
+    let chartResizeTimer=null;
+    window.addEventListener('resize',()=>{
+      clearTimeout(chartResizeTimer);
+      chartResizeTimer=setTimeout(()=>{if(activeTab==='analysis') drawCharts()},140);
+    },{passive:true});
     window.addEventListener('scroll',()=>{const nav=document.getElementById('bottomNav');nav.classList.add('nav-hidden');clearTimeout(scrollTimer);scrollTimer=setTimeout(()=>nav.classList.remove('nav-hidden'),90)},{passive:true});
     // All'apertura dell'app porta sempre il riferimento alla data odierna.
     state.selectedDate = todayKey();

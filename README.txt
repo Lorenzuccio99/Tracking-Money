@@ -127,3 +127,13 @@ Versione v60:
 - Grafico Spesa per categoria interattivo con tooltip a nuvoletta.
 - Nuova funzione Movimenti → Calcola spese: selezione temporanea delle uscite e totale in-app.
 - Nessuna modifica alla struttura dei dati, backup, periodi o formule finanziarie.
+
+
+Versione v61:
+- Nuovo sfondo aurora chiaro con animazioni GPU basate su transform.
+- Tooltip dei grafici riallineati usando la posizione reale del canvas dentro il wrapper.
+- Freccia della nuvoletta dinamica: punta al pallino anche quando il tooltip viene spostato ai bordi.
+- Pallini Uscite mensili animati via CSS/DOM invece di ridisegnare continuamente il canvas.
+- Eliminato il loop canvas continuo che ridisegnava il grafico circa 11 volte al secondo.
+- Ridotti alcuni blur costosi su iPhone mantenendo l'effetto liquid glass.
+- Resize dei grafici debounced.

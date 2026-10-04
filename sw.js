@@ -1,6 +1,6 @@
-const CACHE_NAME = 'app-tracking-spese-v60-premium-plus';
+const CACHE_NAME = 'app-tracking-spese-v61-tooltip-performance';
 const INDEX_URL = './index.html';
-const VERSIONED_INDEX_URL = './index.html?v=60';
+const VERSIONED_INDEX_URL = './index.html?v=61';
 
 const APP_SHELL = [
   './',
